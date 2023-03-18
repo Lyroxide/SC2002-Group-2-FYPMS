@@ -1,1 +1,1 @@
-# SC2002-Group-2-FYPMS
+## SC2002 Assignment: Final Year Project Management System (FYPMS)
