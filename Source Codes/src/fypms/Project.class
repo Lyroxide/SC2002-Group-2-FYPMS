@@ -1,0 +1,66 @@
+package fypms;
+
+public class Project {
+    private String status;
+    private String supervisorID;
+    private String studentID;
+    private int projectID;
+    private String projectTitle;
+    
+    public Project(String projectTitle, String supervisorID) {
+        this.projectTitle = projectTitle;
+        this.supervisorID = supervisorID;
+    }
+    
+    public void printProjectInfo() {
+        System.out.println("Project ID: " + projectID);
+        System.out.println("Project Title: " + projectTitle);
+        System.out.println("Supervisor ID: " + supervisorID);
+        System.out.println("Student ID: " + studentID);
+        System.out.println("Status: " + status);
+    }
+    
+    public void printAllocated(String studentID) {
+        //idk i abit confused -hamka
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public String getSupervisorID() {
+        return supervisorID;
+    }
+    
+    public void setSupervisorID(String supervisorID) {
+        this.supervisorID = supervisorID;
+    }
+    
+    public String getStudentID() {
+        return studentID;
+    }
+    
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
+    
+    public int getProjectID() {
+        return projectID;
+    }
+    
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
+    }
+    
+    public String getProjectTitle() {
+        return projectTitle;
+    }
+    
+    public void setProjectTitle(String projectTitle) {
+        this.projectTitle = projectTitle;
+    }
+}
