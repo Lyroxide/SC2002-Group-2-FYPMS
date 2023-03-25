@@ -1,4 +1,11 @@
-public class Student {
+package fypms;
+
+public class Student extends User{
+    
+    private enum Status {
+        newStudent, registered
+    }
+    
     private String name;
     private String email;
     private String studentID;
@@ -8,11 +15,12 @@ public class Student {
     private boolean titleChange;
 
 
+    //change constructor when extending from User class
     public Student(String name, String email, String studentID) {
         // Constructor that sets the student's name, email, and studentID
         this.name = name;
         this.email = email;
-        this.studentID = studentID;
+        this.studentID = userID;
         this.requestsHistory = new ArrayList<String>();
     }
 
@@ -34,13 +42,14 @@ public class Student {
     public void printUserInfo(){
         System.out.printf("%s, %s, %s \n",getName(),getEmail(),getStudentID());
     }
-
-    public ArrayList<String> viewAllProjects(){
+    
+    //call method from project class
+    public ArrayList<String> viewAvailableProjects(){
         //read from project list
         //print projects 
         //return project list
     }
-
+    
     public ArrayList<String> selectProjects(){
         //read from project list
         //print projects that have are not taken
@@ -54,7 +63,8 @@ public class Student {
         String newtitle = ProjectTitle;
         return newtitle;
     }
-
+    
+    //change to use textDB function
     public void deregisterProject(){
         //change request to 0 for deregister request
         //change curproject to nothing
