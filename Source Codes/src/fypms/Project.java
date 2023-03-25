@@ -10,8 +10,10 @@ public class Project {
     private int projectID;
     private String projectTitle;
     
-    public Project() {
-        //for the constructor is it just put every variable inside - hamka
+    public Project(int projectID, String supervisorID) {
+        // Constructor that sets the project's projectID and supervisor ID
+        this.projectID = projectID
+        this.supervisorID = supervisorID
     }
     
     public void printProjectInfo() {
