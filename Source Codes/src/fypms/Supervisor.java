@@ -1,5 +1,7 @@
 package fypms;
 
+import java.io.*;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Supervisor extends User {
@@ -10,9 +12,11 @@ public class Supervisor extends User {
 	private ArrayList<Project> projectsSupervising;
 	private ArrayList<Request> requests;
 	
+	public Supervisor() {};
 	
-	public Supervisor(string supervisorID) {
-		
+	public Supervisor(String userID, UserLogin userLogin) {
+		super(userLogin);
+		supervisorID = userID;
 	}
 
 	public String getSupervisorID() {
@@ -29,7 +33,7 @@ public class Supervisor extends User {
 		return ownProjects;
 	}
 
-	public void modifyProjectTitle(int projectID, String newTitle) {
+	public void modifyProjectTitle(int projectID, String newTitle) throws IOException {
 		Project project = null;
         for (Project p : projectsSupervising) {
             if (p.getProjectID().equals(projectID)) {
@@ -43,6 +47,7 @@ public class Supervisor extends User {
 		
 		if (project.getSupervisorID().equals(supervisorID)) {
 			project.setProjectTitle(newTitle);
+			modifyProject(project);
 			System.out.println("Project title has been updated.");
 		} else {
 			System.out.println("You are not allowed to modify this project's title");
@@ -86,16 +91,4 @@ public class Supervisor extends User {
 	}
 }
 
-/*
- * - numOfProjects: int
-- supervisorID: String
-+ Supervisor(supervisorID: String)
-+ createProjects(projectTitle: String): Project
-+ viewOwnProjects(): ArrayList<Project>
-+ modifyTitle(project: Project, newTitle: String): void
-+ transferProject(projectID: int, supervisorID: String): Request
-+ viewPendingRequests(): ArrayList<Request>
-+ viewRequest(): ArrayList<Request>
-+ projectsMax(): boolean
-+ getSupervisorID(): String
- */
+
