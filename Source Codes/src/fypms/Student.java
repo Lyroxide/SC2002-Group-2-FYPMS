@@ -2,26 +2,29 @@ package fypms;
 
 public class Student extends User{
     
-    private enum Status {
-        newStudent, registered
-    }
+//     private enum Status {
+//         newStudent,titleChange, requestProj, projRegistered;
+//     }
     
     private String name;
     private String email;
     private String studentID;
     private String curProject;
-    private boolean projRegistered;
+    private String request;
     private ArrayList<String> requestsHistory;
+    private boolean projRegistered;
     private boolean titleChange;
+    private boolean requestProj;
 
 
     //change constructor when extending from User class
-    public Student(String name, String email, String studentID) {
+    public Student(String name, String email, String studentID,String request) {
         // Constructor that sets the student's name, email, and studentID
         this.name = name;
         this.email = email;
-        this.studentID = userID;
-        this.requestsHistory = new ArrayList<String>();
+        this.studentID = super.getUserID;
+        request = null;
+        this.requestsHistory = new ArrayList<>();
     }
 
     public String getName() {
@@ -48,12 +51,61 @@ public class Student extends User{
         //read from project list
         //print projects 
         //return project list
+        TextDB txtDB = new TextDB();
+        //need to remove supervisor and title in first row of txt file
+    	String filename = "rollover project.txt" ;
+		try {
+			// read file containing Professor records.
+			ArrayList projArray = TextDB.readProjects(filename) ;
+			for (int i = 0 ; i < projArray.size() ; i++) {
+					Project proj = (Project)projArray.get(i);
+					System.out.println("Supervisor: " + proj.getName() );
+					System.out.println("Title: " + proj.getTitle() +"\n");
+			}
+			//to add in new prof
+			// Professor p1 = new Professor("Joseph","jos@ntu.edu.sg",67909999);
+			// al is an array list containing Professor objs
+			// al.add(p1);
+			// write Professor record/s to file.
+			// TextDB.saveProfessors(filename, al);
+		}catch (IOException e) {
+			System.out.println("IOException > " + e.getMessage());
+		}
     }
     
-    public ArrayList<String> selectProjects(){
+    public ArrayList<String> selectProject(){
         //read from project list
         //print projects that have are not taken
         //return project list
+        //should i Assign a project ID to each when reading the projects list at initialization
+        //students choose projects based off title or project ID
+        if(projRegistered)
+        {
+            System.out.println("Existing project selected, Please deregister before selecting new project");
+            break;
+        }
+        //set request for project selection
+        requestProj = true;
+        //add request method 
+        Request requests = new Request();
+        request.add(requests);
+        System.out.println("Project Selection Requested. Please wait for approval");
+    }
+    
+    public void deregisterProject(){
+        //change request to 0 for deregister request
+        //change curproject to nothing
+        if(projRegistered)
+        {
+            System.out.println("No Existing project selected.");
+            
+        }
+        //change request to 0 for deregister request
+        //change curproject to nothing
+        // this.curProject = null;
+        Request requests = new Request();
+        request.add(requests);
+        System.out.println("Project deregistration Requested. Please wait for approval");
     }
 
     public String changeTitle(String ProjectTitle){
@@ -61,15 +113,14 @@ public class Student extends User{
         //title request 
         titleChange = true;
         String newtitle = ProjectTitle;
-        return newtitle;
+        Request requests = new Request();
+        request.add(requests);
+        addRequestHistory("Requested to change project Title");
+        System.out.println("Title Change requested");
+        return newTitle;
     }
     
-    //change to use textDB function
-    public void deregisterProject(){
-        //change request to 0 for deregister request
-        //change curproject to nothing
-        this.curProject = null;
-    }
+
 
     public ArrayList<String> viewRequestInfo(){
         return this.requestsHistory;
