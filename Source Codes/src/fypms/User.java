@@ -9,6 +9,8 @@ public class User {
 	private String email;
 	protected UserLogin userLogin;
 	
+	public User() {};
+	
 	public User(UserLogin userLogin) {
 		this.userLogin = userLogin;
 	}

@@ -50,6 +50,10 @@ public class UserLogin {
     public String getPassword() {
         return password;
     }
+	
+	public String setUserID(String userID) {
+		this.userID = userID;
+	}
 
     public void setPassword(String newPassword) {
         this.password = newPassword;

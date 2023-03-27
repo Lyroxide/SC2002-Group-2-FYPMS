@@ -90,10 +90,11 @@ public class UserIO {
 	}
 	
 	public void addStudent() {
-		Student st = new Student(userID);
+		Student st = new Student();
 		
 		st.setName(name);
 		st.setEmail(email);
+		st.setUserID(userID);
 		
 		students.add(st);
 	}
@@ -166,10 +167,11 @@ public class UserIO {
 	}
 	
 	public void addSupervisor() {
-		Supervisor st = new Supervisor(userID);
+		Supervisor st = new Supervisor();
 		
 		st.setName(name);
 		st.setEmail(email);
+		st.setUserID(userID);
 		
 		supervisors.add(st);
 	}
@@ -242,10 +244,11 @@ public class UserIO {
 	}
 	
 	public void addCoordinator() {
-		FYPCoordinator fy = new FYPCoordinator(userID);
+		FYPCoordinator fy = new FYPCoordinator();
 		
 		fy.setName(name);
 		fy.setEmail(email);
+		fy.setUserID(userID);
 		
 		supervisors.add(fy);
 	}

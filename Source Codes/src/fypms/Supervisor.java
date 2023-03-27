@@ -12,6 +12,7 @@ public class Supervisor extends User {
 	private ArrayList<Project> projectsSupervising;
 	private ArrayList<Request> requests;
 	
+	public Supervisor() {};
 	
 	public Supervisor(String userID, UserLogin userLogin) {
 		super(userLogin);
