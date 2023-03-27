@@ -31,15 +31,20 @@ public class User {
 		this.email = email;
 	}
 	
-	public void changePW(String newPassword) {
+	public boolean changePW(String newPassword) {
         this.password = newPassword;
 
         if (this instanceof Student) {
             UserIO.writeStudentPassword(this.userID, newPassword);
+			return true;
         } else if (this instanceof Supervisor) {
             UserIO.writeSupervisorPassword(this.userID, newPassword);
+			return true;
         } else if (this instanceof FYPCoordinator) {
 			UserIO.writeCoordinatorPassword(this.userID, newPassword);
+			return true;
 		}
+		
+		return false; //when true, go back to UserView
     }
 }

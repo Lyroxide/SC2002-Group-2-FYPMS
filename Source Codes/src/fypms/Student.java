@@ -1,79 +1,58 @@
 package fypms;
 
+import java.io.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Student extends User{
     
 //     private enum Status {
-//         newStudent,titleChange, requestProj, projRegistered;
+//         new, registered, deregistered;
 //     }
+
+// 	we will be creating our own enum class
     
-    private String name;
-    private String email;
+   
     private String studentID;
     private String curProject;
-    private String request;
-    private ArrayList<String> requestsHistory;
-    private boolean projRegistered;
-    private boolean titleChange;
-    private boolean requestProj;
+    private Request request;
+	private String status;
+    private ArrayList<Request> requestsHistory;
 
 
     //change constructor when extending from User class
-    public Student(String name, String email, String studentID,String request) {
-        // Constructor that sets the student's name, email, and studentID
-        this.name = name;
-        this.email = email;
-        this.studentID = super.getUserID;
-        request = null;
-        this.requestsHistory = new ArrayList<>();
-    }
-
-    public String getName() {
-        // Returns the student's name
-        return this.name;
-    }
-
-    public String getEmail() {
-        // Returns the student's email
-        return this.email;
-    }
+    public Student() {};
+	
+	public Student(String userID, UserLogin userLogin) {
+		super(userLogin);
+		studentID = userID;
+	}
 
     public String getStudentID() {
         // Returns the student's studentID
-        return this.studentID;
-    }
-    
-    public void printUserInfo(){
-        System.out.printf("%s, %s, %s \n",getName(),getEmail(),getStudentID());
+        return studentID;
     }
     
     //call method from project class
-    public ArrayList<String> viewAvailableProjects(){
-        //read from project list
-        //print projects 
-        //return project list
-        TextDB txtDB = new TextDB();
-        //need to remove supervisor and title in first row of txt file
-    	String filename = "rollover project.txt" ;
-		try {
-			// read file containing Professor records.
-			ArrayList projArray = TextDB.readProjects(filename) ;
-			for (int i = 0 ; i < projArray.size() ; i++) {
-					Project proj = (Project)projArray.get(i);
-					System.out.println("Supervisor: " + proj.getName() );
-					System.out.println("Title: " + proj.getTitle() +"\n");
-			}
-			//to add in new prof
-			// Professor p1 = new Professor("Joseph","jos@ntu.edu.sg",67909999);
-			// al is an array list containing Professor objs
-			// al.add(p1);
-			// write Professor record/s to file.
-			// TextDB.saveProfessors(filename, al);
-		}catch (IOException e) {
-			System.out.println("IOException > " + e.getMessage());
+    public ArrayList<Project> viewAvailableProjects(){
+        if (this.getStatus() != "new") {
+			System.out.println("Sorry, you cannot view available projects at this time.");
+			return null;
 		}
+		ArrayList<Project> availableProjects = new ArrayList<Project>();
+		ArrayList<Project> allProjects; //code next time
+		
+		for (Project project : allProjects) {
+			// Check if project is available and supervisor is not supervising maximum projects
+			if (project.getStatus() == "available" && !Supervisor.superviseMax(project.getSupervisorID())) {
+				availableProjects.add(project);
+			}
+		}
+		
+		return availableProjects;
     }
     
-    public ArrayList<String> selectProject(){
+    public ArrayList<Project> selectProject(int projectID){
         //read from project list
         //print projects that have are not taken
         //return project list
@@ -92,7 +71,7 @@ public class Student extends User{
         System.out.println("Project Selection Requested. Please wait for approval");
     }
     
-    public void deregisterProject(){
+    public Request deregisterProject(){
         //change request to 0 for deregister request
         //change curproject to nothing
         if(projRegistered)
@@ -108,7 +87,7 @@ public class Student extends User{
         System.out.println("Project deregistration Requested. Please wait for approval");
     }
 
-    public String changeTitle(String ProjectTitle){
+    public Request changeTitle(String ProjectTitle){
         //change title change request for that project
         //title request 
         titleChange = true;
@@ -122,7 +101,7 @@ public class Student extends User{
     
 
 
-    public ArrayList<String> viewRequestInfo(){
+    public ArrayList<Request> viewRequestInfo(){
         return this.requestsHistory;
         
     }

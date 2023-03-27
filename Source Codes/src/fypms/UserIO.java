@@ -10,9 +10,9 @@ public class UserIO {
 	private File supervisorFile = new File("Database/faculty_list.txt");
 	private File coordinatorFile = new File("Database/fyp_coordinator.txt");
 	
-	private static Arraylist<Student> students = new ArrayList<>;
-	private static Arraylist<Supervisor> supervisors = new ArrayList<>;
-	private static Arraylist<FYPCoordinator> coordinators = new ArrayList<>;
+	private static ArrayList<Student> students = new ArrayList<>;
+	private static ArrayList<Supervisor> supervisors = new ArrayList<>;
+	private static ArrayList<FYPCoordinator> coordinators = new ArrayList<>;
 	
 	private String userID;
 	private String name;
