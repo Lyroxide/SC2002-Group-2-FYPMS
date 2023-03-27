@@ -1,75 +1,75 @@
-A S Madhukumar;ASMADHUKUMAR@NTU.EDU.SG
-Alexei Sourin;ASSOURIN@ntu.edu.sg
-Anupam Chattopadhyay;ANUPAM@NTU.EDU.SG
-Anwitaman Datta;ANWITAMAN@NTU.EDU.SG
-Arvind Easwaran;ARVINDE@NTU.EDU.SG
-Bo An;BOAN@NTU.EDU.SG
-Cai Wentong;ASWTCAI@ntu.edu.sg
-Cham Tat Jen;ASTJCHAM@NTU.EDU.SG
-Chan Syin;ASSCHAN@NTU.EDU.SG
-Chen Change Loy;CCLOY@NTU.EDU.SG
-Chia Liang Tien;ASLTCHIA@ntu.edu.sg
-Chng Eng Siong;ASESCHNG@NTU.EDU.SG
-Cong Gao;GAOCONG@NTU.EDU.SG
-Deepu Rajan;ASDRAJAN@NTU.EDU.SG
-Douglas Leslie Maskell;ASDOUGLAS@NTU.EDU.SG
-Dusit Niyato;DNIYATO@NTU.EDU.SG
-Erik Cambria;CAMBRIA@NTU.EDU.SG
-Fan Xiuyi;xyfan@ntu.edu.sg
-Goh Wooi Boon;ASWBGOH@ntu.edu.sg
-Guan Cuntai;CTGUAN@NTU.EDU.SG
-He Ying;YHE@NTU.EDU.SG
-Huang Shell Ying;ASSYHUANG@ntu.edu.sg
-Hui Siu Cheung;ASSCHUI@ntu.edu.sg
-Joty Shafiq Rayhan;SRJOTY@NTU.EDU.SG
-Ke Yiping, Kelly;YPKE@NTU.EDU.SG
-Kong Wai-Kin Adams;ADAMSKONG@NTU.EDU.SG
-Kwoh Chee Keong;ASCKKWOH@ntu.edu.sg
-Lam Siew Kei;ASSKLAM@NTU.EDU.SG
-Lau Chiew Tong;ASCTLAU@NTU.EDU.SG
-Lee Bu Sung;EBSLEE@ntu.edu.sg
-Li Boyang;boyang.li@ntu.edu.sg
-Li Fang;ASFLI@NTU.EDU.SG
-Li Mo;LIMO@NTU.EDU.SG
-Li Yi;YI_LI@NTU.EDU.SG
-Lin Guosheng;gslin@ntu.edu.sg
-Lin Shang-Wei;SHANG-WEI.LIN@NTU.EDU.SG
-Lin Weisi;WSLIN@NTU.EDU.SG
-Liu Weichen;LIU@NTU.EDU.SG
-Liu Yang;YANGLIU@NTU.EDU.SG
-Liu Ziwei;ziwei.liu@ntu.edu.sg
-Luu Anh Tuan;anhtuan.luu@ntu.edu.sg
-Loke Yuan Ren;YRLOKE@NTU.EDU.SG
-Long Cheng;C.LONG@NTU.EDU.SG
-Lu Shijian;SHIJIAN.LU@NTU.EDU.SG
-Luo Jun;JUNLUO@NTU.EDU.SG
-Luo Siqiang;siqiang.luo@ntu.edu.sg
-Mohamed M. Sabry;MSABRY@NTU.EDU.SG
-Ng Wee Keong;AWKNG@ntu.edu.sg
-Oh Hong Lye;HLOH@NTU.EDU.SG
-Ong Yew Soon;ASYSOng@ntu.edu.sg
-Owen Noel Newton Fernando;OFERNANDO@NTU.EDU.SG
-Pan, Sinno Jialin;SINNOPAN@NTU.EDU.SG
-Qian Kemao;MKMQIAN@NTU.EDU.SG
-Quek Hiok Chai;ASHCQUEK@ntu.edu.sg
-Rajapakse Jagath Chandana;ASJAGATH@NTU.EDU.SG
-Seah Hock Soon;ASHSSEAH@ntu.edu.sg
-Shen Zhiqi;ZQSHEN@NTU.EDU.SG
-Smitha K G;SMITHA@NTU.EDU.SG
-Sourav Saha Bhowmick;ASSOURAV@NTU.EDU.SG
-Sun Aixin;AXSUN@NTU.EDU.SG
-Tan Chee Wei;cheewei.tan@ntu.edu.sg
-Tan Rui;TANRUI@NTU.EDU.SG
-Tang Xueyan;ASXYTANG@NTU.EDU.SG
-Tay Kian Boon;kianboon.tay@ntu.edu.sg
-Thambipillai Srikanthan;ASTSRIKAN@ntu.edu.sg
-Vidya Sudarshan;vidya.sudarshan@ntu.edu.sg
-Vun Chan Hua, Nicholas;ASCHVUN@ntu.edu.sg
-Wen Yonggang;YGWEN@ntu.edu.sg
-Yeo Chai Kiat;ASCKYEO@ntu.edu.sg
-Yu Han;HAN.YU@NTU.EDU.SG
-Zhang Hanwang;HANWANGZHANG@NTU.EDU.SG
-Zhang Jie;ZHANGJ@NTU.EDU.SG
-Zhang Tianwei;tianwei.zhang@ntu.edu.sg
-Zhao Jun;JUNZHAO@NTU.EDU.SG
-Zheng Jianmin;ASJMZHENG@NTU.EDU.SG
+A S Madhukumar;ASMADHUKUMAR@NTU.EDU.SG;password
+Alexei Sourin;ASSOURIN@ntu.edu.sg;password
+Anupam Chattopadhyay;ANUPAM@NTU.EDU.SG;password
+Anwitaman Datta;ANWITAMAN@NTU.EDU.SG;password
+Arvind Easwaran;ARVINDE@NTU.EDU.SG;password
+Bo An;BOAN@NTU.EDU.SG;password
+Cai Wentong;ASWTCAI@ntu.edu.sg;password
+Cham Tat Jen;ASTJCHAM@NTU.EDU.SG;password
+Chan Syin;ASSCHAN@NTU.EDU.SG;password
+Chen Change Loy;CCLOY@NTU.EDU.SG;password
+Chia Liang Tien;ASLTCHIA@ntu.edu.sg;password
+Chng Eng Siong;ASESCHNG@NTU.EDU.SG;password
+Cong Gao;GAOCONG@NTU.EDU.SG;password
+Deepu Rajan;ASDRAJAN@NTU.EDU.SG;password
+Douglas Leslie Maskell;ASDOUGLAS@NTU.EDU.SG;password
+Dusit Niyato;DNIYATO@NTU.EDU.SG;password
+Erik Cambria;CAMBRIA@NTU.EDU.SG;password
+Fan Xiuyi;xyfan@ntu.edu.sg;password
+Goh Wooi Boon;ASWBGOH@ntu.edu.sg;password
+Guan Cuntai;CTGUAN@NTU.EDU.SG;password
+He Ying;YHE@NTU.EDU.SG;password
+Huang Shell Ying;ASSYHUANG@ntu.edu.sg;password
+Hui Siu Cheung;ASSCHUI@ntu.edu.sg;password
+Joty Shafiq Rayhan;SRJOTY@NTU.EDU.SG;password
+Ke Yiping, Kelly;YPKE@NTU.EDU.SG;password
+Kong Wai-Kin Adams;ADAMSKONG@NTU.EDU.SG;password
+Kwoh Chee Keong;ASCKKWOH@ntu.edu.sg;password
+Lam Siew Kei;ASSKLAM@NTU.EDU.SG;password
+Lau Chiew Tong;ASCTLAU@NTU.EDU.SG;password
+Lee Bu Sung;EBSLEE@ntu.edu.sg;password
+Li Boyang;boyang.li@ntu.edu.sg;password
+Li Fang;ASFLI@NTU.EDU.SG;password
+Li Mo;LIMO@NTU.EDU.SG;password
+Li Yi;YI_LI@NTU.EDU.SG;password
+Lin Guosheng;gslin@ntu.edu.sg;password
+Lin Shang-Wei;SHANG-WEI.LIN@NTU.EDU.SG;password
+Lin Weisi;WSLIN@NTU.EDU.SG;password
+Liu Weichen;LIU@NTU.EDU.SG;password
+Liu Yang;YANGLIU@NTU.EDU.SG;password
+Liu Ziwei;ziwei.liu@ntu.edu.sg;password
+Luu Anh Tuan;anhtuan.luu@ntu.edu.sg;password
+Loke Yuan Ren;YRLOKE@NTU.EDU.SG;password
+Long Cheng;C.LONG@NTU.EDU.SG;password
+Lu Shijian;SHIJIAN.LU@NTU.EDU.SG;password
+Luo Jun;JUNLUO@NTU.EDU.SG;password
+Luo Siqiang;siqiang.luo@ntu.edu.sg;password
+Mohamed M. Sabry;MSABRY@NTU.EDU.SG;password
+Ng Wee Keong;AWKNG@ntu.edu.sg;password
+Oh Hong Lye;HLOH@NTU.EDU.SG;password
+Ong Yew Soon;ASYSOng@ntu.edu.sg;password
+Owen Noel Newton Fernando;OFERNANDO@NTU.EDU.SG;password
+Pan, Sinno Jialin;SINNOPAN@NTU.EDU.SG;password
+Qian Kemao;MKMQIAN@NTU.EDU.SG;password
+Quek Hiok Chai;ASHCQUEK@ntu.edu.sg;password
+Rajapakse Jagath Chandana;ASJAGATH@NTU.EDU.SG;password
+Seah Hock Soon;ASHSSEAH@ntu.edu.sg;password
+Shen Zhiqi;ZQSHEN@NTU.EDU.SG;password
+Smitha K G;SMITHA@NTU.EDU.SG;password
+Sourav Saha Bhowmick;ASSOURAV@NTU.EDU.SG;password
+Sun Aixin;AXSUN@NTU.EDU.SG;password
+Tan Chee Wei;cheewei.tan@ntu.edu.sg;password
+Tan Rui;TANRUI@NTU.EDU.SG;password
+Tang Xueyan;ASXYTANG@NTU.EDU.SG;password
+Tay Kian Boon;kianboon.tay@ntu.edu.sg;password
+Thambipillai Srikanthan;ASTSRIKAN@ntu.edu.sg;password
+Vidya Sudarshan;vidya.sudarshan@ntu.edu.sg;password
+Vun Chan Hua, Nicholas;ASCHVUN@ntu.edu.sg;password
+Wen Yonggang;YGWEN@ntu.edu.sg;password
+Yeo Chai Kiat;ASCKYEO@ntu.edu.sg;password
+Yu Han;HAN.YU@NTU.EDU.SG;password
+Zhang Hanwang;HANWANGZHANG@NTU.EDU.SG;password
+Zhang Jie;ZHANGJ@NTU.EDU.SG;password
+Zhang Tianwei;tianwei.zhang@ntu.edu.sg;password
+Zhao Jun;JUNZHAO@NTU.EDU.SG;password
+Zheng Jianmin;ASJMZHENG@NTU.EDU.SG;password
