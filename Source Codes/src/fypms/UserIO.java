@@ -1,6 +1,7 @@
 package fypms;
 
 import java.io.*;
+import java.util.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -79,7 +80,7 @@ public class UserIO {
 				i++;
 			}
 
-			FileWriter writer = new FileWriter(studentFile, false); // Overwrite the file
+			FileWriter writer = new FileWriter(studentFile); // Overwrite the file
 			for (String str : lines) {
 				writer.write(str + "\n"); // Write the updated lines to the file
 			}
@@ -156,7 +157,7 @@ public class UserIO {
 				i++;
 			}
 
-			FileWriter writer = new FileWriter(supervisorFile, false); // Overwrite the file
+			FileWriter writer = new FileWriter(supervisorFile); // Overwrite the file
 			for (String str : lines) {
 				writer.write(str + "\n"); // Write the updated lines to the file
 			}
@@ -233,7 +234,7 @@ public class UserIO {
 				i++;
 			}
 
-			FileWriter writer = new FileWriter(coordinatorFile, false); // Overwrite the file
+			FileWriter writer = new FileWriter(coordinatorFile); // Overwrite the file
 			for (String str : lines) {
 				writer.write(str + "\n"); // Write the updated lines to the file
 			}

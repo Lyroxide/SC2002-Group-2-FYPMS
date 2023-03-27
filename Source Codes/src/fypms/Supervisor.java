@@ -33,7 +33,7 @@ public class Supervisor extends User {
 		return ownProjects;
 	}
 
-	public void modifyProjectTitle(int projectID, String newTitle) {
+	public void modifyProjectTitle(int projectID, String newTitle) throws IOException {
 		Project project = null;
         for (Project p : projectsSupervising) {
             if (p.getProjectID().equals(projectID)) {
@@ -47,6 +47,7 @@ public class Supervisor extends User {
 		
 		if (project.getSupervisorID().equals(supervisorID)) {
 			project.setProjectTitle(newTitle);
+			modifyProject(project);
 			System.out.println("Project title has been updated.");
 		} else {
 			System.out.println("You are not allowed to modify this project's title");
