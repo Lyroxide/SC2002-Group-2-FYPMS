@@ -13,7 +13,7 @@ public class Student extends User{
     private String studentID;
     private String curProject;
     private Request request;
-	private Status status;
+    private Status status;
     private ArrayList<Request> requestsHistory;
 
 
@@ -32,10 +32,11 @@ public class Student extends User{
     
     //call method from project class
     public ArrayList<Project> viewAvailableProjects(){
-        if (this.getStatus() != "new") {
+        if (this.getStatus() == "new" || this.getStatus() == "DEREGISTERED") {
 			System.out.println("Sorry, you cannot view available projects at this time.");
 			return null;
 		}
+	    
 		ArrayList<Project> availableProjects = new ArrayList<Project>();
 		ArrayList<Project> allProjects; //code next time
 		
@@ -44,6 +45,11 @@ public class Student extends User{
 			if (project.getStatus() == "available" && !Supervisor.superviseMax(project.getSupervisorID())) {
 				availableProjects.add(project);
 			}
+		}
+	    
+	    	for(Project project: availableProjects){
+			System.out.Println("Supervisor: ", + availableProjects.getSupervisor());
+			System.out.Println("Title: ", + availableProjects.getProjectTitle() +"\n");
 		}
 		
 		return availableProjects;
@@ -60,11 +66,18 @@ public class Student extends User{
             System.out.println("Existing project selected, Please deregister before selecting new project");
             break;
         }
+	else{
+            System.out.print("Please Enter Project ID you wish to select: ");
+            choice = scan.nextInt();
+            //request need to take in projectID ?
+        }
         //set request for project selection
         requestProj = true;
         //add request method 
         Request requests = new Request();
+	requests = (allocate,student,fypCoordinator);
         request.add(requests);
+	addRequestHistory("Requested to select project: "+ project.getProjectTitle());
         System.out.println("Project Selection Requested. Please wait for approval");
     }
     
@@ -80,7 +93,9 @@ public class Student extends User{
         //change curproject to nothing
         // this.curProject = null;
         Request requests = new Request();
+	requests = (deregister,student,fypCoordinator);
         request.add(requests);
+	addRequestHistory("Requested to deregister Title");
         System.out.println("Project deregistration Requested. Please wait for approval");
     }
 
@@ -96,13 +111,20 @@ public class Student extends User{
             System.out.println("Project not found");
         }
 		
-		if (project.getSupervisorID().equals(supervisorID)) {
-			project.setProjectTitle(newTitle);
-			modifyProject(project);
-			System.out.println("Project title has been updated.");
-		} else {
-			System.out.println("You are not allowed to modify this project's title");
-		}
+	if (project.getSupervisorID().equals(supervisorID)) {
+		project.setProjectTitle(newTitle);
+		modifyProject(project);
+		//should not be updated first need to request first ?
+		System.out.println("Project title has been updated.");
+	} else {
+		System.out.println("You are not allowed to modify this project's title");
+	}
+	Request requests = new Request();
+        requests = (titleChange,student,fypCoordinator);
+        request.add(requests);
+        addRequestHistory("Requested to change project Title");
+        System.out.println("Title Change requested");
+	    
     }
     
 
