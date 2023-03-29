@@ -33,29 +33,15 @@ public class Supervisor extends User {
 		return ownProjects;
 	}
 
-	public void modifyProjectTitle(int projectID, String newTitle) throws IOException {
-		Project project = null;
-        for (Project p : projectsSupervising) {
-            if (p.getProjectID().equals(projectID)) {
-                project = p;
-                break;
-            }
-        }
-        if (project == null) {
-            System.out.println("Project not found");
-        }
-		
-		if (project.getSupervisorID().equals(supervisorID)) {
-			project.setProjectTitle(newTitle);
-			modifyProject(project);
-			System.out.println("Project title has been updated.");
-		} else {
-			System.out.println("You are not allowed to modify this project's title");
+	public void modifyProjectTitle(Request request) throws IOException {
+		if (request instanceof RequestForTitle) {
+			((RequestForTitle) request).approve(request.getProjectTitle())
 		}
 	}
 
 	public boolean superviseMax() {
-		return (projectsSupervising.size() < projMax);
+		return (projectsSupervising.size() < projMax); //this function needs to be called in FYPCoordinator's allocateProject()
+		//in order to change other projects to be UNAVAILABLE if True
 	}
 
 	public Request transferProject(int projectID, String newSupervisorID) {
@@ -79,7 +65,7 @@ public class Supervisor extends User {
 	public ArrayList<Request> viewPendingRequests() {
         ArrayList<Request> pendingRequests = new ArrayList<>();
         for (Request request : requests) {
-            if (request.getStatus().equals("Pending")) {
+            if (request.getStatus().equals(ProjectStatus.PENDING)) {
                 pendingRequests.add(request);
             }
         }

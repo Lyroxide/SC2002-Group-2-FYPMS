@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class ProjectIO {
 	private File projectFile = new File("Database/rollover_project.txt");
-
+	
+	private static ArrayList<Project> projects = new ArrayList<>();
+	
 	public static ArrayList<Project> readProjects() throws IOException {
-        ArrayList<Project> projects = new ArrayList<>();
-        
         try (BufferedReader reader = new BufferedReader(new FileReader(projectFile))) {
             String line;
             boolean firstLine = true;
@@ -42,7 +42,7 @@ public class ProjectIO {
     
     public static void writeProject(Project project) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(projectFile, true));
-		int projectID = getNumberOfProjects() + 1; // Assign new project ID based on current number of projects
+		int projectID = projects.size() + 1; // Assign new project ID based on current number of projects
 		
 		String line = projectID + ";" + project.getStatus() + ";" + project.getSupervisorID() + ";" + project.getStudentID() + ";" + project.getProjectTitle();
 		

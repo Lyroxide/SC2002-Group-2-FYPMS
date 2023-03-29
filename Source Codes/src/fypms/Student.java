@@ -6,17 +6,14 @@ import java.util.ArrayList;
 
 public class Student extends User{
     
-//     private enum Status {
-//         new, registered, deregistered;
-//     }
+    enum Status {
+        NEW, REGISTERED, DEREGISTERED
+    }
 
-// 	we will be creating our own enum class
-    
-   
     private String studentID;
     private String curProject;
     private Request request;
-	private String status;
+	private Status status;
     private ArrayList<Request> requestsHistory;
 
 
@@ -87,16 +84,25 @@ public class Student extends User{
         System.out.println("Project deregistration Requested. Please wait for approval");
     }
 
-    public Request changeTitle(String ProjectTitle){
-        //change title change request for that project
-        //title request 
-        titleChange = true;
-        String newtitle = ProjectTitle;
-        Request requests = new Request();
-        request.add(requests);
-        addRequestHistory("Requested to change project Title");
-        System.out.println("Title Change requested");
-        return newTitle;
+    public Request changeProjectTitle(int projectID, String newTitle){
+        Project project = null;
+        for (Project p : projectsSupervising) {
+            if (p.getProjectID().equals(projectID)) {
+                project = p;
+                break;
+            }
+        }
+        if (project == null) {
+            System.out.println("Project not found");
+        }
+		
+		if (project.getSupervisorID().equals(supervisorID)) {
+			project.setProjectTitle(newTitle);
+			modifyProject(project);
+			System.out.println("Project title has been updated.");
+		} else {
+			System.out.println("You are not allowed to modify this project's title");
+		}
     }
     
 
