@@ -60,9 +60,9 @@ public class RequestIO {
     
     public static void writeRequest(Request request) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(requestFile, true));
-		int requestID = requests.size() + 1; // Assign new project ID based on current number of projects
+		int requestID = requests.size() + 1; 
 		
-		String line = projectID + ";" + project.getStatus() + ";" + project.getSupervisorID() + ";" + project.getStudentID() + ";" + project.getProjectTitle();
+		String line = requestID + ";" + request.getType() + ";" + request.getSender() + ";" + request.getReceiver() + ";" + request.getProjectID() + ";" + request.getStatus();
 		
 		writer.newLine();
 		writer.write(line);
@@ -70,10 +70,10 @@ public class RequestIO {
 	}
 	
     
-    public static void modifyProject(Project project) throws IOException {
-		int projectID = project.getProjectID();
+    public static void modifyRequest(Request request) throws IOException {
+		int requestID = project.getRequestID();
 		
-		String newLine = project.getProjectID() + ";" + project.getStatus() + ";" + project.getSupervisorID() + ";" + project.getStudentID() + ";" + project.getProjectTitle();
+		String newLine = requestID + ";" + request.getType() + ";" + request.getSender() + ";" + request.getReceiver() + ";" + request.getProjectID() + ";" + request.getStatus();
 		
 		// Create temporary file
 		File tempFile = new File(requestFile.getAbsolutePath() + ".tmp");
@@ -83,7 +83,7 @@ public class RequestIO {
 		// Read each line and modify the line corresponding to the project ID
 		String line;
 		while ((line = reader.readLine()) != null) {
-			if (line.startsWith(String.valueOf(projectID))) {
+			if (line.startsWith(String.valueOf(requestID))) {
 				writer.write(newLine);
 			} else {
 				writer.write(line);

@@ -16,11 +16,12 @@ public abstract class Request {
   private int projectID;
   
   
-  public Request(RequestType type, String sender, String receiver, int projectID) {
+  public Request(RequestType type, String sender, String receiver, int projectID, RequestStatus status) {
 	  this.type = type;
       this.sender = sender;
       this.receiver = receiver;
       this.projectID = projectID;
+	  this.status = status;
   }
   
   public void setType(RequestType type) {
@@ -65,6 +66,10 @@ public abstract class Request {
   
   public void setRequestID() {
 	  this.requestID = requestID;
+  }
+  
+  public int getRequestID() {
+	  return requestID;
   }
   
   public abstract void approve(String param);
