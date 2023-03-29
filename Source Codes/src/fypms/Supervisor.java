@@ -21,7 +21,7 @@ public class Supervisor extends User {
             for (Project project : allProjects) {
                 if (project.getSupervisorID().equals(supervisorID)) {
                     ownProjects.add(project);
-					if (project.getStudentID().equals("") {
+					if (!project.getStudentID().equals("") {
 						projectsSupervising.add(project);
 					}
                 }
@@ -79,7 +79,7 @@ public class Supervisor extends User {
             System.out.println("Project not found");
             return null;
         }
-        Request request = new Request();
+        Request request = new RequestForTitle(RequestType.TRANSFER, supervisorID, "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
         requests.add(request);
         System.out.println("Transfer request submitted successfully");
         return request;
