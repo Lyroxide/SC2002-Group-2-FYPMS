@@ -1,4 +1,4 @@
-package sc2002_assignment;
+package fypms;
 
 import java.util.ArrayList;
 import java.util.*;
@@ -8,86 +8,59 @@ public class FYPCoordinator extends Supervisor {
 	
 	private String coordinatorID;
 	
-	// viewProjects(): changed status (argument) to typeOfProjects, added ArrayList<Project> (argument)
-	// viewPendingReques(): under Request class, add requestStatus
-	
 	public FYPCoordinator(String coordinatorID) {
 		this.coordinatorID = coordinatorID;
 	}
 	
 	public void changeSupervisor(Supervisor s1, Supervisor s2, Project project) {
+		ArrayList<Project> proj = new ArrayList<>();
+		proj = s1.getProjectsSupervising;
+		
 		for (int i = 0; i < 2; i++) {
-			if (s1.getProjectsSupervising.get(i).getProjectID == project.getProjectID) {
-				s1.getProjectsSupervising.get(i).setProjectID(null);
-				s2.getProjectsSupervising.add(project);
+			if (proj.get(i).getProjectID == project.getProjectID) {
+				s1.setProjectsSupervising(null);
+				s2.setProjectsSupervising(project);
 				project.setSupervisorID(s2.getSupervisorID);
 			}
 		}
+		s1.superviseMax();
+		s2.superviseMax();
 	}
 	
-	public void allocateProject(Project project, Student student) {
+	public void allocateProject(Student student, Supervisor supervisor, Project project) {
 		student.setCurProject(project.getProjectID);
 		project.setStudentID(student.getStudentID);
+		supervisor.projectsSupervising.add(project.getProjectID);
+		supervisor.superviseMax();
 	}
 	
-	public void deregisterStudent(Project project, Student student) {
+	public void deregisterStudent(Project project, Student student, Supervisor supervisor) {
+		ArrayList<Project> proj = new ArrayList<>();
+		proj = supervisor.getProjectsSupervising;
+		
 		student.setCurProject(null);
 		student.setProjRegistered(false);
 		project.setProjectStatus("Available");
 		project.setStudentID(null);
+		for (int i = 0; i < 2; i++) {
+			if (proj.get(i).getProjectID == project.getProjectID) {
+				supervisor.setProjectsSupervising(null);
+			}
+		}
+		supervisor.superviseMax();
 	}
 	
-	/*public void viewProjects(ArrayList<Project> project, int typeOfProject) {
-		// in the argument:
-		// ArrayList<Project> project: array list of project class
-		// int typeOfProject: the type of project to be displayed
-		int index = 1;
-		String type;
-		
-		if (typeOfProject == 1) type = "Available";
-		else if (typeOfProject == 2) type = "Unavailable";
-		else if (typeOfProject == 3) type = "Reserved";
-		else if (typeOfProject == 4) type = "Allocated";
-		else type = "All";
-		
-		System.out.println(type + " projects:");
-		System.out.println("\tProject ID\tProject Title");
-		
-		if (type == "All") {
-			for (int i = 0; i < project.size(); i++) {
-				System.out.println(index + "\t" + project.get(i).getProjectID + "\t" + project.get(i).getProjectTitle);
-				index++;
-			}
-		}
-		else {
-			for (int i = 0; i < project.size(); i++) {
-				if (project.get(i).status == type) {
-					System.out.println(index + "\t" + project.get(i).getProjectID + "\t" + project.get(i).getProjectTitle);
-					index++;
-				}
-			}
-		}
-		// case 1: available
-		// case 2: unavailable
-		// case 3: reserved
-		// case 4: allocated
-		// case 5: all
-		
-		// project class:
-		// status
-		// supervisorID
-		// studentID
-		// projectID
-		// projectTitle
-	}*/
 	
 	public void generateReport(ArrayList<Project> project, ArrayList<Supervisor> supervisor, ArrayList<Student> student, int filterType) {
-		// in the argument:
-		// ArrayList<Project> project: array list of project class
+		
 		int choice, index;
 		String type;
 		Scanner read = new Scanner(System.in);
 		ProjectFilter p = new ProjectFilter();
+		
+		// for Project, can readProject() into arraylist and print
+		// but students and supervisor, how do i access all students and supervisor?
+		
 		
 		if (filterType == 1) {
 			System.out.println("Generate report by: STATUS");
@@ -242,29 +215,26 @@ public class FYPCoordinator extends Supervisor {
 		// case 4: filter by project id
 	}
 	
-	public void viewPendingRequest(ArrayList<Request> request) {
-		int index = 1;
+	public ArrayList<Request> viewPendingRequest() {
+		ArrayList<Request> req = new ArrayList<>();
+		int i = 0;
 		
-		System.out.println("Pending requests");
-		System.out.println("Request type\tSender\tReceiver");
-		for (int i = 0; i < request.size(); i++) {
-			if (request.get(i).requestStatus == "Pending") {
-				System.out.println(index + "\t" + request.get(i).getRequestType + "\t" + request.get(i).getSender + "\t" + 
-			request.get(i).getReveiver);
-				index++;
-			}
+		req = readRequests();
+		
+		while (i < req.size()) {
+			if (req.get(i).getStatus != RequestStatus.PENDING) req.remove(1);
+			else i++;
 		}
+		
+		return req;
 	}
 	
-	public void viewRequestHistory(ArrayList<Request> request) {
-		int index = 1;
+	public ArrayList<Request> viewRequestHistory() {
 		
-		System.out.println("Requests history");
-		System.out.println("Request type\tSender\tReceiver\tStatus");
-		for (int i = 0; i < request.size(); i++) {
-			System.out.println(index + "\t" + request.get(i).getRequestType + "\t" + request.get(i).getSender + "\t" + 
-		request.get(i).getReveiver + "\t" + request.get(i).getStatus);
-			index++;
-		}
+		ArrayList<Request> req = new ArrayList<>();
+		
+		req = readRequests();
+		
+		return req;
 	}
 }
