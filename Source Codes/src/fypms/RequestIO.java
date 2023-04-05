@@ -33,23 +33,24 @@ public class RequestIO {
 
 				switch(type) {
 					case ALLOCATION:
-						request = new RequestForAllocation(type, sender, receiver, projectID);
+						request = new RequestForAllocation(type, sender, receiver, projectID, status);
 						break;
 					case DEREGISTRATION:
-						request = new RequestForDeregistration(type, sender, receiver, projectID);
+						request = new RequestForDeregistration(type, sender, receiver, projectID, status);
 						break;
 					case TITLECHANGE:
-						request = new RequestForTitleChange(type, sender, receiver, projectID);
+						String title = tokens[6];
+						request = new RequestForTitleChange(type, sender, receiver, projectID, status, title);
 						break;
 					case TRANSFER:
-						request = new RequestForTransfer(type, sender, receiver, projectID);
+						String supervisorID = tokens[6];
+						request = new RequestForTransfer(type, sender, receiver, projectID, status, supervisorID);
 						break;
 					default:
 						throw new IllegalArgumentException("Invalid request type: " + type);
 				}
 				
                 request.setRequestID(requestID);
-				request.setStatus(status);
                 
                 requests.add(request);
             }
@@ -60,9 +61,17 @@ public class RequestIO {
     
     public static void writeRequest(Request request) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(requestFile, true));
-		int requestID = requests.size() + 1; 
+		requests = readRequests();
+		int requestID = requests.size() + 1;
+		String addToken = "";
+		if (request instanceof RequestForTitle) {
+			addToken = ((RequestForTitle) request).getProjectTitle();
+		}
+		else if (request instanceof RequestForTransfer) {
+			addToken = ((RequestForTransfer) request).getSupervisorID();
+		}
 		
-		String line = requestID + ";" + request.getType() + ";" + request.getSender() + ";" + request.getReceiver() + ";" + request.getProjectID() + ";" + request.getStatus();
+		String line = requestID + ";" + request.getType() + ";" + request.getSender() + ";" + request.getReceiver() + ";" + request.getProjectID() + ";" + request.getStatus().name() + ";" + addToken;
 		
 		writer.newLine();
 		writer.write(line);
@@ -72,8 +81,14 @@ public class RequestIO {
     
     public static void modifyRequest(Request request) throws IOException {
 		int requestID = project.getRequestID();
-		
-		String newLine = requestID + ";" + request.getType() + ";" + request.getSender() + ";" + request.getReceiver() + ";" + request.getProjectID() + ";" + request.getStatus();
+		String addToken = "";
+		if (request instanceof RequestForTitle) {
+			addToken = ((RequestForTitle) request).getProjectTitle();
+		}
+		else if (request instanceof RequestForTransfer) {
+			addToken = ((RequestForTransfer) request).getSupervisorID();
+		}
+		String newLine = requestID + ";" + request.getType() + ";" + request.getSender() + ";" + request.getReceiver() + ";" + request.getProjectID() + ";" + request.getStatus().name() + ";" + addToken;
 		
 		// Create temporary file
 		File tempFile = new File(requestFile.getAbsolutePath() + ".tmp");

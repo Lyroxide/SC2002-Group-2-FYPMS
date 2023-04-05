@@ -23,6 +23,18 @@ public class UserIO {
 	
 	public UserIO() {};
 	
+	public ArrayList<Student> getStudents() {
+		return students;
+	}
+	
+	public ArrayList<Supervisor> getSupervisors() {
+		return supervisors;
+	}
+	
+	public ArrayList<FYPCoordinator> getFYPCoordinators() {
+		return coordinators;
+	}
+	
 	public void countStudent() throws IOException {
 		FileReader fr = new FileReader("Database/student_list.txt");
 		BufferedReader br = new BufferedReader(fr);

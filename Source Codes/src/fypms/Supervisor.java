@@ -58,34 +58,25 @@ public class Supervisor extends User {
 
 	public void modifyProjectTitle(Request request) throws IOException {
 		if (request instanceof RequestForTitle) {
-			((RequestForTitle) request).approve(request.getProjectTitle())
+			((RequestForTitle) request).approve(request.getProjectTitle());
+			RequestIO.modifyRequest(request);
 		}
 	}
 
 	public boolean superviseMax() {
-		return (projectsSupervising.size() < projMax); //this function needs to be called in FYPCoordinator's allocateProject()
+		return (projectsSupervising.size() > projMax); //this function needs to be called in FYPCoordinator's allocateProject()
 		//in order to change other projects to be UNAVAILABLE if True
 	}
 
 	public Request transferProject(int projectID, String newSupervisorID) {
-		Project project = null;
-        for (Project p : projectsSupervising) {
-            if (p.getProjectID().equals(projectID)) {
-                project = p;
-                break;
-            }
-        }
-        if (project == null) {
-            System.out.println("Project not found");
-            return null;
-        }
+		
         Request request = new RequestForTitle(RequestType.TRANSFER, supervisorID, "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
         requests.add(request);
         System.out.println("Transfer request submitted successfully");
         return request;
 	}
 
-	public ArrayList<Request> viewPendingRequests() {
+	public ArrayList<Request> viewPendingRequests() { //read function
         ArrayList<Request> pendingRequests = new ArrayList<>();
         for (Request request : requests) {
             if (request.getStatus().equals(ProjectStatus.PENDING)) {

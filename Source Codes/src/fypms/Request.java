@@ -74,8 +74,5 @@ public abstract class Request {
   
   public abstract void approve(String param);
   
-  public void reject() {
-	  setStatus(RequestStatus.REJECTED);
-	  System.out.println("You have successfully rejected the request.")
-  }
+  public abstract void reject(Request request);
 }
