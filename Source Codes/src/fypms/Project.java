@@ -1,22 +1,58 @@
 package fypms;
-
 public class Project {
-    private enum Status {
+  
+    public enum Status {
         available, reserved, unavailable, allocated
     }
-    private Status projectStatus;
+    public Status projectStatus;
     private String supervisorID;
-    private String studentID;
+    public String studentID;
     private int projectID;
     private String projectTitle;
-    
-    public Project() {
-        //for the constructor is it just put every variable inside - hamka
+ 
+    public Project(String projectTitle, String supervisorID) {
+        // Constructor that sets the project's projectID and supervisor ID
+        this.projectTitle= projectTitle;
+        this.supervisorID = supervisorID;
     }
     
+    
+    public Status getStatus() {
+      return this.projectStatus;
+    }
+    
+    public void setStatus(Status status) {
+      this.projectStatus = status;
+    }
+    
+    public String getSupervisorID() {
+      return this.supervisorID;
+    }
+    
+    public String getStudentID() {
+      return this.studentID;
+    }
+    
+    public void setStudentID(String studentID) {
+      this.studentID = studentID;
+    }
+    
+    public void setProjectID(int projectID) {
+      this.projectID = projectID;
+    }
+    
+    public int getProjectID() {
+      return this.projectID;
+    }
+    
+    public String getProjectTitle() {
+      return this.projectTitle;
+    }
+    
+  
     public void printProjectInfo() {
-        if (projectStatus == Status.available) {                        //doesnt it need to print no matter the status? - hamka
-          System.out.println("Available Project Information: ");
+     
+    
             System.out.printf("Project ID: %d\n", projectID);
             //supervisor name
             //supervisor email address
@@ -25,7 +61,7 @@ public class Project {
             System.out.printf("Project Status: %s\n", projectStatus);
             //check about supervisor name and email address
     
-        }
+        
     }
     
     public void printAllocated(String studentID) {
@@ -41,44 +77,6 @@ public class Project {
             System.out.printf("Project Status: %s\n", projectStatus);
     
         }
-    
-    public String getStatus() {
-        return status;
-    }
-    
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
-    public String getSupervisorID() {
-        return supervisorID;
-    }
-    
-    public void setSupervisorID(String supervisorID) {
-        this.supervisorID = supervisorID;
-    }
-    
-    public String getStudentID() {
-        return studentID;
-    }
-    
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
-    }
-    
-    public int getProjectID() {
-        return projectID;
-    }
-    
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
-    }
-    
-    public String getProjectTitle() {
-        return projectTitle;
-    }
-    
-    public void setProjectTitle(String projectTitle) {
-        this.projectTitle = projectTitle;
+        
     }
 }
