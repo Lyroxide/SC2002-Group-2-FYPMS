@@ -31,6 +31,29 @@ public abstract class RequestForTransfer extends Request {
 		if (project == null) System.out.println("Project Not Found.");
 		else {
 			setStatus(RequestStatus.APPROVED);
+			int num;
+			num = project.superviseNum(project.getSupervisorID());
+			if (num => 2) {
+				for (Project p : allProjects) {
+					if (p.getSupervisorID().equals(supervisorID)) {
+						if (!p.getStatus().equals(Status.ALLOCATED) && !p.getStatus().equals(Status.RESERVED)) {
+							p.setStatus(Status.UNAVAILABLE);
+							ProjectIO.modifyProject(p);
+						}
+					}
+				}
+			} 
+			num = project.superviseNum(sender);
+			if (num == 1)) {
+				for (Project p : allProjects) {
+					if (p.getSupervisorID().equals(sender)) {
+						if (!p.getStatus().equals(Status.ALLOCATED) && !p.getStatus().equals(Status.RESERVED)) {
+							p.setStatus(Status.UNAVAILABLE);
+							ProjectIO.modifyProject(p);
+						}
+					}
+				}
+			}
 		}
 	}
 

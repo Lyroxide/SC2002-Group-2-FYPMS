@@ -19,11 +19,12 @@ public abstract class RequestForRegistration extends Request {
                 break;
             }
         }
-		int num;
 		if (project == null) System.out.println("Project Not Found.");
 		else {
 			setStatus(RequestStatus.APPROVED);
-			num = project.superviseNum(project.getSupervisorID());
+			supervisorID = project.getSupervisorID();
+			int num;
+			num = project.superviseNum(supervisorID);
 			if (num => 2) {
 				for (Project p : allProjects) {
 					if (p.getSupervisorID().equals(supervisorID)) {
