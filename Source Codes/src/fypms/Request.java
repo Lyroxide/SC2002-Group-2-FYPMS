@@ -15,6 +15,7 @@ public abstract class Request {
   private int requestID;
   private int projectID;
   
+  public Request() {};
   
   public Request(RequestType type, String sender, String receiver, int projectID, RequestStatus status) {
 	  this.type = type;
@@ -71,6 +72,7 @@ public abstract class Request {
   public int getRequestID() {
 	  return requestID;
   }
+  
   
   public abstract void approve(String param);
   

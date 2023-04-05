@@ -17,7 +17,7 @@ public class Supervisor extends User {
 	public String getSupervisorID() {
 		return supervisorID;
 	}
-
+	
 	public Project createProject(String projectTitle) {
 		Project project = new Project(projectTitle, supervisorID);
 		ProjectIO.writeProject(project);
@@ -25,7 +25,7 @@ public class Supervisor extends User {
 	}
 
 	public ArrayList<Project> viewOwnProjects() {
-		ArrayList<Project> ownProjects = new ArrayList<>();
+		ArrayList<Project> ownProjects = new ArrayList<Project>();
 		ArrayList<Project> allProjects = ProjectIO.readProjects();
         for (Project project : allProjects) {
             if (project.getSupervisorID().equals(supervisorID)) {
@@ -50,7 +50,7 @@ public class Supervisor extends User {
 	}
 
 	public ArrayList<Request> viewPendingRequests() { //read function
-		ArrayList<Request> pendingRequests = new ArrayList<>();
+		ArrayList<Request> pendingRequests = new ArrayList<Request>();
         ArrayList<Request> allRequests = RequestIO.readRequests();
         for (Request request : allRequests) {
             if (request.getStatus().equals(ProjectStatus.PENDING) && request.getReceiver().equals(supervisorID)) {
@@ -61,7 +61,7 @@ public class Supervisor extends User {
     }
 
 	public ArrayList<Request> viewRequest() {
-		ArrayList<Request> requests = new ArrayList<>();
+		ArrayList<Request> requests = new ArrayList<Request>();
 		ArrayList<Request> allRequests = RequestIO.readRequests();
         for (Request request : allRequests) {
             if (request.getReceiver().equals(supervisorID)) {

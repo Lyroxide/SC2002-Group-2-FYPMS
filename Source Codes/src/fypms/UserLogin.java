@@ -14,9 +14,28 @@ public class UserLogin {
         this.password = password;
     }
 
-    public boolean verifyUser() {
-        // code next time
+    public boolean verifyUser(ArrayList<Student> students, ArrayList<Supervisor> supervisors, ArrayList<FYPCoordinator> coordinators) {
+        for (Student student : students) {
+            if (student.getUserID().equals(this.userID)) {
+                return true;
+            }
+        }
+
+        for (Supervisor supervisor : supervisors) {
+            if (supervisor.getUserID().equals(this.userID)) {
+                return true;
+            }
+        }
+		
+		for (FYPCoordinator coordinator : coordinators) {
+            if (coordinator.getUserID().equals(this.userID)) {
+                return true;
+            }
+        }
+
+        return false;
     }
+    
 	
 	public boolean verifyUserAndPass(ArrayList<Student> students, ArrayList<Supervisor> supervisors, ArrayList<FYPCoordinator> coordinators) {
         for (Student student : students) {

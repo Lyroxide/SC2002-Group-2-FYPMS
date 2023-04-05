@@ -8,9 +8,8 @@ import java.util.ArrayList;
 public class RequestIO {
 	private File requestFile = new File("Database/request_list.txt");
 	
-	private static ArrayList<Request> requests = new ArrayList<>();
-	
 	public static ArrayList<Request> readRequests() throws IOException {
+		ArrayList<Request> requests = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(requestFile))) {
             String line;
             boolean firstLine = true;
@@ -61,6 +60,7 @@ public class RequestIO {
     
     public static void writeRequest(Request request) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(requestFile, true));
+		ArrayList<Request> requests = new ArrayList<>();
 		requests = readRequests();
 		int requestID = requests.size() + 1;
 		String addToken = "";
@@ -120,6 +120,32 @@ public class RequestIO {
 			return;
 		}
 	}
+	
+	public void printRequestInfo(Request request) {
+		ArrayList<Request> requests = new ArrayList<>();
+		requests = readRequests();
+		for (Request r : requests) {
+			if (r.getRequestID().equals(request.getRequestID)) {
+				try (BufferedReader reader = new BufferedReader(new FileReader(requestFile))) {
+					String[] tokens = line.split(";");
+					int requestID = Integer.parseInt(tokens[0]);
+					String type = tokens[1];
+					String sender = tokens[2];
+					String receiver = tokens[3];
+					int projectID = Integer.parseInt(tokens[4]);
+					String status = tokens[5];
+					String add = tokens[6];
+					String id;
+					if (requestID < 10) id = "000" + String.valueOf(requestID);
+					else if (requestID < 100) id = "00" + String.value(requestID);
+					else if (requestID < 1000) id = "0" + String.value(requestID);
+					else id = String.value(requestID);
+					System.out.print("ID: " + id + "| Type: " + type + "| Sender:" + sender + "| Receiver:" + receiver + "| ProjectID:" + String.valueOf(projectID) + "| Status:" + status)
+					if (type == "TRANSFER") System.out.println("| New SupervisorID:" + add);
+					else if (type == "TITLECHANGE") System.out.println("| New Title:" + add);
+            }
+        }
 		
-		
+	}
+	
 }
