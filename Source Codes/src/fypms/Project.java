@@ -54,19 +54,19 @@ public class Project {
   
     public void printProjectInfo() {
             SupervisorArr = UserIO.getSupervisors();
-            System.out.printf("Project ID: %d\n", projectID);
+            System.out.printf("Project ID: %d ", projectID);
             for(int i=0;i<SupervisorArr.size();i++) {
             	if(SupervisorArr.get(i).getSupervisorID() == this.supervisorID)
             	{
-            		System.out.printf("%s", SupervisorArr.get(i).getName());
-            		System.out.printf("%s", SupervisorArr.get(i).getEmail());
+            		System.out.printf("| Supervisor Name: %s ", SupervisorArr.get(i).getName());
+            		System.out.printf("| Supervisor Email: %s", SupervisorArr.get(i).getEmail());
             		
             	}
       		
             }
-            System.out.printf("Supervisor ID: %s\n", supervisorID);
-            System.out.printf("Project Title: %s\n", projectTitle);
-            System.out.printf("Project Status: %s\n", projectStatus);
+            System.out.printf("| Supervisor ID: %s", supervisorID);
+            System.out.printf("| Project Title: %s", projectTitle);
+            System.out.printf("| Project Status: %s", projectStatus);
     
         
     }
@@ -78,14 +78,14 @@ public class Project {
       if (projectStatus == Status.ALLOCATED) {
         
           System.out.println("Allocated Project Information: ");
-            System.out.printf("Project ID: %d\n", projectID);
+          System.out.printf("Project ID: %d", projectID);
         
            //iterate through Supervisor array to find name and email
             for(int i=0;i<SupervisorArr.size();i++) {
             	if(SupervisorArr.get(i).getSupervisorID() == this.supervisorID)
             	{
-            		System.out.printf("%s\n", SupervisorArr.get(i).getName());
-            		System.out.printf("%s\n", SupervisorArr.get(i).getEmail());
+            		System.out.printf("| Supervisor Name: %s", SupervisorArr.get(i).getName());
+            		System.out.printf("| Supervisor Email: %s", SupervisorArr.get(i).getEmail());
             		
             	}
       		
@@ -95,14 +95,14 @@ public class Project {
             for(int i=0;i<StudentArr.size();i++) {
             	if(StudentArr.get(i).getStudentID() == this.studentID)
             	{
-            		System.out.printf("%s\n", StudentArr.get(i).getName());
-            		System.out.printf("%s\n", StudentArr.get(i).getEmail());
+            		System.out.printf("| Student Name: %s", StudentArr.get(i).getName());
+            		System.out.printf("| Student Email: %s", StudentArr.get(i).getEmail());
             		
             	}
       		
             }
-            System.out.printf("Project Title: %s\n", projectTitle);
-            System.out.printf("Project Status: %s\n", projectStatus);
+            System.out.printf("| Project Title: %s", projectTitle);
+            System.out.printf("| Project Status: %s", projectStatus);
     
         }
         
