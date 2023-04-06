@@ -2,7 +2,7 @@ package fypms;
 public class Project {
   
     public enum Status {
-        available, reserved, unavailable, allocated
+        AVAILABLE, RESERVED, UNAVAILABLE, ALLOCATED
     }
     public Status projectStatus;
     private String supervisorID;
@@ -14,6 +14,12 @@ public class Project {
         // Constructor that sets the project's projectID and supervisor ID
         this.projectTitle= projectTitle;
         this.supervisorID = supervisorID;
+    }
+  
+    public void setArrayList()
+    {
+    	SupervisorArr = UserIO.getSupervisors();
+    	StudentArr = UserIO.getStudents();
     }
     
     
@@ -54,25 +60,49 @@ public class Project {
      
     
             System.out.printf("Project ID: %d\n", projectID);
-            //supervisor name
-            //supervisor email address
+            for(int i=0;i<SupervisorArr.size();i++) {
+            	if(SupervisorArr.get(i).getSupervisorID() == this.supervisorID)
+            	{
+            		System.out.printf("%s", SupervisorArr.get(i).getName());
+            		System.out.printf("%s", SupervisorArr.get(i).getEmail());
+            		
+            	}
+      		
+            }
             System.out.printf("Supervisor ID: %s\n", supervisorID);
             System.out.printf("Project Title: %s\n", projectTitle);
             System.out.printf("Project Status: %s\n", projectStatus);
-            //check about supervisor name and email address
     
         
     }
     
     public void printAllocated(String studentID) {
-      if (projectStatus == Status.allocated) {
+      if (projectStatus == Status.ALLOCATED) {
         
           System.out.println("Allocated Project Information: ");
             System.out.printf("Project ID: %d\n", projectID);
-            //supervisor name
-            //supervisor email
-            //student name
-            //studnet email address 
+        
+           //iterate through Supervisor array to find name and email
+            for(int i=0;i<SupervisorArr.size();i++) {
+            	if(SupervisorArr.get(i).getSupervisorID() == this.supervisorID)
+            	{
+            		System.out.printf("%s\n", SupervisorArr.get(i).getName());
+            		System.out.printf("%s\n", SupervisorArr.get(i).getEmail());
+            		
+            	}
+      		
+            }
+        
+            //iterates through student Array to get name and email
+            for(int i=0;i<StudentArr.size();i++) {
+            	if(StudentArr.get(i).getStudentID() == this.studentID)
+            	{
+            		System.out.printf("%s\n", StudentArr.get(i).getName());
+            		System.out.printf("%s\n", StudentArr.get(i).getEmail());
+            		
+            	}
+      		
+            }
             System.out.printf("Project Title: %s\n", projectTitle);
             System.out.printf("Project Status: %s\n", projectStatus);
     
