@@ -23,11 +23,11 @@ public class UserIO {
 	
 	public UserIO() {};
 	
-	public ArrayList<Student> getStudents() {
+	public static ArrayList<Student> getStudents() {
 		return students;
 	}
 	
-	public ArrayList<Supervisor> getSupervisors() {
+	public static ArrayList<Supervisor> getSupervisors() {
 		return supervisors;
 	}
 	
