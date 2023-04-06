@@ -9,6 +9,8 @@ public class Project {
     public String studentID;
     private int projectID;
     private String projectTitle;
+    private ArrayList<Supervisor> SupervisorArr = new ArrayList<>();
+    private ArrayList<Student> StudentArr = new ArrayList<>(); 
  
     public Project(String projectTitle, String supervisorID) {
         // Constructor that sets the project's projectID and supervisor ID
