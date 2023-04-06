@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class Student extends User{
     
     enum Status {
-        NEW, REGISTERED, DEREGISTERED
+        NEW, REGISTERED, DEREGISTERED,PENDING,APPROVED
     }
 
     private String studentID;
     private String curProject;
     private Request request;
     private Status status;
-//     private ArrayList<Request> requestsHistory;
+//  private ArrayList<Request> requestsHistory;
     private ArrayList<Project> AvailableProjects;
 
 
@@ -79,9 +79,10 @@ public class Student extends User{
         Request requests = new RequestForRegister(RequestType.REGISTER, this.studentID, "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
         allRequests.add(requests);
         System.out.println("Project Selection Requested. Please wait for approval");
+	return allRequests;
     }
     
-    public Request deregisterProject(){
+    public ArrayList<Request> deregisterProject(){
         //change request to 0 for deregister request
         //change curproject to nothing
         if(projRegistered)
@@ -95,9 +96,10 @@ public class Student extends User{
         Request requests = new RequestForRegister(RequestType.DEREGISTER, this.studentID, "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
         allRequests.add(requests);
         System.out.println("Project deregistration Requested. Please wait for approval");
+	return allRequests;
     }
 
-    public Request changeProjectTitle(int projectID, String newTitle){
+    public Array<Request> changeProjectTitle(int projectID, String newTitle){
         Project project = null;
         for (Project p : projectsSupervising) {
             if (p.getProjectID().equals(projectID)) {
@@ -110,6 +112,8 @@ public class Student extends User{
         }
 	if (project.getSupervisorID().equals(supervisorID)) {
 		Request requests = new RequestForTitleChange(RequestType.TITLECHANGE, this.studentID, "Supervisor", projectID, RequestStatus.PENDING, newSupervisorID);
+		allRequests.add(requests);
+		System.out.println("Project Title Change Requested. Please wait for approval");
 		//student cannot edit need to wait for approval
 		/*project.setProjectTitle(newTitle);
 		modifyProject(project);
@@ -117,10 +121,11 @@ public class Student extends User{
 	} else {
 		System.out.println("You are not allowed to modify this project's title");
 	}
+	 return allRequests;
     }
     
 
-
+    //change to void function
     public ArrayList<Request> viewRequestInfo(){
 	    int i=1;
 	for(Request r : allRequests){
