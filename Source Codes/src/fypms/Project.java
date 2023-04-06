@@ -18,12 +18,6 @@ public class Project {
         this.supervisorID = supervisorID;
     }
   
-    public void setArrayList()
-    {
-    	SupervisorArr = UserIO.getSupervisors();
-    	StudentArr = UserIO.getStudents();
-    }
-    
     
     public Status getStatus() {
       return this.projectStatus;
@@ -59,8 +53,7 @@ public class Project {
     
   
     public void printProjectInfo() {
-     
-    
+            SupervisorArr = UserIO.getSupervisors();
             System.out.printf("Project ID: %d\n", projectID);
             for(int i=0;i<SupervisorArr.size();i++) {
             	if(SupervisorArr.get(i).getSupervisorID() == this.supervisorID)
@@ -79,6 +72,9 @@ public class Project {
     }
     
     public void printAllocated(String studentID) {
+      
+      SupervisorArr = UserIO.getSupervisors();
+    	StudentArr = UserIO.getStudents();
       if (projectStatus == Status.ALLOCATED) {
         
           System.out.println("Allocated Project Information: ");
