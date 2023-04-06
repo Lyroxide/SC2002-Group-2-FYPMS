@@ -1,12 +1,12 @@
 package fypms;
 public class Project {
   
-    public enum Status {
+    protected enum Status {
         AVAILABLE, RESERVED, UNAVAILABLE, ALLOCATED
     }
-    public Status projectStatus;
+    private Status projectStatus;
     private String supervisorID;
-    public String studentID;
+    private String studentID;
     private int projectID;
     private String projectTitle;
     private ArrayList<Supervisor> SupervisorArr = new ArrayList<>();
