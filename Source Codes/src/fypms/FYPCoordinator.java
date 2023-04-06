@@ -1,4 +1,4 @@
-package fypms;
+package sc2002_assignment;
 
 import java.util.ArrayList;
 import java.util.*;
@@ -12,54 +12,150 @@ public class FYPCoordinator extends Supervisor {
 		this.coordinatorID = coordinatorID;
 	}
 	
-	public void changeSupervisor(Supervisor s1, Supervisor s2, Project project) {
-		ArrayList<Project> proj = new ArrayList<>();
-		proj = s1.getProjectsSupervising;
+	public String getCoordinatorID() {
+		return this.coordinatorID;
+	}
+	
+	public void setCoordinatorID(String coordinatorID) {
+		this.coordinatorID = coordinatorID;
+	}
+	
+	public void changeSupervisor(Request request) {
 		
-		for (int i = 0; i < 2; i++) {
-			if (proj.get(i).getProjectID == project.getProjectID) {
-				s1.setProjectsSupervising(null);
-				s2.setProjectsSupervising(project);
-				project.setSupervisorID(s2.getSupervisorID);
+		int newSupID;
+		
+		if (request instanceof RequestForTransfer) {
+			ArrayList<Project> proj = new ArrayList<>();
+			proj = ProjectIO.readProjects();
+			
+			for (int i = 0; i < proj.size(); i++) {
+				if (proj.get(i).getProjectID == request.getProjectID) {
+					newSupID = proj.get(i).getSupervisorID;
+					supNum = superviseNum(newSupID);
+					break;
+				}
+			}
+			
+			if (supNum < 2) {
+				RequestForTransfer.approve(newSupID);
+				RequestIO.modifyRequest(request);
+				
+			}
+			else {
+				System.out.println("Project cannot be transferred to Supervisor " + newSupID
+						+ " because he/she have 2 projects already");
 			}
 		}
-		s1.superviseMax();
-		s2.superviseMax();
+		else {
+			System.out.println("Request is of the wrong type");
+		}
 	}
 	
-	public void allocateProject(Student student, Supervisor supervisor, Project project) {
-		student.setCurProject(project.getProjectID);
-		project.setStudentID(student.getStudentID);
-		supervisor.projectsSupervising.add(project.getProjectID);
-		supervisor.superviseMax();
-	}
-	
-	public void deregisterStudent(Project project, Student student, Supervisor supervisor) {
-		ArrayList<Project> proj = new ArrayList<>();
-		proj = supervisor.getProjectsSupervising;
+	public void allocateProject (Request request) {
 		
-		student.setCurProject(null);
-		student.setProjRegistered(false);
-		project.setProjectStatus("Available");
-		project.setStudentID(null);
-		for (int i = 0; i < 2; i++) {
-			if (proj.get(i).getProjectID == project.getProjectID) {
-				supervisor.setProjectsSupervising(null);
+		int supNum;
+		String supID;
+		
+		if (request instanceof RequestForRegistration) {
+			ArrayList<Project> proj = new ArrayList<>();
+			proj = ProjectIO.readProjects();
+			
+			for (int i = 0; i < proj.size(); i++) {
+				if (proj.get(i).getProjectID == request.getProjectID) {
+					supID = proj.get(i).getSupervisorID;
+					supNum = superviseNum(supID);
+					break;
+				}
+			}
+			if (supNum < 2) {
+				RequestForRegistration.approve(request.getSender());
+				RequestIO.modifyRequest(request);
+				
+				ArrayList<Student> stu = new ArrayList<>();
+				stu = UserIO.getStudents();
+				for (int i = 0; i < stu.size(); i++) {
+					if (stu.get(i).getStudentID == request.getSender()) {
+						stu.get(i).setStatus(Status.REGISTERED);
+						stu.get(i).setCurProject(request.getProjectID());
+						break;
+					}
+				}
+			}
+			else {
+				System.out.println("Supervisor " + supID + " is supervising 2 projects currently already. ");
+				System.out.println("Current request status will remain as PENDING");
 			}
 		}
-		supervisor.superviseMax();
+		else {
+			System.out.println("Request is of the wrong type");
+		}
+	}
+	
+	public void deregisterStudent(Request request) {
+		if (request instanceof RequestForRegistration) {
+			RequestForRegistration.approve(request.getSenderID());
+			RequestIO.modifyRequest(request);
+			
+			ArrayList<Student> stu = new ArrayList<>();
+			stu = UserIO.getStudents();
+			for (int i = 0; i < stu.size(); i++) {
+				if (stu.get(i).getStudentID == request.getSender()) {
+					stu.get(i).setStatus(Status.UNREGISTERED);
+					stu.get(i).setCurProject(null);
+					break;
+				}
+			}
+		}
+		else {
+			System.out.println("Request is of the wrong type");
+		}
+	}
+	
+	/*public void generateReport(int filterType) {
+		
+		int choice, i = 0;
+		Scanner read = new Scanner(System.in);
+		
+		if (filterType == 1) {
+			System.out.println("Generate report by: STATUS");
+			System.out.println("Select Project Status to view:");
+			System.out.println("(1) Available");
+			System.out.println("(2) Unavailable");
+			System.out.println("(3) Reserved");
+			System.out.println("(4) Allocated");
+			System.out.println("(5) All");
+			
+			do {
+				System.out.println("Please select a choice:");
+				choice = read.nextInt();
+				if (choice < 0 || choice > 5) System.out.println("Invalid choice!");
+			} while (choice < 0 || choice > 6);
+			
+			ArrayList<Project> proj = new ArrayList<>();
+			proj = ProjectIO.readProjects();
+			
+			if (choice == 1) {
+				while (i < proj.size()) {
+					if (proj.get(i).getStatus != Status.AVAILABLE)  proj.remove(i);
+					else i++;
+				}
+			}
+			
+		}
 	}
 	
 	
-	public void generateReport(ArrayList<Project> project, ArrayList<Supervisor> supervisor, ArrayList<Student> student, int filterType) {
-		
+	public void generateReport(int filterType) {
+		// old one
 		int choice, index;
 		String type;
 		Scanner read = new Scanner(System.in);
 		ProjectFilter p = new ProjectFilter();
 		
-		// for Project, can readProject() into arraylist and print
-		// but students and supervisor, how do i access all students and supervisor?
+		// argument take in filter type only
+		// read in various file
+		// perform filter
+		// return array list
 		
 		
 		if (filterType == 1) {
@@ -213,16 +309,16 @@ public class FYPCoordinator extends Supervisor {
 		// case 2: filter by supervisor
 		// case 3: filter by student id
 		// case 4: filter by project id
-	}
+	}*/
 	
 	public ArrayList<Request> viewPendingRequest() {
 		ArrayList<Request> req = new ArrayList<>();
 		int i = 0;
 		
-		req = readRequests();
+		req = RequestIO.readRequests();
 		
 		while (i < req.size()) {
-			if (req.get(i).getStatus != RequestStatus.PENDING) req.remove(1);
+			if (req.get(i).getStatus != RequestStatus.PENDING) req.remove(i);
 			else i++;
 		}
 		
@@ -233,7 +329,7 @@ public class FYPCoordinator extends Supervisor {
 		
 		ArrayList<Request> req = new ArrayList<>();
 		
-		req = readRequests();
+		req = RequestIO.readRequests();
 		
 		return req;
 	}
