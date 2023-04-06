@@ -55,6 +55,9 @@ public class Project {
     public void printProjectInfo() {
             SupervisorArr = UserIO.getSupervisors();
             System.out.printf("Project ID: %d ", projectID);
+            System.out.printf("| Project Title: %s", projectTitle);
+            System.out.printf("| Project Status: %s", projectStatus);
+            System.out.printf("| Supervisor ID: %s", supervisorID);
             for(int i=0;i<SupervisorArr.size();i++) {
             	if(SupervisorArr.get(i).getSupervisorID() == this.supervisorID)
             	{
@@ -64,9 +67,8 @@ public class Project {
             	}
       		
             }
-            System.out.printf("| Supervisor ID: %s", supervisorID);
-            System.out.printf("| Project Title: %s", projectTitle);
-            System.out.printf("| Project Status: %s", projectStatus);
+            
+            
     
         
     }
@@ -108,4 +110,14 @@ public class Project {
         }
         
     }
+    public int superviseNum(String supervisorID) {
+      int count = 0;
+      ArrayList<Project> allProjects = ProjectIO.readProjects();
+      for (Project p : allProjects) {
+        if (p.getSupervisorID().equals(supervisorID) && p.getStatus().equals(Status.ALLOCATED)) {
+        count++;
+        }
+     }
+     return count;
+   }
 }
