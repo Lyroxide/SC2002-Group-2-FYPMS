@@ -71,7 +71,7 @@ public class Project {
         
     }
     
-    public void printAllocated(String studentID) {
+    public void printAllocated() {
       
       SupervisorArr = UserIO.getSupervisors();
     	StudentArr = UserIO.getStudents();
@@ -79,6 +79,8 @@ public class Project {
         
           System.out.println("Allocated Project Information: ");
           System.out.printf("Project ID: %d", projectID);
+          System.out.printf("| Project Title: %s", projectTitle);
+          System.out.printf("| Project Status: %s", projectStatus);
         
            //iterate through Supervisor array to find name and email
             for(int i=0;i<SupervisorArr.size();i++) {
@@ -101,8 +103,7 @@ public class Project {
             	}
       		
             }
-            System.out.printf("| Project Title: %s", projectTitle);
-            System.out.printf("| Project Status: %s", projectStatus);
+            
     
         }
         
