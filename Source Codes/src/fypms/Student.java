@@ -12,9 +12,9 @@ public class Student extends User{
 
     private String studentID;
     private String curProject;
+    private int projectID;
     private Request request;
     private Status status;
-//  private ArrayList<Request> requestsHistory;
     private ArrayList<Project> AvailableProjects;
 
 
@@ -24,25 +24,47 @@ public class Student extends User{
 	public Student(String userID, UserLogin userLogin) {
 		super(userLogin);
 		studentID = userID;
-		
-		try {
-		    ArrayList<Request> allRequests = RequestIO.readRequests();
-		} catch (IOException e) {
-		    System.out.println("Error reading requests: " + e.getMessage());
-		}
 	}
 
-	public String getStudentID() {
+	public String getStudentID(){
 	// Returns the student's studentID
 		return studentID;
 	}
-    
+    	
+	//change enum
+	public void setStatus(Status type){
+		this.status = type;
+	}
+	
+	public void setCurProject(int ID){
+		this.curProject = ID;
+	}
+	
+	public int getProjectID(){
+		return this.projectID;
+	}
+	
+	public void viewCurProject(ArrayList<Projects>){
+		//search for Proj ID
+		String title;
+		for(Project project : allProjects){
+			if(project.getProjectID == curProject){
+				title = project.getProjectTitle();
+				break;
+			}	
+		}
+		
+		System.out.println("ProjectID: " + curProject);
+		System.out.println("ProjectTitle: " + title);
+	}
+	
 	//call method from project class
 	public ArrayList<Project> viewAvailableProjects(){
-		if (this.getStatus() != "new") {
+		if (this.Status == NEW || this.Status == REGISTERED) {
 			System.out.println("Sorry, you cannot view available projects at this time.");
 			return null;
 		}
+		
 	ArrayList<Project> availableProjects = new ArrayList<Project>();
 	ArrayList<Project> allProjects; //code next time
 	for (Project project : allProjects) {
@@ -68,15 +90,13 @@ public class Student extends User{
         //return project list
         //should i Assign a project ID to each when reading the projects list at initialization
         //students choose projects based off title or project ID
-        if(projRegistered)
+        if(this.status == REGISTERED)
         {
             System.out.println("Existing project selected, Please deregister before selecting new project");
             break;
         }
-        //set request for project selection
-        requestProj = true;
-        //add request method 
-        Request requests = new RequestForRegister(RequestType.REGISTER, this.studentID, "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
+        //add request method
+        Request requests = new RequestForRegistration(RequestType.ALLOCATION, "student", "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
         allRequests.add(requests);
         System.out.println("Project Selection Requested. Please wait for approval");
 	return allRequests;
@@ -85,15 +105,14 @@ public class Student extends User{
     public ArrayList<Request> deregisterProject(){
         //change request to 0 for deregister request
         //change curproject to nothing
-        if(projRegistered)
+        if(this.status == REGISTERED)
         {
             System.out.println("No Existing project selected.");
-            
         }
         //change request to 0 for deregister request
         //change curproject to nothing
         // this.curProject = null;
-        Request requests = new RequestForRegister(RequestType.DEREGISTER, this.studentID, "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
+        Request requests = new RequestForRegister(RequestType.DEREGISTER, "student" , "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
         allRequests.add(requests);
         System.out.println("Project deregistration Requested. Please wait for approval");
 	return allRequests;
@@ -111,7 +130,7 @@ public class Student extends User{
             System.out.println("Project not found");
         }
 	if (project.getSupervisorID().equals(supervisorID)) {
-		Request requests = new RequestForTitleChange(RequestType.TITLECHANGE, this.studentID, "Supervisor", projectID, RequestStatus.PENDING, newSupervisorID);
+		Request requests = new RequestForTitleChange(RequestType.TITLECHANGE, "student", "Supervisor", projectID, RequestStatus.PENDING, newSupervisorID);
 		allRequests.add(requests);
 		System.out.println("Project Title Change Requested. Please wait for approval");
 		//student cannot edit need to wait for approval
@@ -128,6 +147,11 @@ public class Student extends User{
     //change to void function
     public ArrayList<Request> viewRequestInfo(){
 	    int i=1;
+	    try {
+		    ArrayList<Request> allRequests = RequestIO.readRequests();
+		} catch (IOException e) {
+		    System.out.println("Error reading requests: " + e.getMessage());
+		}
 	for(Request r : allRequests){
 		if(project.getStudetID.equals(studentID){
 			System.out.println(i+")" + " ReqeustType: " +request.getType() + " ,ProjectTitle: "+ project.getProjectTitle+ " ,Status: " + request.getStatus());
@@ -135,4 +159,5 @@ public class Student extends User{
 		i++;   
 	}
     }
-
+   
+ //need to write one function to print request info
