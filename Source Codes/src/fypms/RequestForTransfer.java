@@ -1,65 +1,69 @@
 package fypms;
 
-public abstract class RequestForTransfer extends Request {
-	
-	private String supervisorID;
-	
-	public RequestForTitle(RequestType type, String sender, String receiver, int projectID, RequestStatus status, String supervisorID) {
-		super(request);
-		this.supervisorID = supervisorID;
-	}
-	
-	public void setSupervisorID(String title) {
-		supervisorID = title;
-	}
-	
-	public String getSupervisorID() {
-		return supervisorID;
-	}
-	
-	public void approve(String supervisorID) {
-		Project project = null;
-		ArrayList<Project> allProjects = ProjectIO.readProjects();
+import java.util.ArrayList;
+import java.io.IOException;
+
+public class RequestForTransfer extends Request {
+
+    private String supervisorID;
+
+    public RequestForTransfer(RequestType type, String sender, String receiver, int projectID, RequestStatus status, String supervisorID) {
+        super(type, sender, receiver, projectID, status);
+        this.supervisorID = supervisorID;
+    }
+
+    public void setSupervisorID(String title) {
+        supervisorID = title;
+    }
+
+    public String getSupervisorID() {
+        return supervisorID;
+    }
+
+
+    public void approve(String supervisorID) throws IOException {
+        Project project = null;
+        ArrayList<Project> allProjects = ProjectIO.readProjects();
         for (Project p : allProjects) {
-            if (p.getProjectID().equals(projectID)) {
+            if (p.getProjectID() == getProjectID()) {
                 p.setSupervisorID(supervisorID);
-				ProjectIO.modifyProject(p);
-				project = p;
+                ProjectIO.modifyProject(p);
+                project = p;
                 break;
             }
         }
-		if (project == null) System.out.println("Project Not Found.");
-		else {
-			setStatus(RequestStatus.APPROVED);
-			int num;
-			num = project.superviseNum(project.getSupervisorID());
-			if (num => 2) {
-				for (Project p : allProjects) {
-					if (p.getSupervisorID().equals(supervisorID)) {
-						if (!p.getStatus().equals(Status.ALLOCATED) && !p.getStatus().equals(Status.RESERVED)) {
-							p.setStatus(Status.UNAVAILABLE);
-							ProjectIO.modifyProject(p);
-						}
-					}
-				}
-			} 
-			num = project.superviseNum(sender);
-			if (num == 1)) {
-				for (Project p : allProjects) {
-					if (p.getSupervisorID().equals(sender)) {
-						if (!p.getStatus().equals(Status.ALLOCATED) && !p.getStatus().equals(Status.RESERVED)) {
-							p.setStatus(Status.UNAVAILABLE);
-							ProjectIO.modifyProject(p);
-						}
-					}
-				}
-			}
-		}
-	}
+        if (project == null) System.out.println("Project Not Found.");
+        else {
+            setStatus(RequestStatus.APPROVED);
+            int num;
+            num = project.superviseNum(project.getSupervisorID());
+            if (num >= 2) {
+                for (Project p : allProjects) {
+                    if (p.getSupervisorID().equals(supervisorID)) {
+                        if (!p.getStatus().equals(ProjectStatus.ALLOCATED) && !p.getStatus().equals(ProjectStatus.RESERVED)) {
+                            p.setStatus(ProjectStatus.UNAVAILABLE);
+                            ProjectIO.modifyProject(p);
+                        }
+                    }
+                }
+            }
+            num = project.superviseNum(getSender());
+            if (num == 1) {
+                for (Project p : allProjects) {
+                    if (p.getSupervisorID().equals(getSender())) {
+                        if (!p.getStatus().equals(ProjectStatus.ALLOCATED) && !p.getStatus().equals(ProjectStatus.RESERVED)) {
+                            p.setStatus(ProjectStatus.UNAVAILABLE);
+                            ProjectIO.modifyProject(p);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	public void reject(Request request) {
-		request.setStatus(RequestStatus.REJECTED);
-		RequestIO.modifyRequest(request);
-		System.out.println("You have successfully rejected the request.")
-	}
+    public void reject(Request request) throws IOException {
+        request.setStatus(RequestStatus.REJECTED);
+        RequestIO.modifyRequest(request);
+        System.out.println("You have successfully rejected the request.");
+    }
 }

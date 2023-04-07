@@ -1,269 +1,264 @@
 package fypms;
 
 import java.io.*;
-import java.util.*;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class UserIO {
 
-	private File studentFile = new File("Database/student_list.txt");
-	private File supervisorFile = new File("Database/faculty_list.txt");
-	private File coordinatorFile = new File("Database/fyp_coordinator.txt");
-	
-	private static ArrayList<Student> students = new ArrayList<>;
-	private static ArrayList<Supervisor> supervisors = new ArrayList<>;
-	private static ArrayList<FYPCoordinator> coordinators = new ArrayList<>;
-	
-	private String userID;
-	private String name;
-	private String email;
-	private String password;
-	private static int linecounter = 0;
-	
-	public UserIO() {};
-	
-	public static ArrayList<Student> getStudents() {
-		return students;
-	}
-	
-	public static ArrayList<Supervisor> getSupervisors() {
-		return supervisors;
-	}
-	
-	public ArrayList<FYPCoordinator> getFYPCoordinators() {
-		return coordinators;
-	}
-	
-	public void countStudent() throws IOException {
-		FileReader fr = new FileReader("Database/student_list.txt");
-		BufferedReader br = new BufferedReader(fr);
-		
-		String s;
-		while((s=br.readLine()) != null) {
-			linecounter++;
-		}
-		br.close();
-	}
-	
-	public void readStudentFile() throws IOException {
-		countStudent();
-		
-		FileReader fr = new FileReader("Database/student_list.txt");
-		BufferedReader br = new BufferedReader(fr);
-		
-		String s;
-		int i = 1;
-		while(i <= linecounter) {
-			s = br.readLine();
-			if (s != null) {
-				String[] var = s.split(";");
-				this.name = var[0];
-				this.email = var[1];
-				this.userID = this.email.split("@")[0];
-				this.password = var[2];
-				addStudent();
-			}
-			i++;
-		}
-	}
-	
-	public void writeStudentPassword(String userID, String newPassword) throws IOException, Exception {
-		try {
-			countStudent();
-			
-			BufferedReader reader = new BufferedReader(new FileReader(studentFile));
-			ArrayList<String> lines = new ArrayList<String>();
-			String line;
-			while ((line = reader.readLine()) != null) {
-				lines.add(line);
-			}
-			reader.close();
+    private static final File studentFile = new File("Database/student_list.txt");
+    private static final File supervisorFile = new File("Database/faculty_list.txt");
+    private static final File coordinatorFile = new File("Database/fyp_coordinator.txt");
 
+    public UserIO() {}
 
-			String domain = "@e.ntu.edu.sg";
-			
-			while(i <= linecounter) {
-				if (lines.get(i).contains(userID + domain)) {
-					String[] parts = lines.get(i).split(";");
-					parts[2] = newPassword; // Update the password in the line
-					lines.set(i, String.join(";", parts)); // Join the parts back into a line and update the ArrayList
-				}
-				i++;
-			}
+    public static ArrayList<Student> readStudents() {
+        ArrayList<Student> students = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(studentFile))) {
+            String line;
 
-			FileWriter writer = new FileWriter(studentFile); // Overwrite the file
-			for (String str : lines) {
-				writer.write(str + "\n"); // Write the updated lines to the file
-			}
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void addStudent() {
-		Student st = new Student();
-		
-		st.setName(name);
-		st.setEmail(email);
-		st.setUserID(userID);
-		
-		students.add(st);
-	}
-	
-	public void countSupervisor() throws IOException {
-		FileReader fr = new FileReader("Database/faculty_list.txt");
-		BufferedReader br = new BufferedReader(fr);
-		
-		String s;
-		while((s=br.readLine()) != null) {
-			linecounter++;
-		}
-		br.close();
-	}
-	
-	public void readSupervisorFile() throws IOException {
-		countSupervsior();
-		
-		FileReader fr = new FileReader("Database/faculty_list.txt");
-		BufferedReader br = new BufferedReader(fr);
-		
-		String s;
-		int i = 1;
-		while(i <= linecounter) {
-			s = br.readLine();
-			if (s != null) {
-				String[] var = s.split(";");
-				this.name = var[0];
-				this.email = var[1];
-				this.userID = this.email.split("@")[0];
-				this.password = var[2];
-				addSupervisor();
-			}
-			i++;
-		}
-	}
-	
-	public void writeSupervisorPassword(String userID, String newPassword) throws IOException, Exception {
-		try {
-			countSupervisor();
-			
-			BufferedReader reader = new BufferedReader(new FileReader(supervisorFile));
-			ArrayList<String> lines = new ArrayList<String>();
-			String line;
-			while ((line = reader.readLine()) != null) {
-				lines.add(line);
-			}
-			reader.close();
+            while ((line = reader.readLine()) != null) {
 
+                String[] tokens = line.split(";");
+                String name = tokens[0];
+                String email = tokens[1];
+                String userID = tokens[1].split("@")[0];
+                String password = tokens[2];
+                StudentStatus status = StudentStatus.valueOf(tokens[3]);
 
-			String domain = "@ntu.edu.sg";
-			
-			while(i <= linecounter) {
-				if (lines.get(i).contains(userID + domain)) {
-					String[] parts = lines.get(i).split(";");
-					parts[2] = newPassword; // Update the password in the line
-					lines.set(i, String.join(";", parts)); // Join the parts back into a line and update the ArrayList
-				}
-				i++;
-			}
+                Student student = new Student();
+                student.setName(name);
+                student.setEmail(email);
+                student.setStudentID(userID);
+                student.setPassword(password);
+                student.setStatus(status);
+                student.setUserType(UserType.STUDENT);
+                students.add(student);
+            }
+        } catch(Exception e) {
+            e.printStackTrace(System.out);
+        }
 
-			FileWriter writer = new FileWriter(supervisorFile); // Overwrite the file
-			for (String str : lines) {
-				writer.write(str + "\n"); // Write the updated lines to the file
-			}
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void addSupervisor() {
-		Supervisor st = new Supervisor();
-		
-		st.setName(name);
-		st.setEmail(email);
-		st.setUserID(userID);
-		
-		supervisors.add(st);
-	}
-	
-	public void countCoordinator() throws IOException {
-		FileReader fr = new FileReader("Database/fyo_coordinator.txt");
-		BufferedReader br = new BufferedReader(fr);
-		
-		String s;
-		while((s=br.readLine()) != null) {
-			linecounter++;
-		}
-		br.close();
-	}
-	
-	public void readCoordinatorFile() throws IOException {
-		countCoordinator();
-		
-		FileReader fr = new FileReader("Database/fyp_coordinator.txt");
-		BufferedReader br = new BufferedReader(fr);
-		
-		String s;
-		int i = 1;
-		while(i <= linecounter) {
-			s = br.readLine();
-			if (s != null) {
-				String[] var = s.split(";");
-				this.name = var[0];
-				this.email = var[1];
-				this.userID = this.email.split("@")[0];
-				this.password = var[2];
-				addCoordinator();
-			}
-			i++;
-		}
-	}
-	
-	public void writeSupervisorPassword(String userID, String newPassword) throws IOException, Exception {
-		try {
-			countSupervisor();
-			
-			BufferedReader reader = new BufferedReader(new FileReader(coordinatorFile));
-			ArrayList<String> lines = new ArrayList<String>();
-			String line;
-			while ((line = reader.readLine()) != null) {
-				lines.add(line);
-			}
-			reader.close();
+        return students;
+    }
 
+    public static void writeStudentPassword(String name, String newPassword) throws IOException {
+        ArrayList<Student> students = readStudents();
+        Student student = new Student();
+        for (Student s : students) {
+            if (s.getName().equals(name)) {
+                student = s;
+                break;
+            }
+        }
 
-			String domain = "@ntu.edu.sg";
-			
-			while(i <= linecounter) {
-				if (lines.get(i).contains(userID + domain)) {
-					String[] parts = lines.get(i).split(";");
-					parts[2] = newPassword; // Update the password in the line
-					lines.set(i, String.join(";", parts)); // Join the parts back into a line and update the ArrayList
-				}
-				i++;
-			}
+        String newLine = student.getName() + ";" + student.getEmail() + ";" + newPassword + ";" + student.getStatus();
 
-			FileWriter writer = new FileWriter(coordinatorFile); // Overwrite the file
-			for (String str : lines) {
-				writer.write(str + "\n"); // Write the updated lines to the file
-			}
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void addCoordinator() {
-		FYPCoordinator fy = new FYPCoordinator();
-		
-		fy.setName(name);
-		fy.setEmail(email);
-		fy.setUserID(userID);
-		
-		supervisors.add(fy);
-	}
-	
+        // Create temporary file
+        File tempFile = new File(studentFile.getAbsolutePath() + ".tmp");
+        BufferedReader reader = new BufferedReader(new FileReader(studentFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        // Read each line and modify the line corresponding to the project ID
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.startsWith(String.valueOf(student.getName()))) {
+                writer.write(newLine);
+            } else {
+                writer.write(line);
+            }
+            writer.newLine();
+        }
+
+        reader.close();
+        writer.close();
+
+        // Replace project file with temporary file
+        if (!studentFile.delete()) {
+            System.out.println("Failed to delete original file");
+            return;
+        }
+
+        if (!tempFile.renameTo(studentFile)) {
+            System.out.println("Failed to rename temporary file");
+            return;
+        }
+    }
+
+    public static void writeStudentStatus(Student student) throws IOException {
+
+        String newLine = student.getName() + ";" + student.getEmail() + ";" + student.getPassword() + ";" + student.getStatus();
+
+        // Create temporary file
+        File tempFile = new File(studentFile.getAbsolutePath() + ".tmp");
+        BufferedReader reader = new BufferedReader(new FileReader(studentFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        // Read each line and modify the line corresponding to the project ID
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.startsWith(String.valueOf(student.getName()))) {
+                writer.write(newLine);
+            } else {
+                writer.write(line);
+            }
+            writer.newLine();
+        }
+
+        reader.close();
+        writer.close();
+
+        // Replace project file with temporary file
+        if (!studentFile.delete()) {
+            System.out.println("Failed to delete original file");
+            return;
+        }
+
+        if (!tempFile.renameTo(studentFile)) {
+            System.out.println("Failed to rename temporary file");
+            return;
+        }
+    }
+
+    public static ArrayList<Supervisor> readSupervisors() {
+        ArrayList<Supervisor> supervisors = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(supervisorFile))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] tokens = line.split(";");
+                String name = tokens[0];
+                String email = tokens[1];
+                String userID = tokens[1].split("@")[0];
+                String password = tokens[2];
+
+                Supervisor supervisor = new Supervisor();
+                supervisor.setName(name);
+                supervisor.setEmail(email);
+                supervisor.setSupervisorID(userID);
+                supervisor.setPassword(password);
+                supervisor.setUserType(UserType.SUPERVISOR);
+                supervisors.add(supervisor);
+            }
+        } catch(Exception e) {
+            e.printStackTrace(System.out);
+        }
+
+        return supervisors;
+    }
+
+    public static void writeSupervisorPassword(String name, String newPassword) throws IOException {
+        ArrayList<Supervisor> supervisors = readSupervisors();
+        Supervisor supervisor = new Supervisor();
+        for (Supervisor s : supervisors) {
+            if (s.getName().equals(name)) {
+                supervisor = s;
+                break;
+            }
+        }
+
+        String newLine = supervisor.getName() + ";" + supervisor.getEmail() + ";" + newPassword;
+
+        // Create temporary file
+        File tempFile = new File(supervisorFile.getAbsolutePath() + ".tmp");
+        BufferedReader reader = new BufferedReader(new FileReader(supervisorFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        // Read each line and modify the line corresponding to the project ID
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.startsWith(String.valueOf(supervisor.getName()))) {
+                writer.write(newLine);
+            } else {
+                writer.write(line);
+            }
+            writer.newLine();
+        }
+
+        reader.close();
+        writer.close();
+
+        // Replace project file with temporary file
+        if (!supervisorFile.delete()) {
+            System.out.println("Failed to delete original file");
+            return;
+        }
+
+        if (!tempFile.renameTo(supervisorFile)) {
+            System.out.println("Failed to rename temporary file");
+            return;
+        }
+    }
+
+    public static ArrayList<FYPCoordinator> readFYPCoordinator() {
+        ArrayList<FYPCoordinator> coordinators = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(coordinatorFile))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] tokens = line.split(";");
+                String name = tokens[0];
+                String email = tokens[1];
+                String userID = tokens[1].split("@")[0];
+                String password = tokens[2];
+
+                FYPCoordinator coordinator = new FYPCoordinator();
+                coordinator.setName(name);
+                coordinator.setEmail(email);
+                coordinator.setCoordinatorID(userID);
+                coordinator.setPassword(password);
+                coordinator.setUserType(UserType.FYPCOORDINATOR);
+                coordinators.add(coordinator);
+            }
+        } catch(Exception e) {
+            e.printStackTrace(System.out);
+        }
+
+        return coordinators;
+    }
+
+    public static void writeCoordinatorPassword(String name, String newPassword) throws IOException {
+        ArrayList<FYPCoordinator> coordinators = readFYPCoordinator();
+        FYPCoordinator coordinator = new FYPCoordinator();
+        for (FYPCoordinator f : coordinators) {
+            if (f.getName().equals(name)) {
+                coordinator = f;
+                break;
+            }
+        }
+
+        String newLine = coordinator.getName() + ";" + coordinator.getEmail() + ";" + newPassword;
+
+        // Create temporary file
+        File tempFile = new File(coordinatorFile.getAbsolutePath() + ".tmp");
+        BufferedReader reader = new BufferedReader(new FileReader(coordinatorFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        // Read each line and modify the line corresponding to the project ID
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.startsWith(String.valueOf(coordinator.getName()))) {
+                writer.write(newLine);
+            } else {
+                writer.write(line);
+            }
+            writer.newLine();
+        }
+
+        reader.close();
+        writer.close();
+
+        // Replace project file with temporary file
+        if (!coordinatorFile.delete()) {
+            System.out.println("Failed to delete original file");
+            return;
+        }
+
+        if (!tempFile.renameTo(coordinatorFile)) {
+            System.out.println("Failed to rename temporary file");
+            return;
+        }
+    }
+
 }

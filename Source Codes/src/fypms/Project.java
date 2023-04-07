@@ -1,126 +1,116 @@
 package fypms;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Project {
-  
-    protected enum Status {
-        AVAILABLE, RESERVED, UNAVAILABLE, ALLOCATED
-    }
-    private Status projectStatus;
+
+    private ProjectStatus projectStatus;
     private String supervisorID;
     private String studentID;
     private int projectID;
     private String projectTitle;
-    private ArrayList<Supervisor> SupervisorArr = new ArrayList<>();
-    private ArrayList<Student> StudentArr = new ArrayList<>(); 
- 
+
     public Project(String projectTitle, String supervisorID) {
         // Constructor that sets the project's projectID and supervisor ID
         this.projectTitle= projectTitle;
         this.supervisorID = supervisorID;
     }
-  
-    
-    public Status getStatus() {
-      return this.projectStatus;
+
+
+    public ProjectStatus getStatus() {
+        return this.projectStatus;
     }
-    
-    public void setStatus(Status status) {
-      this.projectStatus = status;
+
+    public void setStatus(ProjectStatus status) {
+        this.projectStatus = status;
     }
-    
+
     public String getSupervisorID() {
-      return this.supervisorID;
+        return this.supervisorID;
     }
-    
+
+    public void setSupervisorID(String supervisorID) { this.supervisorID = supervisorID; }
+
     public String getStudentID() {
-      return this.studentID;
+        return this.studentID;
     }
-    
+
     public void setStudentID(String studentID) {
-      this.studentID = studentID;
+        this.studentID = studentID;
     }
-    
+
     public void setProjectID(int projectID) {
-      this.projectID = projectID;
+        this.projectID = projectID;
     }
-    
+
     public int getProjectID() {
-      return this.projectID;
+        return this.projectID;
     }
-    
+
     public String getProjectTitle() {
-      return this.projectTitle;
+        return this.projectTitle;
     }
-    
-  
+
+    public void setProjectTitle(String title) { this.projectTitle = title; }
+
+
     public void printProjectInfo() {
-            SupervisorArr = UserIO.getSupervisors();
-            System.out.printf("Project ID: %d ", projectID);
-            System.out.printf("| Project Title: %s", projectTitle);
-            System.out.printf("| Project Status: %s", projectStatus);
-            System.out.printf("| Supervisor ID: %s", supervisorID);
-            for(int i=0;i<SupervisorArr.size();i++) {
-            	if(SupervisorArr.get(i).getSupervisorID() == this.supervisorID)
-            	{
-            		System.out.printf("| Supervisor Name: %s ", SupervisorArr.get(i).getName());
-            		System.out.printf("| Supervisor Email: %s", SupervisorArr.get(i).getEmail());
-            		
-            	}
-      		
+        ArrayList<Supervisor> SupervisorArr = UserIO.readSupervisors();
+        System.out.printf("Project ID: %d ", projectID);
+        System.out.printf("| Project Title: %s\n", projectTitle);
+        System.out.printf("Project Status: %s ", projectStatus);
+        System.out.printf("| Supervisor ID: %s ", supervisorID);
+        for (Supervisor supervisor : SupervisorArr) {
+            if (Objects.equals(supervisor.getSupervisorID(), this.supervisorID)) {
+                System.out.printf("| Supervisor Name: %s ", supervisor.getName());
+                System.out.printf("| Supervisor Email: %s ", supervisor.getEmail());
             }
-            
-            
-    
-        
+        }
+        System.out.println();
+        System.out.println();
     }
-    
+
     public void printAllocated() {
-      
-      SupervisorArr = UserIO.getSupervisors();
-    	StudentArr = UserIO.getStudents();
-      if (projectStatus == Status.ALLOCATED) {
-        
-          System.out.println("Allocated Project Information: ");
-          System.out.printf("Project ID: %d", projectID);
-          System.out.printf("| Project Title: %s", projectTitle);
-          System.out.printf("| Project Status: %s", projectStatus);
-        
-           //iterate through Supervisor array to find name and email
-            for(int i=0;i<SupervisorArr.size();i++) {
-            	if(SupervisorArr.get(i).getSupervisorID() == this.supervisorID)
-            	{
-            		System.out.printf("| Supervisor Name: %s", SupervisorArr.get(i).getName());
-            		System.out.printf("| Supervisor Email: %s", SupervisorArr.get(i).getEmail());
-            		
-            	}
-      		
+        ArrayList<Supervisor> SupervisorArr = UserIO.readSupervisors();
+        ArrayList<Student> StudentArr = UserIO.readStudents();
+        if (projectStatus == ProjectStatus.ALLOCATED) {
+
+            System.out.println("Allocated Project Information: ");
+            System.out.printf("Project ID: %d", projectID);
+            System.out.printf("| Project Title: %s\n", projectTitle);
+            System.out.printf("Project Status: %s ", projectStatus);
+            System.out.printf("| Supervisor ID: %s ", supervisorID);
+            //iterate through Supervisor array to find name and email
+            for (Supervisor supervisor : SupervisorArr) {
+                if (Objects.equals(supervisor.getSupervisorID(), this.supervisorID)) {
+                    System.out.printf("| Supervisor Name: %s ", supervisor.getName());
+                    System.out.printf("| Supervisor Email: %s", supervisor.getEmail());
+                }
+
             }
-        
+
             //iterates through student Array to get name and email
-            for(int i=0;i<StudentArr.size();i++) {
-            	if(StudentArr.get(i).getStudentID() == this.studentID)
-            	{
-            		System.out.printf("| Student Name: %s", StudentArr.get(i).getName());
-            		System.out.printf("| Student Email: %s", StudentArr.get(i).getEmail());
-            		
-            	}
-      		
+            for (Student student : StudentArr) {
+                if (Objects.equals(student.getStudentID(), this.studentID)) {
+                    System.out.printf("| Student Name: %s", student.getName());
+                    System.out.printf("| Student Email: %s", student.getEmail());
+                }
             }
-            
-    
+            System.out.println();
+            System.out.println();
         }
-        
     }
-    public int superviseNum(String supervisorID) {
-      int count = 0;
-      ArrayList<Project> allProjects = ProjectIO.readProjects();
-      for (Project p : allProjects) {
-        if (p.getSupervisorID().equals(supervisorID) && p.getStatus().equals(Status.ALLOCATED)) {
-        count++;
+
+    public int superviseNum(String supervisorID) throws IOException {
+        int count = 0;
+        ArrayList<Project> allProjects = ProjectIO.readProjects();
+        for (Project p : allProjects) {
+            if (p.getSupervisorID().equals(supervisorID) && p.getStatus().equals(ProjectStatus.ALLOCATED)) {
+                count++;
+            }
         }
-     }
-     return count;
-   }
+        return count;
+    }
 }

@@ -1,63 +1,66 @@
 package fypms;
 
-public abstract class RequestForRegistration extends Request {
-	
-	public RequestForRegistration(RequestType type, String sender, String receiver, int projectID, RequestStatus status) {
-		super(request);
-	}
-	
-	public void approve(String studentID) {
-		Project project = null;
-		ArrayList<Project> allProjects = ProjectIO.readProjects();
+import java.io.*;
+import java.util.ArrayList;
+
+public class RequestForRegistration extends Request {
+
+    public RequestForRegistration(RequestType type, String sender, String receiver, int projectID, RequestStatus status) {
+        super(type, sender, receiver, projectID, status);
+    }
+
+    public void approve(String studentID) throws IOException {
+        Project project = null;
+        ArrayList<Project> allProjects = ProjectIO.readProjects();
         for (Project p : allProjects) {
-            if (p.getProjectID().equals(projectID)) {
+            if (p.getProjectID() == getProjectID()) {
                 p.setStudentID(studentID);
-				if (type.equals(RequestType.ALLOCATION) p.setStatus(Status.ALLOCATED);
-				else if (type.equals(RequestType.DEREGISTRATION) p.setStatus(Status.AVAILABLE);
-				ProjectIO.modifyProject(p);
-				project = p;
+                if (getType().equals(RequestType.ALLOCATION)) p.setStatus(ProjectStatus.ALLOCATED);
+                else if (getType().equals(RequestType.DEREGISTRATION)) p.setStatus(ProjectStatus.AVAILABLE);
+                ProjectIO.modifyProject(p);
+                project = p;
                 break;
             }
         }
-		if (project == null) System.out.println("Project Not Found.");
-		else {
-			setStatus(RequestStatus.APPROVED);
-			supervisorID = project.getSupervisorID();
-			int num;
-			num = project.superviseNum(supervisorID);
-			if (num => 2) {
-				for (Project p : allProjects) {
-					if (p.getSupervisorID().equals(supervisorID)) {
-						if (!p.getStatus().equals(Status.ALLOCATED) && !p.getStatus().equals(Status.RESERVED)) {
-							p.setStatus(Status.UNAVAILABLE);
-							ProjectIO.modifyProject(p);
-						}
-					}
-				}
-			} else if (num == 1 && type.equals(RequestType.DEREGISTRATION)) {
-				for (Project p : allProjects) {
-					if (p.getSupervisorID().equals(supervisorID)) {
-						if (!p.getStatus().equals(Status.ALLOCATED) && !p.getStatus().equals(Status.RESERVED)) {
-							p.setStatus(Status.UNAVAILABLE);
-							ProjectIO.modifyProject(p);
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	public void reject(Request request) {
-		request.setStatus(RequestStatus.REJECTED);
-		RequestIO.modifyRequest(request);
-		ArrayList<Student> allStudents = UserIO.getStudents();
-		for (Student s : allStudents) {
-			if (s.getStudentID().equals(request.getSender())) {
-				if (type.equals(RequestType.ALLOCATION) {
-					s.setStatus(Status.NEW);
-				}
-			}
-		}
-		System.out.println("You have successfully rejected the request.");
-	}
+        if (project == null) System.out.println("Project Not Found.");
+        else {
+            setStatus(RequestStatus.APPROVED);
+            String supervisorID = project.getSupervisorID();
+            int num;
+            num = project.superviseNum(supervisorID);
+            if (num >= 2) {
+                for (Project p : allProjects) {
+                    if (p.getSupervisorID().equals(supervisorID)) {
+                        if (!p.getStatus().equals(ProjectStatus.ALLOCATED) && !p.getStatus().equals(ProjectStatus.RESERVED)) {
+                            p.setStatus(ProjectStatus.UNAVAILABLE);
+                            ProjectIO.modifyProject(p);
+                        }
+                    }
+                }
+            } else if (num == 1 && getType().equals(RequestType.DEREGISTRATION)) {
+                for (Project p : allProjects) {
+                    if (p.getSupervisorID().equals(supervisorID)) {
+                        if (!p.getStatus().equals(ProjectStatus.ALLOCATED) && !p.getStatus().equals(ProjectStatus.RESERVED)) {
+                            p.setStatus(ProjectStatus.UNAVAILABLE);
+                            ProjectIO.modifyProject(p);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void reject(Request request) throws IOException {
+        request.setStatus(RequestStatus.REJECTED);
+        RequestIO.modifyRequest(request);
+        ArrayList<Student> allStudents = UserIO.readStudents();
+        for (Student s : allStudents) {
+            if (s.getStudentID().equals(request.getSender())) {
+                if (getType().equals(RequestType.ALLOCATION)) {
+                    s.setStatus(StudentStatus.NEW);
+                }
+            }
+        }
+        System.out.println("You have successfully rejected the request.");
+    }
 }

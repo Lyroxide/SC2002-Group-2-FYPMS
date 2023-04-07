@@ -1,59 +1,60 @@
 package fypms;
 
-import java.io.*;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class UserLogin {
-    private String userID;
-    private String password;
-	private String userType;
 
-    public UserLogin(String userID, String password) {
-        this.userID = userID;
-        this.password = password;
-    }
+    private String userType;
 
-    public boolean verifyUser(ArrayList<Student> students, ArrayList<Supervisor> supervisors, ArrayList<FYPCoordinator> coordinators) {
+    public UserLogin() {}
+
+    public boolean verifyUser(String userID) {
+        ArrayList<Student> students = UserIO.readStudents();
+        ArrayList<Supervisor> supervisors = UserIO.readSupervisors();
+        ArrayList<FYPCoordinator> coordinators = UserIO.readFYPCoordinator();
+
         for (Student student : students) {
-            if (student.getUserID().equals(this.userID)) {
+            if (student.getStudentID().equals(userID)) {
                 return true;
             }
         }
 
         for (Supervisor supervisor : supervisors) {
-            if (supervisor.getUserID().equals(this.userID)) {
+            if (supervisor.getSupervisorID().equals(userID)) {
                 return true;
             }
         }
-		
-		for (FYPCoordinator coordinator : coordinators) {
-            if (coordinator.getUserID().equals(this.userID)) {
+
+        for (FYPCoordinator coordinator : coordinators) {
+            if (coordinator.getCoordinatorID().equals(userID)) {
                 return true;
             }
         }
 
         return false;
     }
-    
-	
-	public boolean verifyUserAndPass(ArrayList<Student> students, ArrayList<Supervisor> supervisors, ArrayList<FYPCoordinator> coordinators) {
+
+
+    public boolean verifyUserAndPass(String userID, String password) {
+        ArrayList<Student> students = UserIO.readStudents();
+        ArrayList<Supervisor> supervisors = UserIO.readSupervisors();
+        ArrayList<FYPCoordinator> coordinators = UserIO.readFYPCoordinator();
         for (Student student : students) {
-            if (student.getUserID().equals(this.userID) && student.getPassword().equals(this.password)) {
+            if (student.getStudentID().equals(userID) && student.getPassword().equals(password)) {
                 this.userType = "student";
                 return true;
             }
         }
 
         for (Supervisor supervisor : supervisors) {
-            if (supervisor.getUserID().equals(this.userID) && supervisor.getPassword().equals(this.password)) {
+            if (supervisor.getSupervisorID().equals(userID) && supervisor.getPassword().equals(password)) {
                 this.userType = "supervisor";
                 return true;
             }
         }
-		
-		for (FYPCoordinator coordinator : coordinators) {
-            if (coordinator.getUserID().equals(this.userID) && coordinator.getPassword().equals(this.password)) {
+
+        for (FYPCoordinator coordinator : coordinators) {
+            if (coordinator.getCoordinatorID().equals(userID) && coordinator.getPassword().equals(password)) {
                 this.userType = "coordinator";
                 return true;
             }
@@ -62,23 +63,7 @@ public class UserLogin {
         return false;
     }
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-	
-	public String setUserID(String userID) {
-		this.userID = userID;
-	}
-
-    public void setPassword(String newPassword) {
-        this.password = newPassword;
-    }
-
     public String getUserType() {
-		return userType;
-	}
+        return userType;
+    }
 }
