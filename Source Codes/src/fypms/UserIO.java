@@ -24,6 +24,7 @@ public class UserIO {
                 String userID = tokens[1].split("@")[0];
                 String password = tokens[2];
                 StudentStatus status = StudentStatus.valueOf(tokens[3]);
+                int curProject = Integer.parseInt(tokens[4]);
 
                 Student student = new Student();
                 student.setName(name);
@@ -32,6 +33,7 @@ public class UserIO {
                 student.setPassword(password);
                 student.setStatus(status);
                 student.setUserType(UserType.STUDENT);
+                student.setCurProject(curProject);
                 students.add(student);
             }
         } catch(Exception e) {
@@ -51,7 +53,7 @@ public class UserIO {
             }
         }
 
-        String newLine = student.getName() + ";" + student.getEmail() + ";" + newPassword + ";" + student.getStatus();
+        String newLine = student.getName() + ";" + student.getEmail() + ";" + newPassword + ";" + student.getStatus() + ";" + student.getCurProject();
 
         // Create temporary file
         File tempFile = new File(studentFile.getAbsolutePath() + ".tmp");
@@ -86,7 +88,7 @@ public class UserIO {
 
     public static void writeStudentStatus(Student student) throws IOException {
 
-        String newLine = student.getName() + ";" + student.getEmail() + ";" + student.getPassword() + ";" + student.getStatus();
+        String newLine = student.getName() + ";" + student.getEmail() + ";" + student.getPassword() + ";" + student.getStatus() + ";" + student.getCurProject();
 
         // Create temporary file
         File tempFile = new File(studentFile.getAbsolutePath() + ".tmp");

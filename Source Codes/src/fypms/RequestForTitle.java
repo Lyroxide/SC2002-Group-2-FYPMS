@@ -33,6 +33,7 @@ public class RequestForTitle extends Request {
         }
         if (project == null) System.out.println("Project Not Found.");
         else {
+            System.out.println("You have approved request.");
             setStatus(RequestStatus.APPROVED);
         }
     }

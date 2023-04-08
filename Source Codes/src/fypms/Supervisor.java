@@ -21,6 +21,9 @@ public class Supervisor extends User {
 
     public void createProject(String projectTitle) throws IOException {
         Project project = new Project(projectTitle, supervisorID);
+        if (project.superviseNum(supervisorID) >= 2) {
+            project.setStatus(ProjectStatus.UNAVAILABLE);
+        }
         ProjectIO.writeProject(project);
         System.out.println("Project created successfully");
     }
@@ -45,6 +48,17 @@ public class Supervisor extends User {
         ArrayList<Project> allProjects = ProjectIO.readProjects();
         for (Project project : allProjects) {
             if (project.getSupervisorID().equals(this.supervisorID)) {
+                ownProjects.add(project);
+            }
+        }
+        return ownProjects;
+    }
+
+    public ArrayList<Project> viewAllocatedProjects() throws IOException {
+        ArrayList<Project> ownProjects = new ArrayList<>();
+        ArrayList<Project> allProjects = ProjectIO.readProjects();
+        for (Project project : allProjects) {
+            if (project.getSupervisorID().equals(this.supervisorID) && project.getStatus().equals(ProjectStatus.ALLOCATED)) {
                 ownProjects.add(project);
             }
         }
@@ -76,22 +90,12 @@ public class Supervisor extends User {
         return pendingRequests;
     }
 
-    public ArrayList<Request> viewRequests(int choice) throws IOException {
+    public ArrayList<Request> viewRequests() throws IOException {
         ArrayList<Request> requests = new ArrayList<>();
         ArrayList<Request> allRequests = RequestIO.readRequests();
-        if (choice == 1) {
-            //incoming
-            for (Request request : allRequests) {
-                if (request.getReceiver().equals(this.supervisorID)) {
-                    requests.add(request);
-                }
-            }
-        } else if (choice == 2) {
-            //outgoing
-            for (Request request : allRequests) {
-                if (request.getSender().equals(this.supervisorID)) {
-                    requests.add(request);
-                }
+        for (Request request : allRequests) {
+            if (request.getReceiver().equals(supervisorID) && !request.getStatus().equals(RequestStatus.PENDING)) {
+                requests.add(request);
             }
         }
         return requests;

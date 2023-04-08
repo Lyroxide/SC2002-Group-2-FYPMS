@@ -12,7 +12,9 @@ public class RequestIO {
             String line;
 
             while ((line = reader.readLine()) != null) {
-
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
                 String[] tokens = line.split(";");
                 int requestID = Integer.parseInt(tokens[0]);
                 RequestType type = RequestType.valueOf(tokens[1]);
@@ -36,15 +38,12 @@ public class RequestIO {
                     }
                     default -> throw new IllegalArgumentException("Invalid request type: " + type);
                 }
-
                 request.setRequestID(requestID);
-
                 requests.add(request);
             }
         } catch(Exception e) {
             e.printStackTrace(System.out);
         }
-
         return requests;
     }
 

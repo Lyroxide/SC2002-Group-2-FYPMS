@@ -78,7 +78,7 @@ public class MainApp {
                                 System.out.println("8. Logout");
                                 System.out.print("Enter your choice: ");
 
-
+                                try {
                                     student_choice = sc.nextInt();
                                     sc.nextLine();
                                     switch (student_choice) {
@@ -89,14 +89,11 @@ public class MainApp {
                                                 for (Project p : proj) {
                                                     p.printProjectInfo();
                                                 }
-                                            }
-                                            else if (student.getStatus().equals(StudentStatus.PENDING)) {
+                                            } else if (student.getStatus().equals(StudentStatus.PENDING)) {
                                                 System.out.println("Please wait for your selection request to be processed first.");
-                                            }
-                                            else if (student.getStatus().equals(StudentStatus.REGISTERED)) {
+                                            } else if (student.getStatus().equals(StudentStatus.REGISTERED)) {
                                                 System.out.println("You are already allocated a project.");
-                                            }
-                                            else if (student.getStatus().equals(StudentStatus.DEREGISTERED)) {
+                                            } else if (student.getStatus().equals(StudentStatus.DEREGISTERED)) {
                                                 System.out.println("You cannot view projects after de-registration.");
                                             }
                                             break;
@@ -111,14 +108,11 @@ public class MainApp {
                                                 } catch (IOException e) {
                                                     System.err.println("Invalid input.");
                                                 }
-                                            }
-                                            else if (student.getStatus().equals(StudentStatus.PENDING)) {
+                                            } else if (student.getStatus().equals(StudentStatus.PENDING)) {
                                                 System.out.println("Please wait for your selection request to be processed first.");
-                                            }
-                                            else if (student.getStatus().equals(StudentStatus.REGISTERED)) {
+                                            } else if (student.getStatus().equals(StudentStatus.REGISTERED)) {
                                                 System.out.println("You are already allocated a project.");
-                                            }
-                                            else if (student.getStatus().equals(StudentStatus.DEREGISTERED)) {
+                                            } else if (student.getStatus().equals(StudentStatus.DEREGISTERED)) {
                                                 System.out.println("You cannot select a project after de-registration.");
                                             }
                                             break;
@@ -137,23 +131,29 @@ public class MainApp {
                                             if (student.getStatus().equals(StudentStatus.REGISTERED)) {
                                                 System.out.print("Enter New Title: ");
                                                 String newTitle = sc.nextLine();
-                                                sc.nextLine();
-                                                student.changeProjectTitle(newTitle);
+                                                if (!newTitle.isEmpty())
+                                                    student.changeProjectTitle(newTitle);
+                                                else System.out.println("Invalid Input.");
                                             } else System.out.println("You have not registered a project.");
                                             break;
                                         case 5: //r: deregister
-                                            if (student.getStatus().equals(StudentStatus.DEREGISTERED)) {
+                                            if (student.getStatus().equals(StudentStatus.REGISTERED)) {
                                                 System.out.println("Warning: After de-registration, you would not be able to register for a project anymore. Continue?");
                                                 System.out.println("(Y) Continue | (Any Key) Exit");
                                                 String confirm = sc.nextLine();
                                                 if (confirm.equals("Y")) {
                                                     student.deregisterProject();
                                                 }
+                                            } else {
+                                                System.out.println("You are not allocated a project.");
                                             }
-                                            else { System.out.println("You are not allocated a project."); }
                                             break;
                                         case 6: //view request history
                                             ArrayList<Request> allReq = student.viewRequests(student.getStudentID());
+                                            if (allReq.isEmpty()) {
+                                                System.out.println("Either you have not made any requests, or none of your requests has been processed.");
+                                                break;
+                                            }
                                             for (Request r : allReq) {
                                                 RequestIO.printRequestInfo(r);
                                             }
@@ -184,6 +184,9 @@ public class MainApp {
                                         default:
                                             System.err.println("Invalid input!");
                                     }
+                                } catch (IOException e) {
+                                    System.err.println("Invalid input!");
+                                }
                             } while (student_choice != 8 && !pwChanged);
                             System.out.println("Returning to main screen...");
                         }
@@ -194,6 +197,7 @@ public class MainApp {
                                 if (s.getSupervisorID().equals(userID))
                                     supervisor = s;
                             }
+
                             int supervisor_choice = 0;
                             do {
                                 System.out.println("----------------------------");
@@ -210,108 +214,121 @@ public class MainApp {
                                 try {
                                     supervisor_choice = sc.nextInt();
                                     sc.nextLine();
+                                    ArrayList<Project> ownProj = supervisor.viewOwnProjects();
                                     switch (supervisor_choice) {
                                         case 1: //create proj
-                                            String projTitle = "";
-                                                while (projTitle.isEmpty()) {
-                                                    System.out.print("Enter New Project Title: ");
-                                                    projTitle = sc.nextLine().trim();
-                                                    if (projTitle.isEmpty()) {
-                                                        System.out.println("Title cannot be empty. Please enter a title.");
-                                                    }
-                                                }
-                                            supervisor.createProject(projTitle);
+                                            System.out.print("Enter New Project Title: ");
+                                            String projTitle = sc.nextLine();
+                                            if (!projTitle.isEmpty())
+                                                supervisor.createProject(projTitle);
+                                            else System.out.println("Invalid Input.");
                                             break;
                                         case 2: //view own proj
-                                            ArrayList<Project> ownProjs = supervisor.viewOwnProjects();
-                                            for (Project p : ownProjs) {
+                                            if (ownProj.isEmpty()) {
+                                                System.out.println("You have no projects.");
+                                                break;
+                                            }
+                                            for (Project p : ownProj) {
                                                 p.printProjectInfo();
                                             }
                                             break;
                                         case 3: //update title
+                                            if (ownProj.isEmpty()) {
+                                                System.out.println("You have no projects.");
+                                                break;
+                                            }
                                             System.out.print("Enter Project ID: ");
                                             try {
                                                 int id = sc.nextInt();
                                                 sc.nextLine();
-                                                String title = "";
-                                                while (title.isEmpty()) {
-                                                    System.out.print("Enter New Project Title: ");
-                                                    title = sc.nextLine().trim();
-                                                    if (title.isEmpty()) {
-                                                        System.out.println("Title cannot be empty. Please enter a title.");
+                                                int count = 0;
+                                                for (Project p : ownProj) {
+                                                    if (p.getProjectID() == id) {
+                                                        System.out.print("Enter New Project Title: ");
+                                                        String title = sc.nextLine();
+                                                        if (!title.isEmpty()) {
+                                                            supervisor.updateTitle(id, title);
+                                                            count++;
+                                                            break;
+                                                        }
+                                                        else System.out.println("Invalid Input.");
                                                     }
                                                 }
-                                                supervisor.updateTitle(id, title);
+                                                if (count == 0) System.out.println("You are not supervising that project.");
                                             } catch (IOException e) {
                                                 System.err.println("Invalid input");
                                                 sc.nextLine();
                                             }
-
                                             break;
                                         case 4: //new sup transfer
-                                            System.out.print("Enter Project ID: ");
-                                            try {
-                                                int id_2 = sc.nextInt();
-                                                sc.nextLine();
-                                                System.out.print("Enter New Project Supervisor: ");
-                                                String new_supervisor = sc.nextLine();
-                                                supervisor.transferProject(id_2, new_supervisor);
-                                            } catch (IOException e) {
-                                                System.err.println("Invalid input");
-                                                sc.nextLine();
+                                            if (ownProj.isEmpty()) {
+                                                System.out.println("You have no projects.");
+                                                break;
                                             }
+                                            ArrayList<Project> allocated_proj = supervisor.viewAllocatedProjects();
+                                            if (!allocated_proj.isEmpty()) {
+                                                System.out.print("Enter Project ID: ");
+                                                try {
+                                                    int id_2 = sc.nextInt();
+                                                    sc.nextLine();
+                                                    for (Project p : allocated_proj) {
+                                                        if (p.getProjectID() == id_2) {
+                                                            System.out.print("Enter New Project Supervisor: ");
+                                                            String new_supervisor = sc.nextLine();
+                                                            if (!new_supervisor.isEmpty()) {
+                                                                supervisor.transferProject(id_2, new_supervisor);
+                                                                break;
+                                                            } else System.out.println("Invalid Input.");
+                                                        }
+                                                    }
+                                                } catch (IOException e) {
+                                                    System.err.println("Invalid input");
+                                                    sc.nextLine();
+                                                }
+                                            } else System.out.println("None of your projects are allocated.");
                                             break;
                                         case 5: //view req then app/rej
                                             ArrayList<Request> pendingReqs = supervisor.viewPendingRequests();
+                                            if (pendingReqs.isEmpty()) {
+                                                System.out.println("You currently have no pending requests,");
+                                                break;
+                                            }
                                             for (Request r : pendingReqs) {
                                                 RequestIO.printRequestInfo(r);
                                             }
                                             System.out.print("Select Request ID to Process: ");
-                                            try {
-                                                int id_3 = sc.nextInt();
-                                                sc.nextLine();
-                                                ArrayList<Request> incReq = supervisor.viewRequests(1);
-                                                for (Request r : incReq) {
-                                                    if (r.getRequestID() == id_3) {
-                                                        System.out.println("Approve (1) / Reject (2)");
-                                                        System.out.print("Enter Choice: ");
-                                                        try {
-                                                            int request_choice = sc.nextInt();
-                                                            if (request_choice == 1) {
-                                                                supervisor.modifyProjectTitle(r);
-                                                            } else if (request_choice == 2) {
-                                                                if (r instanceof RequestForTitle rt) {
-                                                                    rt.reject(rt);
-                                                                }
+                                            int id_3 = sc.nextInt();
+                                            sc.nextLine();
+                                            int count = 0;
+                                            for (Request r : pendingReqs) {
+                                                if (r.getRequestID() == id_3) {
+                                                    System.out.println("Approve (1) / Reject (2)");
+                                                    System.out.print("Enter Choice: ");
+                                                    try {
+                                                        int request_choice = sc.nextInt();
+                                                        if (request_choice == 1) {
+                                                            supervisor.modifyProjectTitle(r);
+                                                        } else if (request_choice == 2) {
+                                                            if (r instanceof RequestForTitle rt) {
+                                                                rt.reject(rt);
                                                             }
-                                                        } catch (IOException e) {
-                                                            System.err.println("Invalid input");
-                                                            sc.nextLine();
                                                         }
+                                                    } catch (IOException e) {
+                                                        System.err.println("Invalid input");
+                                                        sc.nextLine();
                                                     }
-                                                }
-                                            } catch (IOException e) {
-                                                System.err.println("Invalid input");
-                                                sc.nextLine();
+                                                } else count++;
                                             }
-                                            System.out.println("Request Does Not Exist.");
+                                            if (count == pendingReqs.size()) System.out.println("Request does not exist.");
                                             break;
                                         case 6: //view req hist
-                                            System.out.println("(1) Incoming Requests / (2) Outgoing Requests");
-                                            System.out.print("Enter your choice: ");
-                                            try {
-                                                int req_choice = sc.nextInt();
-                                                sc.nextLine();
-
-                                                if (req_choice == 1 || req_choice == 2) {
-                                                    ArrayList<Request> allReq = supervisor.viewRequests(req_choice);
-                                                    for (Request r : allReq) {
-                                                        RequestIO.printRequestInfo(r);
-                                                    }
-                                                } else System.out.println("Invalid choice.");
-                                            } catch (IOException e) {
-                                                System.err.println("Invalid input");
-                                                sc.nextLine();
+                                            ArrayList<Request> allReq = supervisor.viewRequests();
+                                            if (allReq.isEmpty()) {
+                                                System.out.println("Either you have not made any requests, or none of your requests has been processed.");
+                                                break;
+                                            }
+                                            for (Request r : allReq) {
+                                                RequestIO.printRequestInfo(r);
                                             }
                                             break;
                                         case 7: //change pw
@@ -371,59 +388,86 @@ public class MainApp {
                                 try {
                                     coordinator_choice = sc.nextInt();
                                     sc.nextLine();
-                                    ArrayList<Request> allReqs = RequestIO.readRequests();
+                                    ArrayList<Project> ownProj = coordinator.viewOwnProjects();
                                     switch (coordinator_choice) {
                                         case 1: //create proj
-                                            String projTitle = "";
-                                                while (projTitle.isEmpty()) {
-                                                    System.out.print("Enter New Project Title: ");
-                                                    projTitle = sc.nextLine().trim();
-                                                    if (projTitle.isEmpty()) {
-                                                        System.out.println("Title cannot be empty. Please enter a title.");
-                                                    }
-                                                }
-                                            coordinator.createProject(projTitle);
+                                            System.out.print("Enter New Project Title: ");
+                                            String projTitle = sc.nextLine();
+                                            if (!projTitle.isEmpty())
+                                                coordinator.createProject(projTitle);
+                                            else System.out.println("Invalid Input.");
                                             break;
                                         case 2: //view own proj
-                                            ArrayList<Project> ownProjs = coordinator.viewOwnProjects();
-                                            for (Project p : ownProjs) {
+                                            if (ownProj.isEmpty()) {
+                                                System.out.println("You have no projects.");
+                                                break;
+                                            }
+                                            for (Project p : ownProj) {
                                                 p.printProjectInfo();
                                             }
                                             break;
                                         case 3: //update title
+                                            if (ownProj.isEmpty()) {
+                                                System.out.println("You have no projects.");
+                                                break;
+                                            }
                                             System.out.print("Enter Project ID: ");
                                             try {
                                                 int id = sc.nextInt();
+                                                int count = 0;
                                                 sc.nextLine();
-                                                String title = "";
-                                                while (title.isEmpty()) {
-                                                    System.out.print("Enter New Project Title: ");
-                                                    title = sc.nextLine().trim();
-                                                    if (title.isEmpty()) {
-                                                        System.out.println("Title cannot be empty. Please enter a title.");
+                                                for (Project p : ownProj) {
+                                                    if (p.getProjectID() == id) {
+                                                        System.out.print("Enter New Project Title: ");
+                                                        String title = sc.nextLine();
+                                                        if (!title.isEmpty()) {
+                                                            coordinator.updateTitle(id, title);
+                                                            count++;
+                                                            break;
+                                                        }
+                                                        else System.out.println("Invalid Input.");
                                                     }
                                                 }
-                                                coordinator.updateTitle(id, title);
-                                            } catch (Exception e) {
-                                                System.err.println("Invalid input!");
+                                                if (count == 0) System.out.println("You are not supervising that project.");
+                                            } catch (IOException e) {
+                                                System.err.println("Invalid input");
                                                 sc.nextLine();
                                             }
                                             break;
                                         case 4: //new sup transfer
-                                            System.out.print("Enter Project ID: ");
-                                            try {
-                                                int id_2 = sc.nextInt();
-                                                sc.nextLine();
-                                                System.out.print("Enter New Project Supervisor: ");
-                                                String new_supervisor = sc.nextLine();
-                                                coordinator.transferProject(id_2, new_supervisor);
-                                            } catch (Exception e) {
-                                                System.err.println("Invalid input!");
-                                                sc.nextLine();
+                                            if (ownProj.isEmpty()) {
+                                                System.out.println("You have no projects.");
+                                                break;
                                             }
+                                            ArrayList<Project> allocated_proj = coordinator.viewAllocatedProjects();
+                                            if (!allocated_proj.isEmpty()) {
+                                                System.out.print("Enter Project ID: ");
+                                                try {
+                                                    int id_2 = sc.nextInt();
+                                                    sc.nextLine();
+                                                    for (Project p : ownProj) {
+                                                        if (p.getProjectID() == id_2) {
+                                                            System.out.print("Enter New Project Supervisor: ");
+                                                            String new_supervisor = sc.nextLine();
+                                                            if (!new_supervisor.isEmpty()) {
+                                                                coordinator.transferProject(id_2, new_supervisor);
+                                                                break;
+                                                            } else System.out.println("Invalid Input.");
+                                                        }
+                                                    }
+                                                    System.out.println("You are not supervising that project.");
+                                                } catch (Exception e) {
+                                                    System.err.println("Invalid input!");
+                                                    sc.nextLine();
+                                                }
+                                            } else System.out.println("None of your projects are allocated.");
                                             break;
                                         case 5: //view req then app/rej
                                             ArrayList<Request> pendingReqs = coordinator.viewPendingRequests();
+                                            if (pendingReqs.isEmpty()) {
+                                                System.out.println("You currently have no pending requests,");
+                                                break;
+                                            }
                                             for (Request r : pendingReqs) {
                                                 RequestIO.printRequestInfo(r);
                                             }
@@ -432,7 +476,7 @@ public class MainApp {
                                                 int id_3 = sc.nextInt();
                                                 sc.nextLine();
                                                 int count = 0;
-                                                for (Request r : allReqs) {
+                                                for (Request r : pendingReqs) {
                                                     if (r.getRequestID() == id_3) {
                                                         System.out.println("(1) Approve | (2) Reject");
                                                         System.out.print("Enter Choice: ");
@@ -447,7 +491,6 @@ public class MainApp {
                                                                     coordinator.modifyProjectTitle(r);
                                                                 else if (r.getType().equals(RequestType.TRANSFER))
                                                                     coordinator.changeSupervisor(r);
-                                                                System.out.println("You have approved request.");
                                                             } else if (request_choice == 2) {
                                                                 if (r instanceof RequestForTitle rt) {
                                                                     rt.reject(rt);
@@ -456,7 +499,7 @@ public class MainApp {
                                                                 } else if (r instanceof RequestForTransfer rx) {
                                                                     rx.reject(rx);
                                                                 }
-                                                                System.out.println("You have rejected request.");
+
                                                             }
                                                         } catch (Exception e) {
                                                             System.err.println("Invalid input!");
@@ -464,7 +507,7 @@ public class MainApp {
                                                         }
                                                     } else count++;
                                                 }
-                                                if (count == allReqs.size()) System.out.println("Request does not exist.");
+                                                if (count == pendingReqs.size()) System.out.println("Request does not exist.");
                                             } catch (Exception e) {
                                                 System.err.println("Invalid input!");
                                                 sc.nextLine();
@@ -472,30 +515,26 @@ public class MainApp {
 
                                             break;
                                         case 6: //view req hist
-                                            System.out.println("(1) Incoming Requests  | (2) Outgoing Requests ");
-                                            System.out.print("Enter your choice: ");
-                                            try {
-                                                int req_choice = sc.nextInt();
-                                                sc.nextLine();
-
-                                                if (req_choice == 1 || req_choice == 2) {
-                                                    ArrayList<Request> allReq = coordinator.viewRequests(req_choice); //make sure coordinator implements this
-                                                    for (Request r : allReq) {
-                                                        RequestIO.printRequestInfo(r);
-                                                    }
-                                                } else System.out.println("Invalid choice.");
-                                            } catch (IOException e) {
-                                                System.err.println("Invalid input");
-                                                sc.nextLine();
+                                            ArrayList<Request> allReq = coordinator.viewRequests(); //make sure coordinator implements this
+                                            if (allReq.isEmpty()) {
+                                                System.out.println("Either you have not made any requests, or none of your requests has been processed.");
+                                                break;
+                                            }
+                                            for (Request r : allReq) {
+                                                RequestIO.printRequestInfo(r);
                                             }
                                             break;
                                         case 7: //generate report
                                             System.out.println("| Filter by: (1) STATUS | (2) SUPERVISOR | (3) STUDENT | (4) PROJECT |");
                                             System.out.print("Enter Filter Type: ");
-                                            int filterType = sc.nextInt();
                                             try {
+                                                int filterType = sc.nextInt();
                                                 sc.nextLine();
                                                 ArrayList<Project> reports = coordinator.generateReport(filterType);
+                                                if (reports.isEmpty()) {
+                                                    System.out.println("No project is found.");
+                                                    break;
+                                                }
                                                 for (Project p : reports) {
                                                     p.printProjectInfo();
                                                 }

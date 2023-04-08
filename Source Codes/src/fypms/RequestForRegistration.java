@@ -15,8 +15,10 @@ public class RequestForRegistration extends Request {
         for (Project p : allProjects) {
             if (p.getProjectID() == getProjectID()) {
                 p.setStudentID(studentID);
-                if (getType().equals(RequestType.ALLOCATION)) p.setStatus(ProjectStatus.ALLOCATED);
-                else if (getType().equals(RequestType.DEREGISTRATION)) p.setStatus(ProjectStatus.AVAILABLE);
+                if (getType().equals(RequestType.ALLOCATION))
+                    p.setStatus(ProjectStatus.ALLOCATED);
+                else if (getType().equals(RequestType.DEREGISTRATION))
+                    p.setStatus(ProjectStatus.AVAILABLE);
                 ProjectIO.modifyProject(p);
                 project = p;
                 break;
@@ -24,6 +26,7 @@ public class RequestForRegistration extends Request {
         }
         if (project == null) System.out.println("Project Not Found.");
         else {
+            System.out.println("You have approved request.");
             setStatus(RequestStatus.APPROVED);
             String supervisorID = project.getSupervisorID();
             int num;
@@ -41,7 +44,7 @@ public class RequestForRegistration extends Request {
                 for (Project p : allProjects) {
                     if (p.getSupervisorID().equals(supervisorID)) {
                         if (!p.getStatus().equals(ProjectStatus.ALLOCATED) && !p.getStatus().equals(ProjectStatus.RESERVED)) {
-                            p.setStatus(ProjectStatus.UNAVAILABLE);
+                            p.setStatus(ProjectStatus.AVAILABLE);
                             ProjectIO.modifyProject(p);
                         }
                     }
@@ -58,6 +61,7 @@ public class RequestForRegistration extends Request {
             if (s.getStudentID().equals(request.getSender())) {
                 if (getType().equals(RequestType.ALLOCATION)) {
                     s.setStatus(StudentStatus.NEW);
+                    UserIO.writeStudentStatus(s);
                 }
             }
         }

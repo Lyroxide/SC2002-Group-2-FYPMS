@@ -34,6 +34,7 @@ public class RequestForTransfer extends Request {
         }
         if (project == null) System.out.println("Project Not Found.");
         else {
+            System.out.println("You have approved request.");
             setStatus(RequestStatus.APPROVED);
             int num;
             num = project.superviseNum(project.getSupervisorID());
@@ -52,7 +53,7 @@ public class RequestForTransfer extends Request {
                 for (Project p : allProjects) {
                     if (p.getSupervisorID().equals(getSender())) {
                         if (!p.getStatus().equals(ProjectStatus.ALLOCATED) && !p.getStatus().equals(ProjectStatus.RESERVED)) {
-                            p.setStatus(ProjectStatus.UNAVAILABLE);
+                            p.setStatus(ProjectStatus.AVAILABLE);
                             ProjectIO.modifyProject(p);
                         }
                     }

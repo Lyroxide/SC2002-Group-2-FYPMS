@@ -12,6 +12,9 @@ public class ProjectIO {
             String line;
 
             while ((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
 
                 String[] tokens = line.split(";");
                 int projectID = Integer.parseInt(tokens[0]);

@@ -72,7 +72,7 @@ public class FYPCoordinator extends Supervisor {
                         }
                     }
                     else {
-                        System.out.println("Supervisor " + supervisorID + " is supervising 2 projects currently already. ");
+                        System.out.println("Supervisor " + supervisorID + " is currently supervising 2 projects. ");
                         System.out.println("Current request status will remain as PENDING");
                     }
                     break;
@@ -93,6 +93,7 @@ public class FYPCoordinator extends Supervisor {
             for (Student student : stu) {
                 if (student.getStudentID().equals(rr.getSender())) {
                     student.setStatus(StudentStatus.DEREGISTERED);
+                    student.setStudentID("");
                     student.setCurProject(-1);
                     UserIO.writeStudentStatus(student);
                     break;
@@ -159,9 +160,11 @@ public class FYPCoordinator extends Supervisor {
             System.out.println("Generate report by: SUPERVISOR");
             System.out.println("Select Supervisor to view:");
             for (i = 0; i < sup.size(); i++) {
-                System.out.println("(" + i + 1 + ")" + sup.get(i).getName());
+                int j = i + 1;
+                System.out.println("(" + j + ") " + sup.get(i).getName());
             }
-            System.out.println("(" + sup.size() + 1 + ") All");
+            int j = sup.size() + 1;
+            System.out.println("(" + j + ") All");
 
             do {
                 System.out.println("Please select a choice:");
@@ -181,9 +184,11 @@ public class FYPCoordinator extends Supervisor {
             System.out.println("Generate report by: STUDENT");
             System.out.println("Select Student to view:");
             for (i = 0; i < stu.size(); i++) {
-                System.out.println("(" + i + 1 + ")" + stu.get(i).getName());
+                int j = i + 1;
+                System.out.println("(" + j + ") " + stu.get(i).getName());
             }
-            System.out.println("(" + stu.size() + 1 + ") All");
+            int j = stu.size() + 1;
+            System.out.println("(" + j + ") All");
 
             do {
                 System.out.println("Please select a choice:");
@@ -192,7 +197,7 @@ public class FYPCoordinator extends Supervisor {
             } while (choice < 0 || choice > stu.size() + 1);
 
             if (choice != stu.size() + 1) {
-                String studentID = stu.get(choice - 1).getName();
+                String studentID = stu.get(choice - 1).getStudentID();
                 proj.removeIf(p -> !p.getStudentID().equals(studentID));
             }
             return proj;
@@ -203,9 +208,11 @@ public class FYPCoordinator extends Supervisor {
             System.out.println("Generate report by: PROJECTS");
             System.out.println("Select Projects to view:");
             for (i = 0; i < proj.size(); i++) {
-                System.out.println("(" + i + 1 + ")" + proj.get(i).getProjectTitle());
+                int j = i + 1;
+                System.out.println("(" + j + ") " + proj.get(i).getProjectTitle());
             }
-            System.out.println("(" + proj.size() + 1 + ") All");
+            int j = proj.size() + 1;
+            System.out.println("(" + j + ") All");
 
             do {
                 System.out.println("Please select a choice:");
@@ -221,7 +228,7 @@ public class FYPCoordinator extends Supervisor {
         else return null;
     }
 
-    public ArrayList<Request> viewPendingRequests() {
+    public ArrayList<Request> viewPendingRequests() { //smth about the userid
         ArrayList<Request> req;
         int i = 0;
         req = RequestIO.readRequests();
@@ -232,22 +239,12 @@ public class FYPCoordinator extends Supervisor {
         return req;
     }
 
-    public ArrayList<Request> viewRequests(int choice) throws IOException {
+    public ArrayList<Request> viewRequests() {
         ArrayList<Request> requests = new ArrayList<>();
         ArrayList<Request> allRequests = RequestIO.readRequests();
-        if (choice == 1) {
-            //incoming
-            for (Request request : allRequests) {
-                if (request.getReceiver().equals("FYPCoordinator")) {
-                    requests.add(request);
-                }
-            }
-        } else if (choice == 2) {
-            //outgoing
-            for (Request request : allRequests) {
-                if (request.getSender().equals(this.coordinatorID)) {
-                    requests.add(request);
-                }
+        for (Request request : allRequests) {
+            if (request.getReceiver().equals("FYPCoordinator") && !request.getStatus().equals(RequestStatus.PENDING)) {
+                requests.add(request);
             }
         }
         return requests;

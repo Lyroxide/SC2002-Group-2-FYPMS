@@ -8,7 +8,7 @@ public class Student extends User {
     private String studentID;
     private StudentStatus status;
 
-    private int curProject = -1;
+    private int curProject;
 
     public Student() {};
 
@@ -68,27 +68,23 @@ public class Student extends User {
     }
 
     public void changeProjectTitle(String newTitle) throws IOException {
-        if (!this.getStatus().equals(StudentStatus.REGISTERED)) {
-            System.out.println("You are not allocated a project.");
-        }
-        else {
-            ArrayList<Project> allProjects = ProjectIO.readProjects();
-            for (Project p : allProjects) {
-                if (p.getProjectID() == this.curProject) {
-                    Request request = new RequestForTitle(RequestType.TITLECHANGE, this.studentID, p.getSupervisorID(), this.curProject, RequestStatus.PENDING, newTitle);
-                    RequestIO.writeRequest(request);
-                    System.out.println("Project De-registration Requested. Please wait for approval.");
-                }
+        ArrayList<Project> allProjects = ProjectIO.readProjects();
+        for (Project p : allProjects) {
+            if (p.getProjectID() == this.curProject) {
+                Request request = new RequestForTitle(RequestType.TITLECHANGE, this.studentID, p.getSupervisorID(), this.curProject, RequestStatus.PENDING, newTitle);
+                RequestIO.writeRequest(request);
+                System.out.println("Project Title Change Requested. Please wait for approval.");
             }
-
         }
+
+
     }
 
     public ArrayList<Request> viewRequests(String studentID) {
         ArrayList<Request> ownRequests = new ArrayList<>();
         ArrayList<Request> allRequests = RequestIO.readRequests();
         for (Request r : allRequests) {
-            if (r.getSender().equals(studentID)) {
+            if (r.getSender().equals(studentID) && !r.getStatus().equals(RequestStatus.PENDING)) {
                 ownRequests.add(r);
             }
         }
