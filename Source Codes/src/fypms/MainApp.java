@@ -233,7 +233,6 @@ public class MainApp {
                                             try {
                                                 int id = sc.nextInt();
                                                 sc.nextLine();
-                                                System.out.print("Enter New Project Title: ");
                                                 String title = "";
                                                 while (title.isEmpty()) {
                                                     System.out.print("Enter New Project Title: ");
