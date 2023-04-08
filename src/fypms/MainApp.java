@@ -139,7 +139,13 @@ public class MainApp {
                                                 if (!newTitle.isEmpty())
                                                     student.changeProjectTitle(newTitle);
                                                 else System.out.println("Invalid Input.");
-                                            } else System.out.println("You have not registered a project.");
+                                            } 
+                                            else if (student.getStatus().equals(StudentStatus.PENDING)){
+                                                System.out.println("Please wait for your title change request to be processed first.");
+                                            }
+                                            else {
+                                                System.out.println("You have not registered a project.");
+                                            }
                                             break;
                                         case 5: //r: deregister
                                             if (student.getStatus().equals(StudentStatus.REGISTERED)) {
@@ -149,7 +155,11 @@ public class MainApp {
                                                 if (confirm.equals("Y")) {
                                                     student.deregisterProject();
                                                 }
-                                            } else {
+                                            }
+                                            else if(student.getStatus().equals(StudentStatus.PENDING)){
+                                                System.out.println("Please wait for your deregistration request to be prossessed.");
+                                            }
+                                            else {
                                                 System.out.println("You are not allocated a project.");
                                             }
                                             break;
