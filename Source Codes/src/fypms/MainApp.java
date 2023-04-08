@@ -153,7 +153,7 @@ public class MainApp {
                                             else { System.out.println("You are not allocated a project."); }
                                             break;
                                         case 6: //view request history
-                                            ArrayList<Request> allReq = student.viewRequests();
+                                            ArrayList<Request> allReq = student.viewRequests(student.getStudentID());
                                             for (Request r : allReq) {
                                                 RequestIO.printRequestInfo(r);
                                             }
@@ -209,7 +209,7 @@ public class MainApp {
                                 System.out.print("Enter your choice: ");
                                 try {
                                     supervisor_choice = sc.nextInt();
-
+                                    sc.nextLine();
                                     switch (supervisor_choice) {
                                         case 1: //create proj
                                             System.out.print("Enter New Project Title: ");
@@ -355,6 +355,7 @@ public class MainApp {
                                 System.out.print("Enter your choice: ");
                                 try {
                                     coordinator_choice = sc.nextInt();
+                                    sc.nextLine();
                                     ArrayList<Request> allReqs = RequestIO.readRequests();
                                     switch (coordinator_choice) {
                                         case 1: //create proj
@@ -400,6 +401,8 @@ public class MainApp {
                                             System.out.print("Select Request ID to Process: ");
                                             try {
                                                 int id_3 = sc.nextInt();
+                                                sc.nextLine();
+                                                int count = 0;
                                                 for (Request r : allReqs) {
                                                     if (r.getRequestID() == id_3) {
                                                         System.out.println("(1) Approve | (2) Reject");
@@ -415,6 +418,7 @@ public class MainApp {
                                                                     coordinator.modifyProjectTitle(r);
                                                                 else if (r.getType().equals(RequestType.TRANSFER))
                                                                     coordinator.changeSupervisor(r);
+                                                                System.out.println("You have approved request.");
                                                             } else if (request_choice == 2) {
                                                                 if (r instanceof RequestForTitle rt) {
                                                                     rt.reject(rt);
@@ -423,14 +427,15 @@ public class MainApp {
                                                                 } else if (r instanceof RequestForTransfer rx) {
                                                                     rx.reject(rx);
                                                                 }
+                                                                System.out.println("You have rejected request.");
                                                             }
                                                         } catch (Exception e) {
                                                             System.err.println("Invalid input!");
                                                             sc.nextLine();
                                                         }
-                                                    }
-                                                    System.out.println("Request Does Not Exist.");
+                                                    } else count++;
                                                 }
+                                                if (count == allReqs.size()) System.out.println("Request does not exist.");
                                             } catch (Exception e) {
                                                 System.err.println("Invalid input!");
                                                 sc.nextLine();

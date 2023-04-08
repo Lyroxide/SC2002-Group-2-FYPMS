@@ -78,7 +78,7 @@ public class Project {
         if (projectStatus == ProjectStatus.ALLOCATED) {
 
             System.out.println("Allocated Project Information: ");
-            System.out.printf("Project ID: %d", projectID);
+            System.out.printf("Project ID: %d ", projectID);
             System.out.printf("| Project Title: %s\n", projectTitle);
             System.out.printf("Project Status: %s ", projectStatus);
             System.out.printf("| Supervisor ID: %s ", supervisorID);
@@ -86,7 +86,7 @@ public class Project {
             for (Supervisor supervisor : SupervisorArr) {
                 if (Objects.equals(supervisor.getSupervisorID(), this.supervisorID)) {
                     System.out.printf("| Supervisor Name: %s ", supervisor.getName());
-                    System.out.printf("| Supervisor Email: %s", supervisor.getEmail());
+                    System.out.printf("| Supervisor Email: %s ", supervisor.getEmail());
                 }
 
             }
@@ -94,7 +94,7 @@ public class Project {
             //iterates through student Array to get name and email
             for (Student student : StudentArr) {
                 if (Objects.equals(student.getStudentID(), this.studentID)) {
-                    System.out.printf("| Student Name: %s", student.getName());
+                    System.out.printf("| Student Name: %s ", student.getName());
                     System.out.printf("| Student Email: %s", student.getEmail());
                 }
             }

@@ -9,9 +9,6 @@ public class FYPCoordinator extends Supervisor {
     private String coordinatorID;
 
     public FYPCoordinator() {}
-    public FYPCoordinator(String coordinatorID) {
-        this.coordinatorID = coordinatorID;
-    }
 
     public String getCoordinatorID() {
         return this.coordinatorID;

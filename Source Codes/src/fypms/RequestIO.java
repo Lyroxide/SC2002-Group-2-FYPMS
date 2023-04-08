@@ -112,44 +112,40 @@ public class RequestIO {
     }
 
     public static void printRequestInfo(Request request) throws IOException {
-        ArrayList<Request> requests;
-        requests = readRequests();
-        for (Request r : requests) {
-            if (r.getRequestID() == request.getRequestID()) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(requestFile))) {
-                    String line;
-                    boolean firstLine = true;
+        try (BufferedReader reader = new BufferedReader(new FileReader(requestFile))) {
+            String line;
 
-                    while ((line = reader.readLine()) != null) {
-                        if (firstLine) {
-                            firstLine = false;
-                            continue;
-                        }
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith(String.valueOf(request.getRequestID()))) {
+                    String[] tokens = line.split(";");
+                    int requestID = Integer.parseInt(tokens[0]);
+                    String type = tokens[1];
+                    String sender = tokens[2];
+                    String receiver = tokens[3];
+                    int projectID = Integer.parseInt(tokens[4]);
+                    String status = tokens[5];
 
-                        String[] tokens = line.split(";");
-                        int requestID = Integer.parseInt(tokens[0]);
-                        String type = tokens[1];
-                        String sender = tokens[2];
-                        String receiver = tokens[3];
-                        int projectID = Integer.parseInt(tokens[4]);
-                        String status = tokens[5];
+                    String id;
+                    if (requestID < 10) id = "000" + requestID;
+                    else if (requestID < 100) id = "00" + requestID;
+                    else if (requestID < 1000) id = "0" + requestID;
+                    else id = String.valueOf(requestID);
+                    String new_indicator;
+                    if (status.equals("PENDING")) new_indicator = "NEW! ";
+                    else new_indicator = "";
+                    System.out.print(new_indicator);
+                    System.out.print("ID: " + id + " | Type: " + type + " | Sender: " + sender + " | Receiver: " + receiver + " | ProjectID: " + projectID + " | Status: " + status);
+                    if (type.equals("TRANSFER")) {
                         String add = tokens[6];
-                        String id;
-                        if (requestID < 10) id = "000" + requestID;
-                        else if (requestID < 100) id = "00" + requestID;
-                        else if (requestID < 1000) id = "0" + requestID;
-                        else id = String.valueOf(requestID);
-                        String new_indicator;
-                        if (status.equals("PENDING")) new_indicator = "NEW! ";
-                        else new_indicator = "";
-                        System.out.print(new_indicator);
-                        System.out.print("ID: " + id + " | Type: " + type + " | Sender:" + sender + " | Receiver:" + receiver + " | ProjectID:" + projectID + " | Status:" + status);
-                        if (type.equals("TRANSFER")) System.out.println(" | New SupervisorID:" + add);
-                        else if (type.equals("TITLECHANGE")) System.out.println(" | New Title:" + add);
+                        System.out.println(" | New SupervisorID: " + add);
+                    } else if (type.equals("TITLECHANGE")) {
+                        String add = tokens[6];
+                        System.out.println(" | New Title: " + add);
                     }
                 }
             }
+            System.out.println();
+            System.out.println();
         }
-
     }
 }

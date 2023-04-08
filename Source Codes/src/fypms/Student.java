@@ -51,6 +51,13 @@ public class Student extends User {
         Request request = new RequestForRegistration(RequestType.ALLOCATION, this.studentID, "FYPCoordinator", projectID, RequestStatus.PENDING);
         RequestIO.writeRequest(request);
         setStatus(StudentStatus.PENDING);
+        ArrayList<Project> projects = ProjectIO.readProjects();
+        for (Project p : projects) {
+            if (p.getProjectID() == projectID) {
+                p.setStatus(ProjectStatus.RESERVED);
+                ProjectIO.modifyProject(p);
+            }
+        }
         System.out.println("Project Selection Requested. Please wait for approval.");
     }
 
@@ -77,11 +84,11 @@ public class Student extends User {
         }
     }
 
-    public ArrayList<Request> viewRequests() {
+    public ArrayList<Request> viewRequests(String studentID) {
         ArrayList<Request> ownRequests = new ArrayList<>();
         ArrayList<Request> allRequests = RequestIO.readRequests();
         for (Request r : allRequests) {
-            if (r.getSender().equals(this.studentID)) {
+            if (r.getSender().equals(studentID)) {
                 ownRequests.add(r);
             }
         }
