@@ -16,6 +16,8 @@ public class Project {
         // Constructor that sets the project's projectID and supervisor ID
         this.projectTitle= projectTitle;
         this.supervisorID = supervisorID;
+        this.projectStatus = ProjectStatus.AVAILABLE;
+        this.studentID = "";
     }
 
 

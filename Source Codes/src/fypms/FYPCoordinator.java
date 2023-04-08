@@ -10,6 +10,11 @@ public class FYPCoordinator extends Supervisor {
 
     public FYPCoordinator() {}
 
+    public FYPCoordinator(String userID) {
+        super(userID);
+        coordinatorID = userID;
+    }
+
     public String getCoordinatorID() {
         return this.coordinatorID;
     }

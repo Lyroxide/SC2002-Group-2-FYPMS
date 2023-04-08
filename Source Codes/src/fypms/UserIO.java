@@ -207,6 +207,7 @@ public class UserIO {
                 coordinator.setName(name);
                 coordinator.setEmail(email);
                 coordinator.setCoordinatorID(userID);
+                coordinator.setSupervisorID(userID);
                 coordinator.setPassword(password);
                 coordinator.setUserType(UserType.FYPCOORDINATOR);
                 coordinators.add(coordinator);

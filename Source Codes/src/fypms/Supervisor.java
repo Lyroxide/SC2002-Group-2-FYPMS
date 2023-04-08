@@ -7,7 +7,6 @@ public class Supervisor extends User {
     private String supervisorID;
 
     public Supervisor() {}
-
     public Supervisor(String userID) {
         supervisorID = userID;
     }
