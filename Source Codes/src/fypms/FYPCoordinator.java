@@ -10,8 +10,8 @@ public class FYPCoordinator extends Supervisor {
 
     public FYPCoordinator() {}
 
-    public FYPCoordinator(String userID) {
-        super(userID);
+    public FYPCoordinator(String name, String email, String userID, String password, UserType userType) {
+        super(name, email, userID, password, userType);
         coordinatorID = userID;
     }
 
@@ -19,9 +19,6 @@ public class FYPCoordinator extends Supervisor {
         return this.coordinatorID;
     }
 
-    public void setCoordinatorID(String coordinatorID) {
-        this.coordinatorID = coordinatorID;
-    }
 
     public void changeSupervisor(Request request) throws IOException {
         String newSupervisorID;

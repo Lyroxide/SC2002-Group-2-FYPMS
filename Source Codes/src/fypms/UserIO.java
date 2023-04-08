@@ -9,7 +9,6 @@ public class UserIO {
     private static final File supervisorFile = new File("Database/faculty_list.txt");
     private static final File coordinatorFile = new File("Database/fyp_coordinator.txt");
 
-    public UserIO() {}
 
     public static ArrayList<Student> readStudents() {
         ArrayList<Student> students = new ArrayList<>();
@@ -26,14 +25,7 @@ public class UserIO {
                 StudentStatus status = StudentStatus.valueOf(tokens[3]);
                 int curProject = Integer.parseInt(tokens[4]);
 
-                Student student = new Student();
-                student.setName(name);
-                student.setEmail(email);
-                student.setStudentID(userID);
-                student.setPassword(password);
-                student.setStatus(status);
-                student.setUserType(UserType.STUDENT);
-                student.setCurProject(curProject);
+                Student student = new Student(name, email, userID, password, status, UserType.STUDENT, curProject);
                 students.add(student);
             }
         } catch(Exception e) {
@@ -134,12 +126,7 @@ public class UserIO {
                 String userID = tokens[1].split("@")[0];
                 String password = tokens[2];
 
-                Supervisor supervisor = new Supervisor();
-                supervisor.setName(name);
-                supervisor.setEmail(email);
-                supervisor.setSupervisorID(userID);
-                supervisor.setPassword(password);
-                supervisor.setUserType(UserType.SUPERVISOR);
+                Supervisor supervisor = new Supervisor(name, email, userID, password, UserType.SUPERVISOR);
                 supervisors.add(supervisor);
             }
         } catch(Exception e) {
@@ -205,13 +192,7 @@ public class UserIO {
                 String userID = tokens[1].split("@")[0];
                 String password = tokens[2];
 
-                FYPCoordinator coordinator = new FYPCoordinator();
-                coordinator.setName(name);
-                coordinator.setEmail(email);
-                coordinator.setCoordinatorID(userID);
-                coordinator.setSupervisorID(userID);
-                coordinator.setPassword(password);
-                coordinator.setUserType(UserType.FYPCOORDINATOR);
+                FYPCoordinator coordinator = new FYPCoordinator(name, email, userID, password, UserType.FYPCOORDINATOR);
                 coordinators.add(coordinator);
             }
         } catch(Exception e) {

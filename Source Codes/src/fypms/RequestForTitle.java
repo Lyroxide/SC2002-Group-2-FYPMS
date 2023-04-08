@@ -12,9 +12,6 @@ public class RequestForTitle extends Request {
         this.projectTitle = projectTitle;
     }
 
-    public void setProjectTitle(String title) {
-        projectTitle = title;
-    }
 
     public String getProjectTitle() {
         return projectTitle;

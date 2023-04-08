@@ -5,11 +5,12 @@ import java.io.IOException;
 public class User {
     private String name;
     private String email;
-    private String userID;
     private String password;
     private UserType userType;
 
     public User() {}
+
+
 
 
     public String getName() {
@@ -28,24 +29,12 @@ public class User {
         this.email = email;
     }
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public UserType getUserType() {
-        return userType;
     }
 
     public void setUserType(UserType type) {

@@ -21,9 +21,6 @@ public abstract class Request {
         this.status = status;
     }
 
-    public void setType(RequestType type) {
-        this.type = type;
-    }
 
     public RequestType getType() {
         return type;
@@ -37,25 +34,16 @@ public abstract class Request {
         return status;
     }
 
-    public void setSender(String user) {
-        this.sender = user;
-    }
 
     public String getSender() {
         return sender;
     }
 
-    public void setReceiver(String user) {
-        this.receiver = user;
-    }
 
     public String getReceiver() {
         return receiver;
     }
 
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
-    }
 
     public int getProjectID() {
         return projectID;

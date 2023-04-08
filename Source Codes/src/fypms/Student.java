@@ -7,10 +7,19 @@ public class Student extends User {
 
     private String studentID;
     private StudentStatus status;
-
     private int curProject;
 
-    public Student() {};
+    public Student() {}
+
+    public Student(String name, String email, String userID, String password, StudentStatus status, UserType userType, int curProject) {
+        setName(name);
+        setEmail(email);
+        this.studentID = userID;
+        setPassword(password);
+        this.status = status;
+        setUserType(userType);
+        this.curProject = curProject;
+    }
 
 
     public String getStudentID() {

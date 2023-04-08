@@ -12,9 +12,6 @@ public class RequestForTransfer extends Request {
         this.supervisorID = supervisorID;
     }
 
-    public void setSupervisorID(String title) {
-        supervisorID = title;
-    }
 
     public String getSupervisorID() {
         return supervisorID;

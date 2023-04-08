@@ -7,17 +7,18 @@ public class Supervisor extends User {
     private String supervisorID;
 
     public Supervisor() {}
-    public Supervisor(String userID) {
-        supervisorID = userID;
+    public Supervisor(String name, String email, String userID, String password, UserType userType) {
+        setName(name);
+        setEmail(email);
+        this.supervisorID = userID;
+        setPassword(password);
+        setUserType(userType);
     }
 
     public String getSupervisorID() {
         return supervisorID;
     }
 
-    public void setSupervisorID(String id) {
-        supervisorID = id;
-    }
 
     public void createProject(String projectTitle) throws IOException {
         Project project = new Project(projectTitle, supervisorID);
