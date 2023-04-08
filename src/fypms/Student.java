@@ -141,6 +141,7 @@ public class Student extends User {
     public void deregisterProject() throws IOException {
         Request request = new RequestForRegistration(RequestType.DEREGISTRATION, this.studentID, "FYPCoordinator", this.curProject, RequestStatus.PENDING);
         RequestIO.writeRequest(request);
+	setStatus(StudentStatus.PENDING);
         System.out.println("Project De-registration Requested. Please wait for approval.");
     }
 
@@ -155,6 +156,7 @@ public class Student extends User {
             if (p.getProjectID() == this.curProject) {
                 Request request = new RequestForTitle(RequestType.TITLECHANGE, this.studentID, p.getSupervisorID(), this.curProject, RequestStatus.PENDING, newTitle);
                 RequestIO.writeRequest(request);
+		setStatus(StudentStatus.PENDING);
                 System.out.println("Project Title Change Requested. Please wait for approval.");
             }
         }
