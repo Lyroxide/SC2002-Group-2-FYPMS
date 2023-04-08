@@ -212,8 +212,14 @@ public class MainApp {
                                     sc.nextLine();
                                     switch (supervisor_choice) {
                                         case 1: //create proj
-                                            System.out.print("Enter New Project Title: ");
-                                            String projTitle = sc.nextLine();
+                                            String projTitle = "";
+                                                while (projTitle.isEmpty()) {
+                                                    System.out.print("Enter New Project Title: ");
+                                                    projTitle = sc.nextLine().trim();
+                                                    if (projTitle.isEmpty()) {
+                                                        System.out.println("Title cannot be empty. Please enter a title.");
+                                                    }
+                                                }
                                             supervisor.createProject(projTitle);
                                             break;
                                         case 2: //view own proj
@@ -226,8 +232,16 @@ public class MainApp {
                                             System.out.print("Enter Project ID: ");
                                             try {
                                                 int id = sc.nextInt();
+                                                sc.nextLine();
                                                 System.out.print("Enter New Project Title: ");
-                                                String title = sc.nextLine();
+                                                String title = "";
+                                                while (title.isEmpty()) {
+                                                    System.out.print("Enter New Project Title: ");
+                                                    title = sc.nextLine().trim();
+                                                    if (title.isEmpty()) {
+                                                        System.out.println("Title cannot be empty. Please enter a title.");
+                                                    }
+                                                }
                                                 supervisor.updateTitle(id, title);
                                             } catch (IOException e) {
                                                 System.err.println("Invalid input");
@@ -239,6 +253,7 @@ public class MainApp {
                                             System.out.print("Enter Project ID: ");
                                             try {
                                                 int id_2 = sc.nextInt();
+                                                sc.nextLine();
                                                 System.out.print("Enter New Project Supervisor: ");
                                                 String new_supervisor = sc.nextLine();
                                                 supervisor.transferProject(id_2, new_supervisor);
@@ -255,6 +270,7 @@ public class MainApp {
                                             System.out.print("Select Request ID to Process: ");
                                             try {
                                                 int id_3 = sc.nextInt();
+                                                sc.nextLine();
                                                 ArrayList<Request> incReq = supervisor.viewRequests(1);
                                                 for (Request r : incReq) {
                                                     if (r.getRequestID() == id_3) {
@@ -359,8 +375,14 @@ public class MainApp {
                                     ArrayList<Request> allReqs = RequestIO.readRequests();
                                     switch (coordinator_choice) {
                                         case 1: //create proj
-                                            System.out.print("Enter New Project Title: ");
-                                            String projTitle = sc.nextLine();
+                                            String projTitle = "";
+                                                while (projTitle.isEmpty()) {
+                                                    System.out.print("Enter New Project Title: ");
+                                                    projTitle = sc.nextLine().trim();
+                                                    if (projTitle.isEmpty()) {
+                                                        System.out.println("Title cannot be empty. Please enter a title.");
+                                                    }
+                                                }
                                             coordinator.createProject(projTitle);
                                             break;
                                         case 2: //view own proj
@@ -373,8 +395,15 @@ public class MainApp {
                                             System.out.print("Enter Project ID: ");
                                             try {
                                                 int id = sc.nextInt();
-                                                System.out.print("Enter New Project Title: ");
-                                                String title = sc.nextLine();
+                                                sc.nextLine();
+                                                String title = "";
+                                                while (title.isEmpty()) {
+                                                    System.out.print("Enter New Project Title: ");
+                                                    title = sc.nextLine().trim();
+                                                    if (title.isEmpty()) {
+                                                        System.out.println("Title cannot be empty. Please enter a title.");
+                                                    }
+                                                }
                                                 coordinator.updateTitle(id, title);
                                             } catch (Exception e) {
                                                 System.err.println("Invalid input!");
@@ -385,6 +414,7 @@ public class MainApp {
                                             System.out.print("Enter Project ID: ");
                                             try {
                                                 int id_2 = sc.nextInt();
+                                                sc.nextLine();
                                                 System.out.print("Enter New Project Supervisor: ");
                                                 String new_supervisor = sc.nextLine();
                                                 coordinator.transferProject(id_2, new_supervisor);
