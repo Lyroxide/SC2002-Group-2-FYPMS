@@ -20,134 +20,37 @@ public class SupervisorMenu {
         do {
             System.out.println("----------------------------");
             System.out.println("Welcome to Supervisor Menu!");
-            System.out.println("1. Create New Project");
-            System.out.println("2. View Your Projects");
-            System.out.println("3. Update a Project Title");
-            System.out.println("4. Request to Transfer Student");
-            System.out.println("5. View Pending Requests to Approve / Reject");
-            System.out.println("6. View Request History");
-            System.out.println("7. Change Password");
-            System.out.println("8. Logout");
+            System.out.println("(1) Create New Project");
+            System.out.println("(2) View Your Projects");
+            System.out.println("(3) Update a Project Title");
+            System.out.println("(4) Request to Transfer Student");
+            System.out.println("(5) View Pending Requests to Approve / Reject");
+            System.out.println("(6) View Request History");
+            System.out.println("(7) Change Password");
+            System.out.println("(8) Logout");
             System.out.print("Enter your choice: ");
             try {
                 supervisor_choice = sc.nextInt();
                 sc.nextLine();
-                ArrayList<Project> ownProj = supervisor.viewOwnProjects();
+                SupervisorView supervisorView = new SupervisorView();
                 switch (supervisor_choice) {
                     case 1: //create proj
-                        System.out.print("Enter New Project Title: ");
-                        String projTitle = sc.nextLine();
-                        if (!projTitle.isEmpty())
-                            supervisor.createProject(projTitle);
-                        else System.out.println("Invalid Input.");
+                        supervisorView.promptCreateProject(supervisor);
                         break;
                     case 2: //view own proj
-                        if (ownProj.isEmpty()) {
-                            System.out.println("You have no projects.");
-                            break;
-                        }
-                        for (Project p : ownProj) {
-                            p.printProjectInfo();
-                        }
+                        supervisorView.promptViewOwnProjects(supervisor);
                         break;
                     case 3: //update title
-                        if (ownProj.isEmpty()) {
-                            System.out.println("You have no projects.");
-                            break;
-                        }
-                        System.out.print("Enter Project ID: ");
-                        try {
-                            int id = sc.nextInt();
-                            sc.nextLine();
-                            int count = 0;
-                            for (Project p : ownProj) {
-                                if (p.getProjectID() == id) {
-                                    System.out.print("Enter New Project Title: ");
-                                    String title = sc.nextLine();
-                                    if (!title.isEmpty()) {
-                                        supervisor.updateTitle(id, title);
-                                        count++;
-                                        break;
-                                    }
-                                    else System.out.println("Invalid Input.");
-                                }
-                            }
-                            if (count == 0) System.out.println("You are not supervising that project.");
-                        } catch (IOException e) {
-                            System.err.println("Invalid input");
-                            sc.nextLine();
-                        }
+                        supervisorView.promptUpdateTitle(supervisor);
                         break;
                     case 4: //new sup transfer
-                        if (ownProj.isEmpty()) {
-                            System.out.println("You have no projects.");
-                            break;
-                        }
-                        ArrayList<Project> allocated_proj = supervisor.viewAllocatedProjects();
-                        if (!allocated_proj.isEmpty()) {
-                            System.out.print("Enter Project ID: ");
-                            try {
-                                int id_2 = sc.nextInt();
-                                sc.nextLine();
-                                for (Project p : allocated_proj) {
-                                    if (p.getProjectID() == id_2) {
-                                        System.out.print("Enter New Project Supervisor: ");
-                                        String new_supervisor = sc.nextLine();
-                                        if (!new_supervisor.isEmpty()) {
-                                            supervisor.transferProject(id_2, new_supervisor);
-                                            break;
-                                        } else System.out.println("Invalid Input.");
-                                    }
-                                }
-                            } catch (IOException e) {
-                                System.err.println("Invalid input");
-                                sc.nextLine();
-                            }
-                        } else System.out.println("None of your projects are allocated.");
+                        supervisorView.promptTransfer(supervisor);
                         break;
                     case 5: //view req then app/rej
-                        ArrayList<Request> pendingReqs = supervisor.viewPendingRequests();
-                        if (pendingReqs.isEmpty()) {
-                            System.out.println("You currently have no pending requests,");
-                            break;
-                        }
-                        for (Request r : pendingReqs) {
-                            RequestIO.printRequestInfo(r);
-                        }
-                        System.out.print("Select Request ID to Process: ");
-                        int id_3 = sc.nextInt();
-                        sc.nextLine();
-                        int count = 0;
-                        for (Request r : pendingReqs) {
-                            if (r.getRequestID() == id_3) {
-                                System.out.println("Approve (1) / Reject (2)");
-                                System.out.print("Enter Choice: ");
-                                try {
-                                    int request_choice = sc.nextInt();
-                                    if (request_choice == 1) {
-                                        supervisor.modifyProjectTitle(r);
-                                    } else if (request_choice == 2) {
-                                        if (r instanceof RequestForTitle rt) {
-                                            rt.reject(rt);
-                                        }
-                                    }
-                                } catch (IOException e) {
-                                    System.err.println("Invalid input");
-                                    sc.nextLine();
-                                }
-                            } else count++;
-                        }
-                        if (count == pendingReqs.size()) System.out.println("Request does not exist.");
+                        supervisorView.promptViewRequests(supervisor);
                         break;
                     case 6: //view req hist
-                        ArrayList<Request> allReq = supervisor.viewRequests();
-                        if (allReq.isEmpty()) {
-                            System.out.println("Either you have not made any requests, or none of your requests has been processed.");
-                            break;
-                        }
-                        for (Request r : allReq) {
-                            RequestIO.printRequestInfo(r);
-                        }
+                        supervisorView.promptViewReqHistory(supervisor);
                         break;
                     case 7: //change pw
                         System.out.print("Enter old password: ");
@@ -181,7 +84,6 @@ public class SupervisorMenu {
             }
         } while (supervisor_choice != 8 && !pwChanged);
         System.out.println("Returning to main screen...");
-    }        
+    }
 }
-    
 

@@ -12,20 +12,10 @@ public enum StudentStatus {
     NEW,
 
     /**
-     * Pending
+     * Pending For Registration
      */
     PENDING,
 
-    /**
-     * Pending for title change
-     */
-    PENDINGTITLE,
-
-    /**
-     * Pending for deregistration
-     */
-    PENDINGDEALLOCATION,
-    
     /**
      * Registered
      */
