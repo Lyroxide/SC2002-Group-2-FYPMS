@@ -19,10 +19,13 @@ public class MainApp {
         Scanner sc = new Scanner(System.in);
         int choice = 0;
 
-        boolean validUser = false;
-        boolean validUserAndPass = false;
-        boolean pwChanged = false;
+        boolean validUser;
+        boolean validUserAndPass;
+        boolean pwChanged;
         do {
+            validUser = false;
+            validUserAndPass = false;
+            pwChanged = false;
             System.out.println("-------------------");
             System.out.println("Welcome to FYPMS!");
             System.out.println("(1) Log in");

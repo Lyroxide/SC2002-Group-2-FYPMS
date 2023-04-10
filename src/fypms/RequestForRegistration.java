@@ -4,13 +4,14 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Inherited class from Request to handle registration/de-registration requests
+ * Inherited class from {@link Request} to handle registration/de-registration requests
  * @version 1.0
  */
 public class RequestForRegistration extends Request {
 
 	/**
 	 * Constructor
+     * See {@link Student} and {@link RequestIO} where this is called
      * @param type request type
      * @param sender sender userID
      * @param receiver receiver userID or FYPCoordinator
@@ -22,8 +23,8 @@ public class RequestForRegistration extends Request {
     }
 
 	/**
-	 * Approve function that changes project's attributes while checking for supervisor MAX
-	 * @param studentID id of student's request
+	 * Approve function that changes {@link Project}'s attributes while checking for {@link Supervisor} MAX
+	 * @param studentID id of {@link Student}'s request
 	 * @throws IOException IOException
 	 */
     public void approve(String studentID) throws IOException {
@@ -31,11 +32,14 @@ public class RequestForRegistration extends Request {
         ArrayList<Project> allProjects = ProjectIO.readProjects();
         for (Project p : allProjects) {
             if (p.getProjectID() == getProjectID()) {
-                p.setStudentID(studentID);
-                if (getType().equals(RequestType.ALLOCATION))
+                if (getType().equals(RequestType.ALLOCATION)) {
                     p.setStatus(ProjectStatus.ALLOCATED);
-                else if (getType().equals(RequestType.DEREGISTRATION))
+                    p.setStudentID(studentID);
+                }
+                else if (getType().equals(RequestType.DEREGISTRATION)) {
                     p.setStatus(ProjectStatus.AVAILABLE);
+                    p.setStudentID("");
+                }
                 ProjectIO.modifyProject(p);
                 project = p;
                 break;
@@ -71,8 +75,8 @@ public class RequestForRegistration extends Request {
     }
 
 	/**
-	 * Reject function that changes request status and student status if is allocation request 
-	 * @param request Request instance
+	 * Implemented Reject function that changes {@link Request} status and {@link Student} status if is allocation request
+	 * @param request {@link Request} instance
 	 * @throws IOException IOException
 	 */
     public void reject(Request request) throws IOException {

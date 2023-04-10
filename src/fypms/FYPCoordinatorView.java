@@ -4,12 +4,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * FYPCoordinatorView provides the prompt functions that {@link FYPCoordinator} can call
+ * Extends {@link SupervisorView}
+ * @version 1.0
+ */
 public class FYPCoordinatorView extends SupervisorView {
 
+    /**
+     * Default Constructor for FYPCoordinatorView
+     */
     public FYPCoordinatorView() {
         super();
     }
 
+    /**
+     * Prompt function to allow {@link FYPCoordinator} to view and approve/reject {@link Request}
+     * See {@link RequestIO} for printing function and {@link FYPCoordinator} for the respective approve functions
+     * @param coordinator {@link FYPCoordinator} instance after login
+     * @throws IOException IOException
+     */
     public void promptViewRequests(FYPCoordinator coordinator) throws IOException {
         Scanner sc = new Scanner(System.in);
         ArrayList<Request> pendingReqs = coordinator.viewPendingRequests();
@@ -49,21 +63,26 @@ public class FYPCoordinatorView extends SupervisorView {
                                     rx.reject(rx);
                                 }
 
-                            }
+                            } else { System.out.println("Invalid input!"); }
                         } catch (Exception e) {
-                            System.err.println("Invalid input!");
+                            System.out.println("Invalid input!");
                             sc.nextLine();
                         }
                     } else count++;
                 }
                 if (count == pendingReqs.size()) System.out.println("Request does not exist.");
             } catch (Exception e) {
-                System.err.println("Invalid input!");
+                System.out.println("Invalid input!");
                 sc.nextLine();
             }
         }
     }
 
+    /**
+     * Prompt function to allow {@link FYPCoordinator} to filter and view {@link Project}
+     * See {@link FYPCoordinator} for generate report function and {@link Project} for printing function
+     * @param coordinator {@link FYPCoordinator} instance after login
+     */
     public void promptGenerateReport(FYPCoordinator coordinator) {
         Scanner sc = new Scanner(System.in);
         System.out.println("| Filter by: (1) STATUS | (2) SUPERVISOR | (3) STUDENT | (4) PROJECT |");
@@ -74,14 +93,22 @@ public class FYPCoordinatorView extends SupervisorView {
             ArrayList<Project> reports = coordinator.generateReport(filterType);
             if (reports.isEmpty()) {
                 System.out.println("No project is found.");
-            }
-            else {
-                for (Project p : reports) {
-                    p.printProjectInfo();
+            } else if (filterType < 5 && filterType > 0) {
+                if (filterType == 3) {
+                    for (Project p : reports) {
+                        p.printAllocated();
+                    }
+                } else {
+                    for (Project p : reports) {
+                        p.printProjectInfo();
+                    }
                 }
+            } else {
+                System.out.println("Invalid input!");
+                sc.nextLine();
             }
         } catch (Exception e) {
-            System.err.println("Invalid input!");
+            System.out.println("Invalid input!");
             sc.nextLine();
         }
     }

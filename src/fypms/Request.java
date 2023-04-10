@@ -132,7 +132,7 @@ public abstract class Request {
 
 	/**
 	 * abstract reject method to be implemented in subclass
-	 * @param request Request instance
+	 * @param request {@link Request} instance
 	 * @throws IOException IOException
 	 */
     public abstract void reject(Request request) throws IOException;

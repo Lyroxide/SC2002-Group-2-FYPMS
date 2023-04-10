@@ -21,7 +21,7 @@ public class RequestIO {
 
 	/**
 	 * Function to read request file
-	 * @return Array List of Request
+	 * @return Array List of {@link Request}
 	 */
     public static ArrayList<Request> readRequests() {
         ArrayList<Request> requests = new ArrayList<>();
@@ -65,8 +65,8 @@ public class RequestIO {
     }
 
 	/**
-	 * write new request to the file
-	 * @param request Request instance
+	 * write new request to the file when new {@link Request} is made
+	 * @param request {@link Request} instance
 	 * @throws IOException IOException
 	 */
     public static void writeRequest(Request request) throws IOException {
@@ -90,8 +90,8 @@ public class RequestIO {
     }
 
 	/**
-	 * modifies a specific line in Request file
-	 * @param request Request instance
+	 * modifies a specific line in Request file when {@link Request} is processed
+	 * @param request {@link Request} instance
 	 * @throws IOException IOException
 	 */
     public static void modifyRequest(Request request) throws IOException {
@@ -137,8 +137,8 @@ public class RequestIO {
     }
 
 	/**
-	 * prints request info
-	 * @param request Request instance
+	 * prints {@link Request} info
+	 * @param request {@link Request} instance
 	 * @throws IOException IOException
 	 */
     public static void printRequestInfo(Request request) throws IOException {
@@ -146,8 +146,8 @@ public class RequestIO {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                if (line.startsWith(String.valueOf(request.getRequestID()))) {
-                    String[] tokens = line.split(";");
+                String[] tokens = line.split(";");
+                if (tokens[0].equals(String.valueOf(request.getRequestID()))) {
                     int requestID = Integer.parseInt(tokens[0]);
                     String type = tokens[1];
                     String sender = tokens[2];
@@ -167,15 +167,16 @@ public class RequestIO {
                     System.out.print("ID: " + id + " | Type: " + type + " | Sender: " + sender + " | Receiver: " + receiver + " | ProjectID: " + projectID + " | Status: " + status);
                     if (type.equals("TRANSFER")) {
                         String add = tokens[6];
-                        System.out.println(" | New SupervisorID: " + add);
+                        System.out.print(" | New SupervisorID: " + add);
                     } else if (type.equals("TITLECHANGE")) {
                         String add = tokens[6];
-                        System.out.println(" | New Title: " + add);
+                        System.out.print(" | New Title: " + add);
                     }
+                    System.out.println();
+                    System.out.println();
                 }
             }
-            System.out.println();
-            System.out.println();
+
         }
     }
 }

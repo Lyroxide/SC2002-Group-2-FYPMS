@@ -19,11 +19,13 @@ public class FYPCoordinator extends Supervisor {
 
 	/**
 	 * Default FYPCoordinator constructor
+     * See {@link FYPCoordinatorMenu} where this is called
 	 */
     public FYPCoordinator() {}
 
 	/**
 	 * FYPCoordinator constructor when reading from file
+     * See {@link UserIO} where this is called
      * @param name name
      * @param email email
      * @param userID coordinator ID
@@ -44,8 +46,9 @@ public class FYPCoordinator extends Supervisor {
     }
 
 	/**
-	 * Function that checks for supervisor's MAX before approval of Transfer Request
-	 * @param request Request instance
+	 * Function that checks for {@link Supervisor}'s MAX before approval of {@link RequestForTransfer}
+     * See {@link Project} for supervisor num function
+	 * @param request {@link Request} instance
      * @throws IOException IOException
 	 */
     public void changeSupervisor(Request request) throws IOException {
@@ -75,8 +78,8 @@ public class FYPCoordinator extends Supervisor {
     }
 
 	/**
-	 * Function that checks for supervisor's MAX before approval of Allocation Request
-	 * @param request Request instance
+	 * Function that checks for {@link Supervisor}'s MAX before approval of Allocation {@link Request}
+	 * @param request {@link Request} instance
      * @throws IOException IOException
 	 */
     public void allocateProject (Request request) throws IOException {
@@ -115,8 +118,8 @@ public class FYPCoordinator extends Supervisor {
     }
 
 	/**
-	 * Function that allows for approval of De-registration Request
-	 * @param request Request instance
+	 * Function that allows for approval of De-registration {@link Request}
+	 * @param request {@link Request} instance
      * @throws IOException IOException
 	 */
     public void deregisterStudent(Request request) throws IOException {
@@ -143,16 +146,15 @@ public class FYPCoordinator extends Supervisor {
 	/**
 	 * Print project details through two-step filtering and sorting process
 	 * @param filterType from user input
-	 * @return Array List of Projects
-     * @throws IOException IOException
-	 */
-    public ArrayList<Project> generateReport(int filterType) throws IOException {
+	 * @return Array List of {@link Project}
+     */
+    public ArrayList<Project> generateReport(int filterType) {
 
         int choice, i = 0;
         Scanner read = new Scanner(System.in);
-
-        if (filterType == 1) {
-            ArrayList<Project> proj = ProjectIO.readProjects();
+        ArrayList<Project> proj = null;
+        if (filterType == 1) { //STATUS
+            proj = ProjectIO.readProjects();
 
             System.out.println("Generate report by: STATUS");
             System.out.println("Select Project Status to view:");
@@ -195,8 +197,8 @@ public class FYPCoordinator extends Supervisor {
 
             return proj;
         }
-        else if (filterType == 2) {
-            ArrayList<Project> proj = ProjectIO.readProjects();
+        else if (filterType == 2) { //SUPERVISOR
+            proj = ProjectIO.readProjects();
             ArrayList<Supervisor> sup = UserIO.readSupervisors();
             System.out.println("Generate report by: SUPERVISOR");
             System.out.println("Select Supervisor to view:");
@@ -218,8 +220,8 @@ public class FYPCoordinator extends Supervisor {
             }
             return proj;
         }
-        else if (filterType == 3) {
-            ArrayList<Project> proj = ProjectIO.readProjects();
+        else if (filterType == 3) { //STUDENT
+            proj = ProjectIO.readProjects();
             ArrayList<Student> stu = UserIO.readStudents();
 
             System.out.println("Generate report by: STUDENT");
@@ -243,8 +245,8 @@ public class FYPCoordinator extends Supervisor {
             }
             return proj;
         }
-        else if (filterType == 4) {
-            ArrayList<Project> proj = ProjectIO.readProjects();
+        else if (filterType == 4) { //TITLE
+            proj = ProjectIO.readProjects();
 
             System.out.println("Generate report by: PROJECTS");
             System.out.println("Select Projects to view:");
@@ -266,12 +268,12 @@ public class FYPCoordinator extends Supervisor {
             }
             return proj;
         }
-        else return null;
+        return proj;
     }
 	
 	/**
 	 * Function to return pending requests
-	 * @return Array List of Request
+	 * @return Array List of {@link Request}
 	 */
     public ArrayList<Request> viewPendingRequests() { //smth about the userid
         ArrayList<Request> pendingRequests = new ArrayList<>();
@@ -287,7 +289,7 @@ public class FYPCoordinator extends Supervisor {
 
 	/**
 	 * Function to return processed requests
-	 * @return Array List of Request
+	 * @return Array List of {@link Request}
 	 */
     public ArrayList<Request> viewRequests() {
         ArrayList<Request> requests = new ArrayList<>();

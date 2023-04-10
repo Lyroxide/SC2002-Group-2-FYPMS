@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 /**
- * Inherited class from Request to handle supervisor transfer requests
+ * Inherited class from {@link Request} to handle supervisor transfer requests
  * @version 1.0
  */
 public class RequestForTransfer extends Request {
@@ -15,7 +15,8 @@ public class RequestForTransfer extends Request {
     private String supervisorID;
 
 	/**
-	 * Constructor
+	 * Constructor for RequestForTransfer
+     * See {@link Supervisor} or {@link RequestIO} where this is called
      * @param type request type
      * @param sender sender userID
      * @param receiver receiver userID or FYPCoordinator
@@ -29,7 +30,7 @@ public class RequestForTransfer extends Request {
     }
 
 	/**
-	 * Gets supervisor id
+	 * Gets new {@link Supervisor} id
 	 * @return supervisor id
 	 */
     public String getSupervisorID() {
@@ -37,7 +38,7 @@ public class RequestForTransfer extends Request {
     }
 
 	/**
-	 * Approve function that changes project's supervisor and checks for supervisor MAX
+	 * Approve function that changes project's {@link Supervisor} and checks for {@link Supervisor} MAX
 	 * @param supervisorID new supervisor id
 	 * @throws IOException IOException
 	 */
@@ -83,8 +84,8 @@ public class RequestForTransfer extends Request {
     }
 
 	/**
-	 * Reject function that changes request status
-	 * @param request Request instance
+	 * Implemented Reject function that changes {@link Request} status
+	 * @param request {@link Request} instance
 	 * @throws IOException IOException
 	 */
     public void reject(Request request) throws IOException {

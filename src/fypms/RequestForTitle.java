@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Inherited class from Request to handle title change requests
+ * Inherited class from {@link Request} to handle title change requests
  * @version 1.0
  */
 public class RequestForTitle extends Request {
@@ -16,6 +16,7 @@ public class RequestForTitle extends Request {
 
 	/**
 	 * Constructor
+     * See {@link Student} and {@link RequestIO} where this is called
      * @param type request type
      * @param sender sender userID
      * @param receiver receiver userID or FYPCoordinator
@@ -29,7 +30,7 @@ public class RequestForTitle extends Request {
     }
 
 	/**
-	 * Gets project title
+	 * Gets {@link Project} title
 	 * @return project title
 	 */
     public String getProjectTitle() {
@@ -37,7 +38,7 @@ public class RequestForTitle extends Request {
     }
 	
 	/**
-	 * Approve function that changes project's attributes
+	 * Approve function that changes {@link Project}'s attributes
 	 * @param title new title
 	 * @throws IOException IOException
 	 */
@@ -60,8 +61,8 @@ public class RequestForTitle extends Request {
     }
 
 	/**
-	 * Reject function that changes request status
-	 * @param request Request instance
+	 * Implemented Reject function that changes request status
+	 * @param request {@link Request} instance
 	 * @throws IOException IOException
 	 */
     public void reject(Request request) throws IOException {

@@ -1,6 +1,5 @@
 package fypms;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -139,10 +138,10 @@ public class Project {
         System.out.printf("Project ID: %d ", projectID);
         System.out.printf("| Project Title: %s\n", projectTitle);
         System.out.printf("Project Status: %s ", projectStatus);
-        System.out.printf("| Supervisor ID: %s ", supervisorID);
+        System.out.printf("| Supervisor ID: %s \n", supervisorID);
         for (Supervisor supervisor : SupervisorArr) {
             if (Objects.equals(supervisor.getSupervisorID(), this.supervisorID)) {
-                System.out.printf("| Supervisor Name: %s ", supervisor.getName());
+                System.out.printf("Supervisor Name: %s ", supervisor.getName());
                 System.out.printf("| Supervisor Email: %s ", supervisor.getEmail());
             }
         }
@@ -162,19 +161,18 @@ public class Project {
             System.out.printf("Project ID: %d ", projectID);
             System.out.printf("| Project Title: %s\n", projectTitle);
             System.out.printf("Project Status: %s ", projectStatus);
-            System.out.printf("| Supervisor ID: %s ", supervisorID);
+            System.out.printf("| Supervisor ID: %s\n", supervisorID);
             //iterate through Supervisor array to find name and email
             for (Supervisor supervisor : SupervisorArr) {
                 if (Objects.equals(supervisor.getSupervisorID(), this.supervisorID)) {
-                    System.out.printf("| Supervisor Name: %s ", supervisor.getName());
-                    System.out.printf("| Supervisor Email: %s ", supervisor.getEmail());
+                    System.out.printf("Supervisor Name: %s ", supervisor.getName());
+                    System.out.printf("| Supervisor Email: %s \n", supervisor.getEmail());
                 }
             }
-
             //iterates through student Array to get name and email
             for (Student student : StudentArr) {
                 if (Objects.equals(student.getStudentID(), this.studentID)) {
-                    System.out.printf("| Student Name: %s ", student.getName());
+                    System.out.printf("Student Name: %s ", student.getName());
                     System.out.printf("| Student Email: %s", student.getEmail());
                 }
             }
@@ -187,9 +185,8 @@ public class Project {
 	 * Function that counts through the number of supervising projects
 	 * @param supervisorID supervisor's id
 	 * @return count how many supervisor is supervising
-	 * @throws IOException IOException
-	 */
-    public int superviseNum(String supervisorID) throws IOException {
+     */
+    public int superviseNum(String supervisorID) {
         int count = 0;
         ArrayList<Project> allProjects = ProjectIO.readProjects();
         for (Project p : allProjects) {

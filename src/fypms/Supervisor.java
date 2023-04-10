@@ -17,11 +17,13 @@ public class Supervisor extends User {
 	
 	/**
 	 * Default constructor
+     * See {@link SupervisorMenu} where this is called
 	 */
     public Supervisor() {}
 	
 	/**
 	 * Supervisor constructor when reading from file
+     * See {@link UserIO} where this is called
      * @param name name
      * @param email email
      * @param userID supervisor ID
@@ -45,7 +47,8 @@ public class Supervisor extends User {
     }
 
 	/**
-	 * Function that creates and writes a project
+	 * Function that creates and writes a {@link Project}
+     * See {@link Project} for status setter
 	 * @param projectTitle new project
 	 * @throws IOException IOException
 	 */
@@ -59,7 +62,8 @@ public class Supervisor extends User {
     }
 
 	/**
-	 * Function that updates project title and writes project
+	 * Function that updates {@link Project} title and writes {@link Project}
+     * See {@link Project} for title setter and {@link ProjectIO} for modify function
 	 * @param projectID project ID input
      * @param projectTitle new project title
 	 * @throws IOException IOException
@@ -81,7 +85,7 @@ public class Supervisor extends User {
 
 	/**
 	 * Function that returns own projects
-	 * @return Array List of Project
+	 * @return Array List of {@link Project}
 	 * @throws IOException IOException
 	 */
     public ArrayList<Project> viewOwnProjects() throws IOException {
@@ -97,7 +101,7 @@ public class Supervisor extends User {
 
 	/**
 	 * Function that returns allocated projects
-	 * @return Array List of Project
+	 * @return Array List of {@link Project}
 	 * @throws IOException IOException
 	 */
     public ArrayList<Project> viewAllocatedProjects() throws IOException {
@@ -112,8 +116,9 @@ public class Supervisor extends User {
     }
 
 	/**
-	 * Function that checks for correct request instance before approval of title change
-	 * @param request Request instance
+	 * Function that checks for correct {@link Request} instance before approval of title change
+     * See {@link RequestForTitle} for approve function and {@link RequestIO} for modify function
+	 * @param request {@link Request} instance
 	 * @throws IOException IOException
 	 */
     public void modifyProjectTitle(Request request) throws IOException {
@@ -125,7 +130,8 @@ public class Supervisor extends User {
     }
 
 	/**
-	 * Function that makes a transfer request to coordinator
+	 * Function that makes a transfer {@link Request} to coordinator
+     * See {@link RequestForTransfer} for constructor and {@link RequestIO} for write function
 	 * @param projectID project ID input
      * @param newSupervisorID new supervisor ID to be transferred to
 	 * @throws IOException IOException
@@ -138,7 +144,7 @@ public class Supervisor extends User {
 
 	/**
 	 * Function that returns pending requests
-	 * @return Array List of Request
+	 * @return Array List of {@link Request}
 	 */
     public ArrayList<Request> viewPendingRequests() {
         ArrayList<Request> pendingRequests = new ArrayList<>();
@@ -153,7 +159,7 @@ public class Supervisor extends User {
 
 	/**
 	 * Function that returns processed requests
-	 * @return Array List of Request
+	 * @return Array List of {@link Request}
 	 */
     public ArrayList<Request> viewRequests() {
         ArrayList<Request> requests = new ArrayList<>();

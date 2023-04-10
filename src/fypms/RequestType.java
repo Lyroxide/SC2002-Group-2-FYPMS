@@ -1,7 +1,7 @@
 package fypms;
 
 /**
- * Enum class for Request's Type
+ * Enum class for {@link Request}'s Type
  * @version 1.0
  */
 public enum RequestType {

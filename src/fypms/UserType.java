@@ -1,8 +1,7 @@
 package fypms;
 
 /**
- * Enum Class for User's Type
- *
+ * Enum Class for {@link User}'s Type
  * @version 1.0
  */
 public enum UserType {

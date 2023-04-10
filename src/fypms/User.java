@@ -92,6 +92,7 @@ public class User {
 
 	/**
 	 * Function to change user password and write to file
+	 * See {@link UserIO} for write password function
 	 * @param newPassword new password from input
 	 * @return when true, returns to main menu
 	 * @throws IOException IOException

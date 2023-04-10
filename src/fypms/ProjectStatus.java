@@ -1,7 +1,7 @@
 package fypms;
 
 /**
- * Enum class for Project's Status
+ * Enum class for {@link Project}'s Status
  * @version 1.0
  */
 public enum ProjectStatus {

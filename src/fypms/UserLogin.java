@@ -3,13 +3,13 @@ package fypms;
 import java.util.ArrayList;
 
 /**
- * Class for Users to login and verify login details
+ * Class for {@link User} to login and verify login details
  * @version 1.0
  */
 public class UserLogin {
 
     /**
-     * This is User's Type as a temporary variable used for login
+     * This is {@link User}'s Type as a temporary variable used for login
      */
     private String userType;
 
@@ -18,11 +18,11 @@ public class UserLogin {
      */
     public UserLogin() {}
 
-	/**
-	 * Verify the userID only
-	 * @param userID userID input
-	 * @return true for correct ID, false for wrong ID
-	 */
+    /**
+     * Verify the userID only
+     * @param userID userID input
+     * @return {@code true} for correct ID, {@code false} if wrong ID
+     */
     public boolean verifyUser(String userID) {
         ArrayList<Student> students = UserIO.readStudents();
         ArrayList<Supervisor> supervisors = UserIO.readSupervisors();
@@ -49,12 +49,12 @@ public class UserLogin {
         return false;
     }
 
-	/**
-	 * Verify the userID and password
-	 * @param userID userID input
-	 * @param password password input
-	 * @return true for correct ID AND password
-	 */
+    /**
+     * Verify the userID and password
+     * @param userID userID input
+     * @param password password input
+     * @return {@code true} for correct ID AND password, {@code false} if wrong password
+     */
     public boolean verifyUserAndPass(String userID, String password) {
         ArrayList<Student> students = UserIO.readStudents();
         ArrayList<Supervisor> supervisors = UserIO.readSupervisors();
@@ -82,10 +82,11 @@ public class UserLogin {
 
         return false;
     }
-	/**
-	 * Gets the user's type for login
-	 * @return this user's type as a String
-	 */
+
+    /**
+     * Gets the {@link User}'s type for login
+     * @return this user's type as a String
+     */
     public String getUserType() {
         return userType;
     }

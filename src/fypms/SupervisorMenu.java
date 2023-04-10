@@ -4,8 +4,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * SupervisorMenu provides the menu functions that takes in user input and calls {@link SupervisorView} prompt functions
+ * @version 1.0
+ */
 public class SupervisorMenu {
-    public static void supervisorMenu(String userID,String password){
+
+    /**
+     * Menu function to allow {@link Supervisor} to call functions through input
+     * See {@link SupervisorView} for prompt functions
+     * @param userID correct userID after login
+     * @param password correct password after login
+     */
+    public static void supervisorMenu(String userID,String password) {
+
         Supervisor supervisor = new Supervisor();
         Scanner sc = new Scanner(System.in);
         boolean pwChanged = false;
@@ -30,57 +42,62 @@ public class SupervisorMenu {
             System.out.println("(8) Logout");
             System.out.print("Enter your choice: ");
             try {
-                supervisor_choice = sc.nextInt();
-                sc.nextLine();
-                SupervisorView supervisorView = new SupervisorView();
-                switch (supervisor_choice) {
-                    case 1: //create proj
-                        supervisorView.promptCreateProject(supervisor);
-                        break;
-                    case 2: //view own proj
-                        supervisorView.promptViewOwnProjects(supervisor);
-                        break;
-                    case 3: //update title
-                        supervisorView.promptUpdateTitle(supervisor);
-                        break;
-                    case 4: //new sup transfer
-                        supervisorView.promptTransfer(supervisor);
-                        break;
-                    case 5: //view req then app/rej
-                        supervisorView.promptViewRequests(supervisor);
-                        break;
-                    case 6: //view req hist
-                        supervisorView.promptViewReqHistory(supervisor);
-                        break;
-                    case 7: //change pw
-                        System.out.print("Enter old password: ");
-                        String oldPW = sc.nextLine();
-                        System.out.print("Enter new password: ");
-                        String newPW = sc.nextLine();
-                        System.out.print("Re-enter new password: ");
-                        String newPW_2 = sc.nextLine();
+                if (sc.hasNextInt()) {
+                    supervisor_choice = sc.nextInt();
+                    sc.nextLine();
+                    SupervisorView supervisorView = new SupervisorView();
+                    switch (supervisor_choice) {
+                        case 1: //create proj
+                            supervisorView.promptCreateProject(supervisor);
+                            break;
+                        case 2: //view own proj
+                            supervisorView.promptViewOwnProjects(supervisor);
+                            break;
+                        case 3: //update title
+                            supervisorView.promptUpdateTitle(supervisor);
+                            break;
+                        case 4: //new sup transfer
+                            supervisorView.promptTransfer(supervisor);
+                            break;
+                        case 5: //view req then app/rej
+                            supervisorView.promptViewRequests(supervisor);
+                            break;
+                        case 6: //view req hist
+                            supervisorView.promptViewReqHistory(supervisor);
+                            break;
+                        case 7: //change pw
+                            System.out.print("Enter old password: ");
+                            String oldPW = sc.nextLine();
+                            System.out.print("Enter new password: ");
+                            String newPW = sc.nextLine();
+                            System.out.print("Re-enter new password: ");
+                            String newPW_2 = sc.nextLine();
 
-                        if (!oldPW.equals(password))
-                            System.out.println("You have entered wrong password.");
-                        else if (!newPW.equals(newPW_2))
-                            System.out.println("New password fields do not match.");
-                        else if (newPW.equals(password))
-                            System.out.println("You cannot re-use the same password!");
-                        else if (oldPW.isEmpty() || newPW.isEmpty())
-                            System.out.println("You cannot input empty fields.");
-                        else {
-                            pwChanged = supervisor.changePW(newPW);
-                            System.out.println("You have successfully changed password.");
-                        }
-                        break;
-                    case 8: //logout
-                        break;
-                    default:
-                        System.err.println("Invalid input!");
+                            if (!oldPW.equals(password))
+                                System.out.println("You have entered wrong password.");
+                            else if (!newPW.equals(newPW_2))
+                                System.out.println("New password fields do not match.");
+                            else if (newPW.equals(password))
+                                System.out.println("You cannot re-use the same password!");
+                            else if (oldPW.isEmpty() || newPW.isEmpty())
+                                System.out.println("You cannot input empty fields.");
+                            else {
+                                pwChanged = supervisor.changePW(newPW);
+                                System.out.println("You have successfully changed password.");
+                            }
+                            break;
+                        case 8: //logout
+                            break;
+                        default:
+                            System.out.println("Invalid input!");
+                            break;
+                    }
+                } else {
+                    sc.nextLine();
+                    System.out.println("Invalid input!");
                 }
-            } catch (Exception e) {
-                System.err.println("Invalid input!");
-                sc.nextLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } while (supervisor_choice != 8 && !pwChanged);
         System.out.println("Returning to main screen...");

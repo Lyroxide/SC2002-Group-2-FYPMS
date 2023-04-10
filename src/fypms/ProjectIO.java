@@ -21,10 +21,9 @@ public class ProjectIO {
 
 	/**
 	 * Function to read project file
-	 * @return Array List of Project
-	 * @throws IOException IOException
-	 */
-    public static ArrayList<Project> readProjects() throws IOException {
+	 * @return Array List of {@link Project}
+     */
+    public static ArrayList<Project> readProjects() {
         ArrayList<Project> projects = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(projectFile))) {
             String line;
@@ -56,8 +55,9 @@ public class ProjectIO {
     }
 
 	/**
-	 * write new project to the file
-	 * @param project project instance
+	 * write new project to the file when a new project is made
+     * See {@link Supervisor} for create project function
+	 * @param project {@link Project} instance
 	 * @throws IOException IOException
 	 */
     public static void writeProject(Project project) throws IOException {
@@ -73,8 +73,8 @@ public class ProjectIO {
     }
 
 	/**
-	 * modifies a specific line in project file
-	 * @param project Project instance
+	 * modifies a specific line in project file when {@link Project} attributes are modified
+	 * @param project {@link Project} instance
 	 * @throws IOException IOException
 	 */
     public static void modifyProject(Project project) throws IOException {

@@ -9,20 +9,20 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class UserIO {
-	
-	/**
-	 * file name to read all students
-	 */
+
+    /**
+     * file name to read all {@link Student}
+     */
     private static final File studentFile = new File("Database/student_list.txt");
-	
-	/**
-	 * file name to read all supervisors
-	 */
+
+    /**
+     * file name to read all {@link Supervisor}
+     */
     private static final File supervisorFile = new File("Database/faculty_list.txt");
-	
-	/**
-	 * file name to read all coordinators
-	 */
+
+    /**
+     * file name to read all {@link FYPCoordinator}
+     */
     private static final File coordinatorFile = new File("Database/fyp_coordinator.txt");
 
     /**
@@ -30,11 +30,11 @@ public class UserIO {
      */
     public UserIO() {}
 
-	/**
-	 * read students
-	 * 
-	 * @return array list of students
-	 */
+    /**
+     * read students
+     *
+     * @return array list of {@link Student}
+     */
     public static ArrayList<Student> readStudents() {
         ArrayList<Student> students = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(studentFile))) {
@@ -59,13 +59,13 @@ public class UserIO {
 
         return students;
     }
-	
-	/**
-	 * write new student's password
-	 * @param name student name
-	 * @param newPassword new password
+
+    /**
+     * write new {@link Student}'s password
+     * @param name student name
+     * @param newPassword new password
      * @throws IOException IOException
-	 */
+     */
     public static void writeStudentPassword(String name, String newPassword) throws IOException {
         ArrayList<Student> students = readStudents();
         Student student = new Student();
@@ -109,11 +109,11 @@ public class UserIO {
         }
     }
 
-	/**
-	 * write new student's status
-	 * @param student the specific student that has been modified
+    /**
+     * write new {@link Student}'s status
+     * @param student the specific student that has been modified
      * @throws IOException IOException
-	 */
+     */
     public static void writeStudentStatus(Student student) throws IOException {
 
         String newLine = student.getName() + ";" + student.getEmail() + ";" + student.getPassword() + ";" + student.getStatus() + ";" + student.getCurProject();
@@ -149,10 +149,10 @@ public class UserIO {
         }
     }
 
-	/**
-	 * read supervisors
-     * @return Array List of Supervisors
-	 */
+    /**
+     * read supervisors
+     * @return Array List of {@link Supervisor}
+     */
     public static ArrayList<Supervisor> readSupervisors() {
         ArrayList<Supervisor> supervisors = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(supervisorFile))) {
@@ -176,12 +176,12 @@ public class UserIO {
         return supervisors;
     }
 
-	/**
-	 * write new supervisor's password
-	 * @param name name
-	 * @param newPassword new password
+    /**
+     * write new {@link Supervisor}'s password
+     * @param name name
+     * @param newPassword new password
      * @throws IOException IOException
-	 */
+     */
     public static void writeSupervisorPassword(String name, String newPassword) throws IOException {
         ArrayList<Supervisor> supervisors = readSupervisors();
         Supervisor supervisor = new Supervisor();
@@ -225,10 +225,10 @@ public class UserIO {
         }
     }
 
-	/**
-	 * read fyp coordinators
-     * @return Array List of FYPCoordinators
-	 */
+    /**
+     * read fyp coordinators
+     * @return Array List of {@link FYPCoordinator}
+     */
     public static ArrayList<FYPCoordinator> readFYPCoordinator() {
         ArrayList<FYPCoordinator> coordinators = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(coordinatorFile))) {
@@ -252,12 +252,12 @@ public class UserIO {
         return coordinators;
     }
 
-	/**
-	 * write coordinator password
-	 * @param name name
-	 * @param newPassword new password
+    /**
+     * write {@link FYPCoordinator} password
+     * @param name name
+     * @param newPassword new password
      * @throws IOException IOException
-	 */
+     */
     public static void writeCoordinatorPassword(String name, String newPassword) throws IOException {
         ArrayList<FYPCoordinator> coordinators = readFYPCoordinator();
         FYPCoordinator coordinator = new FYPCoordinator();

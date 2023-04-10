@@ -4,8 +4,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * StudentMenu provides the menu functions that takes in user input and calls {@link StudentView} prompt functions
+ * @version 1.0
+ */
 public class StudentMenu {
-    public static void studentMenu(String userID,String password){
+
+    /**
+     * Menu function to allow {@link Student} to call functions through input
+     * See {@link StudentView} for prompt functions
+     * @param userID correct userID after login
+     * @param password correct password after login
+     */
+    public static void studentMenu(String userID,String password) {
+
         Scanner sc = new Scanner(System.in);
         Student student = new Student();
         boolean pwChanged = false;
@@ -30,56 +42,62 @@ public class StudentMenu {
             System.out.print("Enter your choice: ");
 
             try {
-                student_choice = sc.nextInt();
-                sc.nextLine();
-                StudentView studentView = new StudentView();
-                switch (student_choice) {
-                    case 1: //view available projects
-                        studentView.promptViewAvailableProjects(student);
-                        break;
-                    case 2: //select project
-                        studentView.promptSelectProject(student);
-                        break;
-                    case 3: //view curr project
-                        studentView.promptViewCurrProject(student);
-                        break;
-                    case 4: //r: change title
-                        studentView.promptChangeTitle(student);
-                        break;
-                    case 5: //r: deregister
-                        studentView.promptDeregister(student);
-                        break;
-                    case 6: //view request history
-                        studentView.promptViewRequestHistory(student);
-                        break;
-                    case 7: //change pw
-                        System.out.print("Enter old password: ");
-                        String oldPW = sc.nextLine();
-                        System.out.print("Enter new password: ");
-                        String newPW = sc.nextLine();
-                        System.out.print("Re-enter new password: ");
-                        String newPW_2 = sc.nextLine();
+                if (sc.hasNextInt()) {
+                    student_choice = sc.nextInt();
+                    sc.nextLine();
+                    StudentView studentView = new StudentView();
+                    switch (student_choice) {
+                        case 1: //view available projects
+                            studentView.promptViewAvailableProjects(student);
+                            break;
+                        case 2: //select project
+                            studentView.promptSelectProject(student);
+                            break;
+                        case 3: //view curr project
+                            studentView.promptViewCurrProject(student);
+                            break;
+                        case 4: //r: change title
+                            studentView.promptChangeTitle(student);
+                            break;
+                        case 5: //r: deregister
+                            studentView.promptDeregister(student);
+                            break;
+                        case 6: //view request history
+                            studentView.promptViewRequestHistory(student);
+                            break;
+                        case 7: //change pw
+                            System.out.print("Enter old password: ");
+                            String oldPW = sc.nextLine();
+                            System.out.print("Enter new password: ");
+                            String newPW = sc.nextLine();
+                            System.out.print("Re-enter new password: ");
+                            String newPW_2 = sc.nextLine();
 
-                        if (!oldPW.equals(password))
-                            System.out.println("You have entered wrong password.");
-                        else if (!newPW.equals(newPW_2))
-                            System.out.println("New password fields do not match.");
-                        else if (newPW.equals(password))
-                            System.out.println("You cannot re-use the same password!");
-                        else if (oldPW.isEmpty() || newPW.isEmpty())
-                            System.out.println("You cannot input empty fields.");
-                        else {
-                            pwChanged = student.changePW(newPW);
-                            System.out.println("You have successfully changed password.");
-                        }
-                        break;
-                    case 8: //logout
-                        break;
-                    default:
-                        System.err.println("Invalid input!");
+                            if (!oldPW.equals(password))
+                                System.out.println("You have entered wrong password.");
+                            else if (!newPW.equals(newPW_2))
+                                System.out.println("New password fields do not match.");
+                            else if (newPW.equals(password))
+                                System.out.println("You cannot re-use the same password!");
+                            else if (oldPW.isEmpty() || newPW.isEmpty())
+                                System.out.println("You cannot input empty fields.");
+                            else {
+                                pwChanged = student.changePW(newPW);
+                                System.out.println("You have successfully changed password.");
+                            }
+                            break;
+                        case 8: //logout
+                            break;
+                        default:
+                            System.out.println("Invalid input!");
+                            break;
+                    }
+                } else {
+                    sc.nextLine();
+                    System.out.println("Invalid input!");
                 }
             } catch (IOException e) {
-                System.err.println("Invalid input!");
+                throw new RuntimeException(e);
             }
         } while (student_choice != 8 && !pwChanged);
     }
