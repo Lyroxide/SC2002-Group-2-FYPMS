@@ -20,7 +20,6 @@ public class FYPCoordinatorMenu {
 
         FYPCoordinator coordinator = new FYPCoordinator();
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\\n");
         boolean pwChanged = false;
         ArrayList<FYPCoordinator> coordinators = UserIO.readFYPCoordinator();
 
