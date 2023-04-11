@@ -22,7 +22,7 @@ public class Supervisor extends User {
     public Supervisor() {}
 	
 	/**
-	 * Supervisor constructor when reading from file
+	 * Supervisor constructor when reading from file <p></p>
      * See {@link UserIO} where this is called
      * @param name name
      * @param email email
@@ -47,7 +47,7 @@ public class Supervisor extends User {
     }
 
 	/**
-	 * Function that creates and writes a {@link Project}
+	 * Function that creates and writes a {@link Project} <p></p>
      * See {@link Project} for status setter
 	 * @param projectTitle new project
 	 * @throws IOException IOException
@@ -62,7 +62,7 @@ public class Supervisor extends User {
     }
 
 	/**
-	 * Function that updates {@link Project} title and writes {@link Project}
+	 * Function that updates {@link Project} title and writes {@link Project} <p></p>
      * See {@link Project} for title setter and {@link ProjectIO} for modify function
 	 * @param projectID project ID input
      * @param projectTitle new project title
@@ -116,7 +116,7 @@ public class Supervisor extends User {
     }
 
 	/**
-	 * Function that checks for correct {@link Request} instance before approval of title change
+	 * Function that checks for correct {@link Request} instance before approval of title change <p></p>
      * See {@link RequestForTitle} for approve function and {@link RequestIO} for modify function
 	 * @param request {@link Request} instance
 	 * @throws IOException IOException
@@ -130,16 +130,24 @@ public class Supervisor extends User {
     }
 
 	/**
-	 * Function that makes a transfer {@link Request} to coordinator
+	 * Function that makes a transfer {@link Request} to coordinator <p></p>
      * See {@link RequestForTransfer} for constructor and {@link RequestIO} for write function
 	 * @param projectID project ID input
      * @param newSupervisorID new supervisor ID to be transferred to
 	 * @throws IOException IOException
 	 */
     public void transferProject(int projectID, String newSupervisorID) throws IOException {
-        Request request = new RequestForTransfer(RequestType.TRANSFER, supervisorID, "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
-        RequestIO.writeRequest(request);
-        System.out.println("Transfer request submitted successfully");
+        ArrayList<Supervisor> allSup = UserIO.readSupervisors();
+        int count = 0;
+        for (Supervisor s : allSup) {
+            if (s.getSupervisorID().equals(newSupervisorID)) count++;
+        }
+        if (count != 0) {
+            Request request = new RequestForTransfer(RequestType.TRANSFER, supervisorID, "FYPCoordinator", projectID, RequestStatus.PENDING, newSupervisorID);
+            RequestIO.writeRequest(request);
+            System.out.println("Transfer request submitted successfully");
+        }
+        else System.out.println("Supervisor does not exist.");
     }
 
 	/**
@@ -158,7 +166,7 @@ public class Supervisor extends User {
     }
 
 	/**
-	 * Function that returns processed requests
+	 * Function that returns requests sent or received by supervisor
 	 * @return Array List of {@link Request}
 	 */
     public ArrayList<Request> viewRequests() {

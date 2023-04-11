@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Class for Student attributes and functions
+ * Class for Student attributes and functions <p></p>
  * Inherits User Class
  * @version 1.0
  */
@@ -27,13 +27,13 @@ public class Student extends User {
     private int curProject;
 
 	/**
-	 * Default constructor
+	 * Default constructor <p></p>
      * See {@link StudentMenu} where this is called
 	 */
     public Student() {}
 
 	/**
-	 * Student constructor when reading from file
+	 * Student constructor when reading from file <p></p>
      * See {@link UserIO} where this is called
      * @param name name
      * @param email email
@@ -175,7 +175,7 @@ public class Student extends User {
     }
 
 	/**
-	 * Function that returns all processed requests
+	 * Function that returns all requests sent by this student
 	 * @param studentID this student's id
 	 * @return Array List of {@link Request}
 	 */

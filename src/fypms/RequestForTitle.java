@@ -15,7 +15,7 @@ public class RequestForTitle extends Request {
     private String projectTitle;
 
 	/**
-	 * Constructor
+	 * Constructor <p></p>
      * See {@link Student} and {@link RequestIO} where this is called
      * @param type request type
      * @param sender sender userID

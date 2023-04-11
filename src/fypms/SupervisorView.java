@@ -16,7 +16,7 @@ public class SupervisorView {
     public SupervisorView() {}
 
     /**
-     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to create {@link Project}
+     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to create {@link Project} <p></p>
      * See {@link Supervisor} for create project function
      * @param supervisor {@link Supervisor} or {@link FYPCoordinator} instance after login
      * @throws IOException IOException
@@ -33,7 +33,7 @@ public class SupervisorView {
     }
 
     /**
-     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to view own {@link Project}
+     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to view own {@link Project} <p></p>
      * See {@link Project} for printing function
      * @param supervisor {@link Supervisor} or {@link FYPCoordinator} instance after login
      * @throws IOException IOException
@@ -54,7 +54,7 @@ public class SupervisorView {
     }
 
     /**
-     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to update {@link Project} title
+     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to update {@link Project} title <p></p>
      * See {@link Supervisor} for update title function
      * @param supervisor {@link Supervisor} or {@link FYPCoordinator} instance after login
      * @throws IOException IOException
@@ -97,7 +97,7 @@ public class SupervisorView {
     }
 
     /**
-     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to transfer {@link Project}
+     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to transfer {@link Project} <p></p>
      * See {@link Supervisor} for transfer function
      * @param supervisor {@link Supervisor} or {@link FYPCoordinator} instance after login
      * @throws IOException IOException
@@ -149,8 +149,8 @@ public class SupervisorView {
     }
 
     /**
-     * Prompt function to allow {@link Supervisor} to view and approve/reject {@link Request}
-     * See {@link RequestIO} for printing function and {@link Supervisor} for modify project title function
+     * Prompt function to allow {@link Supervisor} to view and approve/reject {@link Request} <p></p>
+     * See {@link RequestIO} for printing function and {@link Supervisor} for modify project title function <p></p>
      * See {@link FYPCoordinatorView} for the override function
      * @param supervisor {@link Supervisor} instance after login
      * @throws IOException IOException
@@ -194,7 +194,7 @@ public class SupervisorView {
     }
 
     /**
-     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to view processed {@link Request}
+     * Prompt function to allow {@link Supervisor} or {@link FYPCoordinator} to view processed {@link Request} <p></p>
      * See {@link RequestIO} for printing function
      * @param supervisor {@link Supervisor} or {@link FYPCoordinator} instance after login
      * @throws IOException IOException

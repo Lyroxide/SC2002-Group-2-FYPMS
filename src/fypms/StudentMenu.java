@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class StudentMenu {
 
     /**
-     * Menu function to allow {@link Student} to call functions through input
+     * Menu function to allow {@link Student} to call functions through input <p></p>
      * See {@link StudentView} for prompt functions
      * @param userID correct userID after login
      * @param password correct password after login

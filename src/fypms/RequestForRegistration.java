@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class RequestForRegistration extends Request {
 
 	/**
-	 * Constructor
+	 * Constructor <p></p>
      * See {@link Student} and {@link RequestIO} where this is called
      * @param type request type
      * @param sender sender userID

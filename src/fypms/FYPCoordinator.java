@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.*;
 
 /**
- * Class for FYP Coordinator attributes and functions
+ * Class for FYP Coordinator attributes and functions <p></p>
  * Inherits Supervisor Class
  * @version 1.0
  */
@@ -18,13 +18,13 @@ public class FYPCoordinator extends Supervisor {
     private String coordinatorID;
 
 	/**
-	 * Default FYPCoordinator constructor
+	 * Default FYPCoordinator constructor <p></p>
      * See {@link FYPCoordinatorMenu} where this is called
 	 */
     public FYPCoordinator() {}
 
 	/**
-	 * FYPCoordinator constructor when reading from file
+	 * FYPCoordinator constructor when reading from file <p></p>
      * See {@link UserIO} where this is called
      * @param name name
      * @param email email
@@ -38,7 +38,7 @@ public class FYPCoordinator extends Supervisor {
     }
 
 	/**
-	 * Gets coordinator's userID
+	 * Gets coordinator's userID <p></p>
 	 * @return this coordinatorID
 	 */
     public String getCoordinatorID() {
@@ -46,7 +46,7 @@ public class FYPCoordinator extends Supervisor {
     }
 
 	/**
-	 * Function that checks for {@link Supervisor}'s MAX before approval of {@link RequestForTransfer}
+	 * Function that checks for {@link Supervisor}'s MAX before approval of {@link RequestForTransfer} <p></p>
      * See {@link Project} for supervisor num function
 	 * @param request {@link Request} instance
      * @throws IOException IOException
@@ -288,7 +288,7 @@ public class FYPCoordinator extends Supervisor {
     }
 
 	/**
-	 * Function to return processed requests
+	 * Function to return all requests sent to or received by coordinator
 	 * @return Array List of {@link Request}
 	 */
     public ArrayList<Request> viewRequests() {

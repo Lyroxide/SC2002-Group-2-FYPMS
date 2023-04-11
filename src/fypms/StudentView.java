@@ -17,7 +17,7 @@ public class StudentView {
 
 
     /**
-     * Prompt function to allow {@link Student} to see available {@link Project}
+     * Prompt function to allow {@link Student} to see available {@link Project} <p></p>
      * See {@link Project} for printing function
      * @param student {@link Student} instance after login
      * @throws IOException IOException
@@ -38,7 +38,7 @@ public class StudentView {
     }
 
     /**
-     * Prompt function to allow {@link Student} to select {@link Project} and send a {@link Request} to {@link FYPCoordinator}
+     * Prompt function to allow {@link Student} to select {@link Project} and send a {@link Request} to {@link FYPCoordinator} <p></p>
      * See {@link Student} for select function and {@link UserIO} for modification of {@link Student} status
      * @param student {@link Student} instance after login
      */
@@ -146,7 +146,7 @@ public class StudentView {
     }
 
     /**
-     * Prompt function to allow {@link Student} to view processed {@link Request}
+     * Prompt function to allow {@link Student} to view processed {@link Request} <p></p>
      * See {@link RequestIO} for printing function
      * @param student {@link Student} instance after login
      * @throws IOException IOException

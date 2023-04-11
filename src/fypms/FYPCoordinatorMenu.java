@@ -2,7 +2,6 @@ package fypms;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -12,7 +11,7 @@ import java.util.Scanner;
 public class FYPCoordinatorMenu {
 
     /**
-     * Menu function to allow {@link FYPCoordinator} to call functions through input
+     * Menu function to allow {@link FYPCoordinator} to call functions through input <p></p>
      * See {@link FYPCoordinatorView} for prompt functions
      * @param userID correct userID after login
      * @param password correct password after login

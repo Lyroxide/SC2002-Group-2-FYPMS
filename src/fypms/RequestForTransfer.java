@@ -15,7 +15,7 @@ public class RequestForTransfer extends Request {
     private String supervisorID;
 
 	/**
-	 * Constructor for RequestForTransfer
+	 * Constructor for RequestForTransfer <p></p>
      * See {@link Supervisor} or {@link RequestIO} where this is called
      * @param type request type
      * @param sender sender userID

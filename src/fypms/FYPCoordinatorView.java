@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * FYPCoordinatorView provides the prompt functions that {@link FYPCoordinator} can call
+ * FYPCoordinatorView provides the prompt functions that {@link FYPCoordinator} can call <p></p>
  * Extends {@link SupervisorView}
  * @version 1.0
  */
@@ -19,7 +19,7 @@ public class FYPCoordinatorView extends SupervisorView {
     }
 
     /**
-     * Prompt function to allow {@link FYPCoordinator} to view and approve/reject {@link Request}
+     * Prompt function to allow {@link FYPCoordinator} to view and approve/reject {@link Request} <p></p>
      * See {@link RequestIO} for printing function and {@link FYPCoordinator} for the respective approve functions
      * @param coordinator {@link FYPCoordinator} instance after login
      * @throws IOException IOException
@@ -79,7 +79,7 @@ public class FYPCoordinatorView extends SupervisorView {
     }
 
     /**
-     * Prompt function to allow {@link FYPCoordinator} to filter and view {@link Project}
+     * Prompt function to allow {@link FYPCoordinator} to filter and view {@link Project} <p></p>
      * See {@link FYPCoordinator} for generate report function and {@link Project} for printing function
      * @param coordinator {@link FYPCoordinator} instance after login
      */

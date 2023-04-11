@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class SupervisorMenu {
 
     /**
-     * Menu function to allow {@link Supervisor} to call functions through input
+     * Menu function to allow {@link Supervisor} to call functions through input <p></p>
      * See {@link SupervisorView} for prompt functions
      * @param userID correct userID after login
      * @param password correct password after login

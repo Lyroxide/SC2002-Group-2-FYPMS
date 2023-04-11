@@ -55,7 +55,7 @@ public class ProjectIO {
     }
 
 	/**
-	 * write new project to the file when a new project is made
+	 * write new project to the file when a new project is made <p></p>
      * See {@link Supervisor} for create project function
 	 * @param project {@link Project} instance
 	 * @throws IOException IOException
