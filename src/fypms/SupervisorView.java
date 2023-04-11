@@ -82,7 +82,10 @@ public class SupervisorView {
                             s.updateTitle(id, title);
                             count++;
                             break;
-                        } else System.out.println("Invalid input!");
+                        } else {
+                            System.out.println("Invalid input!");
+                            count++;
+                        }
                     }
                 }
                 if (count == 0) System.out.println("You are not supervising that project.");

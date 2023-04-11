@@ -95,9 +95,14 @@ public class FYPCoordinatorView extends SupervisorView {
                 System.out.println("No project is found.");
             } else if (filterType < 5 && filterType > 0) {
                 if (filterType == 3) {
+                    int count = 0;
                     for (Project p : reports) {
-                        p.printAllocated();
+                        if (p.getStatus() == ProjectStatus.ALLOCATED) {
+                            p.printAllocated();
+                            count++;
+                        }
                     }
+                    if (count == 0) System.out.println("No project is found.");
                 } else {
                     for (Project p : reports) {
                         p.printProjectInfo();
