@@ -183,7 +183,7 @@ public class Student extends User {
         ArrayList<Request> ownRequests = new ArrayList<>();
         ArrayList<Request> allRequests = RequestIO.readRequests();
         for (Request r : allRequests) {
-            if (r.getSender().equals(studentID) && !r.getStatus().equals(RequestStatus.PENDING)) {
+            if (r.getSender().equals(studentID)) {
                 ownRequests.add(r);
             }
         }

@@ -295,10 +295,8 @@ public class FYPCoordinator extends Supervisor {
         ArrayList<Request> requests = new ArrayList<>();
         ArrayList<Request> allRequests = RequestIO.readRequests();
         for (Request request : allRequests) {
-            if (!request.getStatus().equals(RequestStatus.PENDING)) {
-                if (request.getReceiver().equals("FYPCoordinator") || request.getReceiver().equals(coordinatorID) || request.getSender().equals(coordinatorID))
-                    requests.add(request);
-            }
+            if (request.getReceiver().equals("FYPCoordinator") || request.getReceiver().equals(coordinatorID) || request.getSender().equals(coordinatorID))
+                requests.add(request);
         }
         return requests;
     }

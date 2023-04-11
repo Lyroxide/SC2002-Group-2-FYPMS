@@ -153,9 +153,7 @@ public class StudentView {
      */
     public void promptViewRequestHistory(Student student) throws IOException {
         ArrayList<Request> allReq = student.viewRequests(student.getStudentID());
-        if (allReq.isEmpty()) {
-            System.out.println("Either you have not made any requests, or none of your requests has been processed.");
-        }
+        if (allReq.isEmpty()) System.out.println("You have not made any requests.");
         else {
             for (Request r : allReq) {
                 RequestIO.printRequestInfo(r);

@@ -202,7 +202,7 @@ public class SupervisorView {
         else s=supervisor;
         ArrayList<Request> allReq = s.viewRequests();
         if (allReq.isEmpty()) {
-            System.out.println("Either you have not made any requests, or none of your requests has been processed.");
+            System.out.println("You have not made any requests.");
         }
         else {
             for (Request r : allReq) {

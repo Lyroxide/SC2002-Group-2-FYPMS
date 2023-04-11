@@ -165,10 +165,8 @@ public class Supervisor extends User {
         ArrayList<Request> requests = new ArrayList<>();
         ArrayList<Request> allRequests = RequestIO.readRequests();
         for (Request request : allRequests) {
-            if (!request.getStatus().equals(RequestStatus.PENDING)) {
-                if (request.getReceiver().equals(supervisorID) || request.getSender().equals(supervisorID))
-                    requests.add(request);
-            }
+            if (request.getReceiver().equals(supervisorID) || request.getSender().equals(supervisorID))
+                requests.add(request);
         }
         return requests;
     }
