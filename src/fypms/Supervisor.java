@@ -86,9 +86,8 @@ public class Supervisor extends User {
 	/**
 	 * Function that returns own projects
 	 * @return Array List of {@link Project}
-	 * @throws IOException IOException
-	 */
-    public ArrayList<Project> viewOwnProjects() throws IOException {
+     */
+    public ArrayList<Project> viewOwnProjects() {
         ArrayList<Project> ownProjects = new ArrayList<>();
         ArrayList<Project> allProjects = ProjectIO.readProjects();
         for (Project project : allProjects) {
@@ -102,9 +101,8 @@ public class Supervisor extends User {
 	/**
 	 * Function that returns allocated projects
 	 * @return Array List of {@link Project}
-	 * @throws IOException IOException
-	 */
-    public ArrayList<Project> viewAllocatedProjects() throws IOException {
+     */
+    public ArrayList<Project> viewAllocatedProjects() {
         ArrayList<Project> ownProjects = new ArrayList<>();
         ArrayList<Project> allProjects = ProjectIO.readProjects();
         for (Project project : allProjects) {

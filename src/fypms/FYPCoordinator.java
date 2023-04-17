@@ -275,7 +275,7 @@ public class FYPCoordinator extends Supervisor {
 	 * Function to return pending requests
 	 * @return Array List of {@link Request}
 	 */
-    public ArrayList<Request> viewPendingRequests() { //smth about the userid
+    public ArrayList<Request> viewPendingRequests() {
         ArrayList<Request> pendingRequests = new ArrayList<>();
         ArrayList<Request> allRequests = RequestIO.readRequests();
         for (Request request : allRequests) {

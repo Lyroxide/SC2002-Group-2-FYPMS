@@ -20,7 +20,7 @@ public class FYPCoordinatorView extends SupervisorView {
 
     /**
      * Prompt function to allow {@link FYPCoordinator} to view and approve/reject {@link Request} <p></p>
-     * See {@link RequestIO} for printing function and {@link FYPCoordinator} for the respective approve functions
+     * See {@link RequestIO} for printing function and {@link FYPCoordinator} for the respective approval functions
      * @param coordinator {@link FYPCoordinator} instance after login
      * @throws IOException IOException
      */
