@@ -44,3 +44,11 @@ java -jar ./out/artifacts/SC2002_Group_2_FYPMS_jar/SC2002-Group-2-FYPMS.jar
 ```
 
 3. Login as users. Default password is `password`.
+
+## Contributors
+
+- Daryl @lyroxide
+- Neo Wei @codesket
+- Rheanne @Rheanne8
+- Hamka @thehamcar
+- Jun Yu @lim-jun-yu
